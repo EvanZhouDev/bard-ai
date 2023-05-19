@@ -14,6 +14,16 @@ This is just a JS transpilation of that code!
 
 That's it! Now, when I refer to `COOKIE_KEY` in the following document, The `__Secure-1PSID`'s what I'm referring to.
 
+## Installation
+Go ahead and install `bard-ai` with this simple command:
+```bash
+npm install bard-ai
+```
+Or, for `pnpm`,
+```bash
+pnpm install bard-ai
+```
+
 ## Basic Usage
 
 ## Initializing your `COOKIE_KEY`
