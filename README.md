@@ -1,5 +1,5 @@
 # bard-ai
-## A super small (~1.2 KB[^1]) library to access Google's Bard AI
+### A super small (~1.2 KB[^1]) library to access Google's Bard AI
 [![NPM](https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&color=CB3837)](https://www.npmjs.com/package/bard-ai)
 [![NPM](https://img.shields.io/npm/dm/bard-ai?label=Downloads)](https://www.npmjs.com/package/bard-ai)
 
