@@ -1,9 +1,19 @@
 # bard-ai
+## A super small (~1.2 KB[^1]) library to access Google's Bard AI
+[![NPM](https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&color=CB3837)](https://www.npmjs.com/package/bard-ai)
+[![NPM](https://img.shields.io/npm/dm/bard-ai?label=Downloads)](https://www.npmjs.com/package/bard-ai)
 
-## A super small (~1.2 KB minified and gzipped, excluding `axios`) library to access Google's Bard AI
 
 Thanks to acheong08's original [Python Bard API Code](https://github.com/acheong08/Bard).
 This is just a JS transpilation of that code!
+
+[^1]: `index.js` file minified and gzipped, excluding the only dependency, `axios`, which is used to access https easier and safer
+
+### Why this library?
+
+TL;DR: It's small and it's simple.
+
+I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, it includes many features that are not _directly related_ to Google Bard itself. This library is designed to be the minimum code to use Bard. `bard-ai` has sufficient functionality for you to implement things like conversation saving to `localStorage`, but to make the library smaller and more flexible for the end user, I have left that part for your own application to implement.
 
 ## Obtaining Authentication
 
@@ -15,11 +25,15 @@ This is just a JS transpilation of that code!
 That's it! Now, when I refer to `COOKIE_KEY` in the following document, The `__Secure-1PSID`'s what I'm referring to.
 
 ## Installation
+
 Go ahead and install `bard-ai` with this simple command:
+
 ```bash
 npm install bard-ai
 ```
+
 Or, for `pnpm`,
+
 ```bash
 pnpm install bard-ai
 ```
