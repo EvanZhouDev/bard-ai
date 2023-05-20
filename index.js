@@ -27,7 +27,6 @@ export const init = async (sessionID) => {
 }
 
 const queryBard = async (message, ids) => {
-    // console.log(ids)
     if (!SNlM0e) throw new Error("Make sure to call Bard.initialize(SESSION_ID) first.");
 
     // Parameters and POST data
@@ -80,7 +79,7 @@ export const askAI = async (message) => {
 }
 
 export class Chat {
-    constructor(ids) {
+    constructor(ids = {}) {
         this.ids = ids;
     }
 
