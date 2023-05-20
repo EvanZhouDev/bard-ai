@@ -12,7 +12,7 @@ This is just a JS transpilation of that code!
 
 ### Why this library?
 
-TL;DR: It's faster, smaller and it's simpler.
+TL;DR: It's faster, smaller and simpler.
 
 I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise to use `bard-ai` instead.
 
@@ -75,6 +75,9 @@ I am aware there is another amazing library, [GoogleBard by PawanOsman](https://
 4. Look for and copy the Cookie labeled `__Secure-1PSID`. Make sure you copy and periods at the end as well.
 
 That's it! Now, when I refer to `COOKIE_KEY` in the following document, The `__Secure-1PSID`'s what I'm referring to.
+
+> **Warning**
+> It is probably a good idea not to commit this `COOKIE_KEY`, though there doesn't seem to be a direct way to exploit it as far as I am concerned.
 
 ## Installation
 
