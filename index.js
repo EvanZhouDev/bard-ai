@@ -32,7 +32,7 @@ const queryBard = async (message, ids) => {
 
     // Parameters and POST data
     const params = {
-        bl: "boq_assistant-bard-web-server_20230510.09_p1",
+        bl: "boq_assistant-bard-web-server_20230514.20_p0",
         _reqID: ids ? `${ids._reqID}` : "0",
         rt: "c",
     };

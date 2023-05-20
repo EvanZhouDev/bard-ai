@@ -11,9 +11,12 @@ This is just a JS transpilation of that code!
 
 ### Why this library?
 
-TL;DR: It's small and it's simple.
+TL;DR: It's faster, smaller and it's simpler.
 
-I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, it includes many features that are not _directly related_ to Google Bard itself. This library is designed to be the minimum code to use Bard. `bard-ai` has sufficient functionality for you to implement things like conversation saving to `localStorage`, but to make the library smaller and more flexible for the end user, I have left that part for your own application to implement.
+I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise to use `bard-ai` instead.
+1. This library up to 134% faster.
+2. `googlebard` includes many features that are not _directly related_ to Google Bard itself. This library is designed to be the minimum code to use Bard. `bard-ai` has sufficient functionality for you to implement things like conversation saving to `localStorage`, but to make the library smaller and more flexible for the end user, I have left that part for your own application to implement.
+3. This library is also a ton smaller!
 
 ## Obtaining Authentication
 
