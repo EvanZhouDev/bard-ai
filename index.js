@@ -69,7 +69,8 @@ const queryBard = async (message, ids) => {
             // Make sure kept in order, because using Object.keys() to query above
             conversationID: jsonChatData[1][0],
             responseID: jsonChatData[1][1],
-            choiceID: jsonChatData[4][0][0]
+            choiceID: jsonChatData[4][0][0],
+            _reqID: ids._reqID ?? 0 + 100000
         }
     }
 }
@@ -85,7 +86,7 @@ export class Chat {
 
     async ask(message) {
         let request = await queryBard(message, this.ids);
-        this.ids = { ...request.ids, _reqID: request.ids._reqID ?? 0 + 100000 };
+        this.ids = { ...request.ids };
         return request.content;
     }
 
