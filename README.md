@@ -1,8 +1,9 @@
 # bard-ai
+
 ### A super small (~1.2 KB[^1]) library to access Google's Bard AI
+
 [![NPM](https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&color=CB3837)](https://www.npmjs.com/package/bard-ai)
 [![NPM](https://img.shields.io/npm/dm/bard-ai?label=Downloads)](https://www.npmjs.com/package/bard-ai)
-
 
 Thanks to acheong08's original [Python Bard API Code](https://github.com/acheong08/Bard).
 This is just a JS transpilation of that code!
@@ -14,9 +15,57 @@ This is just a JS transpilation of that code!
 TL;DR: It's faster, smaller and it's simpler.
 
 I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise to use `bard-ai` instead.
-1. This library up to 134% faster.
+
+1. This library up to 144% faster, run with `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` and `googlebard` [^2]
 2. `googlebard` includes many features that are not _directly related_ to Google Bard itself. This library is designed to be the minimum code to use Bard. `bard-ai` has sufficient functionality for you to implement things like conversation saving to `localStorage`, but to make the library smaller and more flexible for the end user, I have left that part for your own application to implement.
 3. This library is also a ton smaller!
+
+[^2]:
+    Run `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` and `googlebard` with following code for `googlebard` (in "googlebard.js"):
+
+    ```javascript
+    import { Bard } from "googlebard";
+
+    let bot = new Bard(`__Secure-1PSID=MY_KEY`);
+    console.log(await bot.ask("Hello world!"));
+    ```
+
+    And following code for `bard-ai` (in "bard-ai.js"):
+
+    ```javascript
+    import Bard, { askAI } from "bard-ai";
+
+    await Bard.init("MY_KEY");
+    console.log(await askAI("Hello world!"));
+    ```
+
+    With this benchmark output:
+
+    ```
+    Benchmark 1: node bard-ai.js
+    Hello world! It's a pleasure to meet you. How can I help you today?
+    Hello world! It is a pleasure to meet you. How can I help you today?
+    Hello world! It's a pleasure to meet you. How can I help you today?
+    Hello world! It is a pleasure to meet you today. How can I help you?
+    Time (mean ± σ):      2.324 s ±  0.128 s    [User: 0.174 s, System: 0.033 s]
+    Range (min … max):    2.208 s …  2.461 s    3 runs
+
+    Benchmark 2: node googlebard.js
+    Hello world! How can I help you today?
+    Hello world! It's a pleasure to meet you. How can I help you today?
+    Hello world! It is a pleasure to meet you. How can I help you today?
+    Hello world! How can I help you today?
+    Time (mean ± σ): 2.747 s ± 0.594 s [User: 0.322 s, System: 0.044 s]
+    Range (min … max): 2.377 s … 3.432 s 3 runs
+    ```
+
+    And this benchmark summary:
+
+    ```
+    Summary
+    'node bard-ai.js' ran
+    1.18 ± 0.26 times faster than 'node googlebard.js'
+    ```
 
 ## Obtaining Authentication
 
