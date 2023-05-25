@@ -26,12 +26,12 @@ export const init = async (sessionID) => {
     else throw new Error("Could not get Google Bard.");
 }
 
-const queryBard = async (message, ids = {}) => {
+export const queryBard = async (message, ids = {}) => {
     if (!SNlM0e) throw new Error("Make sure to call Bard.initialize(SESSION_ID) first.");
 
     // Parameters and POST data
     const params = {
-        bl: "boq_assistant-bard-web-server_20230514.20_p0",
+        bl: "boq_assistant-bard-web-server_20230523.13_p0",
         _reqID: ids ? `${ids._reqID}` : "0",
         rt: "c",
     };
@@ -54,6 +54,7 @@ const queryBard = async (message, ids = {}) => {
     );
 
     const chatData = JSON.parse(responseData.split("\n")[3])[0][2];
+    // console.log(chatData)
 
     // Check if there is data
     if (!chatData) {
@@ -62,9 +63,17 @@ const queryBard = async (message, ids = {}) => {
 
     // Get important data, and update with important data if set to do so
     const jsonChatData = JSON.parse(chatData);
-
+    let text = jsonChatData[0][0]
+    let images = jsonChatData[4][0][4].map(x => ({
+        tag: x[2],
+        url: x[3][0][0]
+    }))
     return {
-        content: jsonChatData[0][0],
+        content: formatMarkdown(text, images),
+        images: jsonChatData[4][0][4].map(x => ({
+            tag: x[2],
+            url: x[3][0][0]
+        })),
         ids: {
             // Make sure kept in order, because using Object.keys() to query above
             conversationID: jsonChatData[1][0],
@@ -75,8 +84,16 @@ const queryBard = async (message, ids = {}) => {
     }
 }
 
-export const askAI = async (message) => {
-    return (await queryBard(message)).content;
+const formatMarkdown = async (text, images) => {
+    for (let imageData of images) {
+        text = text.replace(imageData.tag, `!${imageData.tag}(${imageData.url})`);
+    }
+    return text
+}
+
+export const askAI = async (message, useJSON = false) => {
+    if (useJSON) return await queryBard(message);
+    else return (await queryBard(message)).content;
 }
 
 export class Chat {
@@ -84,10 +101,11 @@ export class Chat {
         this.ids = ids;
     }
 
-    async ask(message) {
+    async ask(message, useJSON = false) {
         let request = await queryBard(message, this.ids);
         this.ids = { ...request.ids };
-        return request.content;
+        if (useJSON) return request
+        else return request.content
     }
 
     export() {
