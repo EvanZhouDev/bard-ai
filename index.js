@@ -79,7 +79,7 @@ export const queryBard = async (message, ids = {}) => {
             conversationID: jsonChatData[1][0],
             responseID: jsonChatData[1][1],
             choiceID: jsonChatData[4][0][0],
-            _reqID: ids._reqID ?? 0 + 100000
+            _reqID: parseInt(ids._reqID) ?? 0 + 100000
         }
     }
 }

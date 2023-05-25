@@ -1,6 +1,8 @@
 # bard-ai
 
-### A super small (~1.2 KB[^1]) library to access Google's Bard AI
+### A super small (~1.6 KB[^1]) library to access Google's Bard AI
+
+> Now supporting images! (In sync with Bard update 2023.05.23)
 
 [![NPM](https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&color=CB3837)](https://www.npmjs.com/package/bard-ai)
 [![NPM](https://img.shields.io/npm/dm/bard-ai?label=Downloads)](https://www.npmjs.com/package/bard-ai)
@@ -12,16 +14,21 @@ This is just a JS transpilation of that code!
 
 ### Why this library?
 
-TL;DR: It's faster, smaller and simpler.
+TL;DR: It's faster, smaller, and simpler than alternatives.
 
-I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise to use `bard-ai` instead.
+<details>
+<summary>Learn more...</summary>
 
-1. This library up to 144% faster, run with `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` and `googlebard` [^2]
-2. `googlebard` includes many features that are not _directly related_ to Google Bard itself. This library is designed to be the minimum code to use Bard. `bard-ai` has sufficient functionality for you to implement things like conversation saving to `localStorage`, but to make the library smaller and more flexible for the end user, I have left that part for your own application to implement.
-3. This library is also a ton smaller!
+I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise using `bard-ai` instead.
+
+1. This library is up to 144% faster, as tested with `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` and `googlebard`[^2].
+2. `googlebard` includes many features that are not directly related to Google Bard itself. `bard-ai` focuses on being the minimum code required to use Bard. You can easily implement additional functionality, such as conversation saving to `localStorage`, in your own application.
+3. `bard-ai` is significantly smaller in size compared to `googlebard`.
+
+</details>
 
 [^2]:
-    Run `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` and `googlebard` with following code for `googlebard` (in "googlebard.js"):
+    Run `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` v1.0 and `googlebard` with following code for `googlebard` (in "googlebard.js"):
 
     ```javascript
     import { Bard } from "googlebard";
@@ -130,7 +137,8 @@ This second way is more verbose, so I recommend the first way
 
 ### Syntax:
 
-`askAI(message)` takes one argument, the prompt/message you are sending to Bard. Make sure you use `await` on it.
+`askAI(message, useJSON)` takes two arguments, the prompt/message you are sending to Bard, and whether or not to return as a JSON, or just a string. See "Advanced Usage, Images" below to learn how to use `useJSON`.
+Make sure you use `await` on `askAI`.
 `askAI()` returns a string with Bard's response.
 
 ### Example Usage:
@@ -158,7 +166,7 @@ import Bard from "bard-ai";
 ### Syntax:
 
 `Bard.Chat(IDs)` takes one argument, `IDs`, which you can learn more about in the Advanced Usage section below.
-Mainly, you use `Bard.Chat().ask(message)` to ask something to the AI. Bard will remember that message when you ask it again.
+Mainly, you use `Bard.Chat().ask(message, useJSON)` to ask something to the AI. Bard will remember that message when you ask it again. `Chat().ask()` has the same syntax as `askAI()`.
 You can also use `Bard.Chat().export()` to export the `IDs`, which you can also read about in the Advanced usage section.
 
 ### Example Usage:
@@ -193,7 +201,9 @@ console.log(await myConversation.ask("How are you?"));
 console.log(await myConversation.ask("What's the last thing I said?"));
 ```
 
-## Advanced Usage: `Chat.export()`
+## Advanced Usage:
+
+### `Chat.export()`
 
 In certain cases, you may need to leave a conversation and continue it later. In this case, you can export a JSON representation of the internal IDs used to keep track of the conversation, and re-import them later.
 
@@ -229,4 +239,51 @@ let myContinuedChat = new Bard.Chat({
 	choiceID: "YOUR_CHOICE_ID",
 });
 myContinuedChat.ask("What's one more than that?"); // Should say 3!
+```
+
+### `useJSON` Flag in `askAI` and `Chat().ask().`
+
+When using `useJSON`, you will be returned a JSON with more information. The structure looks like this:
+
+```js
+{
+    content, // string
+    images: [
+        {
+            tag, // string
+            url // string
+        }
+        // array of such objects
+    ],
+    ids: {
+        conversationID, // string
+        responseID, // string
+        choiceID, // string
+        _reqID, // stringified integer
+    }
+}
+```
+
+Content is the actual response from the AI, learn about images below, and the IDs are used to export conversations. See above.
+
+### Images
+
+New in Bard 2023.05.23, you are now able to see images in Bard answers (for now only in English). `bard-ai` has implemented this functionality, and you will now see image links in your Markdown. If you want the image links directly, you can use the `useJSON` flag, as shown above. It will give you an array of objects, each with a tag (e.g. `[Image of Golden Retriever dog]`) and a URL.
+Here's an example of what you may see:
+
+When asked for 5 different images of dogs...
+
+```md
+Sure, here are 5 pictures of different dogs:
+
+1. Labrador Retriever
+   ![Image of Labrador Retriever dog](http://t0.gstatic.com/images?q=tbn:ANd9GcTehx7d8JqimfYMi63YDIHDv_3g0c0uB-l0xB_Gn1zVVJcEV6TK&s)
+2. Golden Retriever
+   ![Image of Golden Retriever dog](http://t0.gstatic.com/images?q=tbn:ANd9GcTj60ORiFnIHF455RSnnAVWSlEbdnb9uvoOSCiRmAoq1W5oYb6E&s)
+3. German Shepherd
+   ![Image of German Shepherd dog](http://t0.gstatic.com/images?q=tbn:ANd9GcRTatXU41TuNCmFhcUpgMt4KjY6r46yu0uYZ1FZod7nlmWt8S9T&s)
+4. Beagle
+   ![Image of Beagle dog](http://t0.gstatic.com/images?q=tbn:ANd9GcRvDlNVusEoyR0QT08ayy2LA15iDjByewTmkTiOASnp8Ck38ss&s)
+5. Bulldog
+   ![Image of Bulldog dog](http://t0.gstatic.com/images?q=tbn:ANd9GcTSc7g0bV3fBOEeNhJ1PgMnslyi3uTTQ_nwKAp6Ac78BWl3vho&s)
 ```
