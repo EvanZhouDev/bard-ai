@@ -63,17 +63,15 @@ export const queryBard = async (message, ids = {}) => {
 
     // Get important data, and update with important data if set to do so
     const jsonChatData = JSON.parse(chatData);
+    console.log(JSON.stringify(jsonChatData, null, 4))
     let text = jsonChatData[0][0]
-    let images = jsonChatData[4][0][4].map(x => ({
+    let images = jsonChatData[4][0][4] ? jsonChatData[4][0][4].map(x => ({
         tag: x[2],
         url: x[3][0][0]
-    }))
+    })) : undefined;
     return {
         content: formatMarkdown(text, images),
-        images: jsonChatData[4][0][4].map(x => ({
-            tag: x[2],
-            url: x[3][0][0]
-        })),
+        images: images,
         ids: {
             // Make sure kept in order, because using Object.keys() to query above
             conversationID: jsonChatData[1][0],
@@ -85,6 +83,7 @@ export const queryBard = async (message, ids = {}) => {
 }
 
 const formatMarkdown = async (text, images) => {
+    if (!images) return text
     for (let imageData of images) {
         text = text.replace(imageData.tag, `!${imageData.tag}(${imageData.url})`);
     }
