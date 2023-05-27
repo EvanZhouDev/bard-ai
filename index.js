@@ -54,8 +54,6 @@ export const queryBard = async (message, ids = {}) => {
     );
 
     const chatData = JSON.parse(responseData.split("\n")[3])[0][2];
-    // console.log(chatData)
-
     // Check if there is data
     if (!chatData) {
         return `Google Bard encountered an error ${responseData}.`;
@@ -63,7 +61,7 @@ export const queryBard = async (message, ids = {}) => {
 
     // Get important data, and update with important data if set to do so
     const jsonChatData = JSON.parse(chatData);
-    console.log(JSON.stringify(jsonChatData, null, 4))
+
     let text = jsonChatData[0][0]
     let images = jsonChatData[4][0][4] ? jsonChatData[4][0][4].map(x => ({
         tag: x[2],
