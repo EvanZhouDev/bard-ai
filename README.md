@@ -1,4 +1,8 @@
-# bard-ai
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/bardAIBannerDark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/bardAIBannerLight.svg">
+  <img alt="EvanZhouDev Banner" src="./assets/bardAIBannerLight.svg">
+</picture>
 
 ### A super small (~1.6 KB[^1]) library to access Google's Bard AI
 
@@ -10,7 +14,7 @@
 Thanks to acheong08's original [Python Bard API Code](https://github.com/acheong08/Bard).
 This is just a JS transpilation of that code!
 
-[^1]: `index.js` file minified and gzipped, excluding the only dependency, `axios`, which is used to access https easier and safer
+[^1]: `index.js` file minified and gzipped
 
 ### Why this library?
 
@@ -224,9 +228,9 @@ You should get a JSON similar to this:
 
 ```json
 {
-  "conversationID": "YOUR_CONVERSATION_ID",
-  "responseID": "YOUR_RESPONSE_ID",
-  "choiceID": "YOUR_CHOICE_ID"
+    "conversationID": "YOUR_CONVERSATION_ID",
+    "responseID": "YOUR_RESPONSE_ID",
+    "choiceID": "YOUR_CHOICE_ID"
 }
 ```
 
@@ -234,9 +238,9 @@ Now, we plug it back into a _new_ conversation:
 
 ```javascript
 let myContinuedChat = new Bard.Chat({
-  conversationID: "YOUR_CONVERSATION_ID",
-  responseID: "YOUR_RESPONSE_ID",
-  choiceID: "YOUR_CHOICE_ID",
+    conversationID: "YOUR_CONVERSATION_ID",
+    responseID: "YOUR_RESPONSE_ID",
+    choiceID: "YOUR_CHOICE_ID",
 });
 myContinuedChat.ask("What's one more than that?"); // Should say 3!
 ```
