@@ -224,9 +224,9 @@ You should get a JSON similar to this:
 
 ```json
 {
-	"conversationID": "YOUR_CONVERSATION_ID",
-	"responseID": "YOUR_RESPONSE_ID",
-	"choiceID": "YOUR_CHOICE_ID"
+  "conversationID": "YOUR_CONVERSATION_ID",
+  "responseID": "YOUR_RESPONSE_ID",
+  "choiceID": "YOUR_CHOICE_ID"
 }
 ```
 
@@ -234,9 +234,9 @@ Now, we plug it back into a _new_ conversation:
 
 ```javascript
 let myContinuedChat = new Bard.Chat({
-	conversationID: "YOUR_CONVERSATION_ID",
-	responseID: "YOUR_RESPONSE_ID",
-	choiceID: "YOUR_CHOICE_ID",
+  conversationID: "YOUR_CONVERSATION_ID",
+  responseID: "YOUR_RESPONSE_ID",
+  choiceID: "YOUR_CHOICE_ID",
 });
 myContinuedChat.ask("What's one more than that?"); // Should say 3!
 ```
