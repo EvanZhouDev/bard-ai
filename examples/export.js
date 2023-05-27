@@ -10,7 +10,7 @@ console.log(await myConversation.export());
 // ! Comment out previous, and uncomment this
 let continuedConversation = new Bard.Chat(/* Paste your exported JSON here */);
 console.log(
-  await continuedConversation.ask("What do you get if you add 1 to that?")
+    await continuedConversation.ask("What do you get if you add 1 to that?")
 );
 console.log(await continuedConversation.export());
 
