@@ -1,9 +1,3 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/bardAIBannerDark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/bardAIBannerLight.svg">
-  <img alt="EvanZhouDev Banner" src="./assets/bardAIBannerLight.svg">
-</picture>
-
 ### A super small (~1.6 KB[^1]) library to access Google's Bard AI
 
 *Now supporting images! (In sync with Bard update 2023.05.23)*
