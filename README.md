@@ -101,7 +101,7 @@ npm install bard-ai
 Or, for `pnpm`,
 
 ```bash
-pnpm install bard-ai
+pnpm add bard-ai
 ```
 
 ## Basic Usage
