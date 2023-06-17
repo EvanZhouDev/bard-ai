@@ -27,6 +27,8 @@ export const init = async (sessionID) => {
 
     if (match) SNlM0e = match[1];
     else throw new Error("Could not get Google Bard.");
+
+    return SNlM0e;
 };
 
 export const queryBard = async (message, ids = {}) => {
@@ -35,7 +37,7 @@ export const queryBard = async (message, ids = {}) => {
 
     // Parameters and POST data
     const params = {
-        bl: "boq_assistant-bard-web-server_20230523.13_p0",
+        bl: "boq_assistant-bard-web-server_20230613.09_p0",
         _reqID: ids ? `${ids._reqID}` : "0",
         rt: "c",
     };
@@ -93,11 +95,11 @@ export const queryBard = async (message, ids = {}) => {
 
     let images = jsonChatData[4][0][4]
         ? jsonChatData[4][0][4].map((x) => {
-              return {
-                  tag: x[2],
-                  url: x[0][5].match(/imgurl=([^&%]+)/)[1],
-              };
-          })
+            return {
+                tag: x[2],
+                url: x[0][5].match(/imgurl=([^&%]+)/)[1],
+            };
+        })
         : undefined;
 
     return {
@@ -119,9 +121,8 @@ const formatMarkdown = (text, images) => {
     const formattedTags = new Map();
 
     for (let imageData of images) {
-        const formattedTag = `![${imageData.tag.slice(1, -1)}](${
-            imageData.url
-        })`;
+        const formattedTag = `![${imageData.tag.slice(1, -1)}](${imageData.url
+            })`;
 
         if (formattedTags.has(imageData.tag)) {
             const existingFormattedTag = formattedTags.get(imageData.tag);
