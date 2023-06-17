@@ -3,42 +3,55 @@
   <source media="(prefers-color-scheme: light)" srcset="./assets/bardAIBannerLight.svg">
   <img alt="EvanZhouDev Banner" src="./assets/bardAIBannerLight.svg">
 </picture>
+<h3 align="center">
+    A super-small 1.3KB library to use Google's Bard AI
+</h3>
+<p align="center">
+    Up to 150% faster and ~99% smaller than alternative `googlebard`
+</p>
+<p align="center">
+  <a aria-label="NPM Versio" href="https://www.npmjs.com/package/bard-ai">
+    <img alt="" src="https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&style=for-the-badge&color=EA8758&logoColor=white">
+  </a>
+  <a aria-label="NPM Download Count" href="https://www.npmjs.com/package/bard-ai">
+    <img alt="" src="https://img.shields.io/npm/dm/bard-ai?label=Downloads&style=for-the-badge&color=857ACF">
+  </a>
+  <a aria-label="Star bard-ai" href="https://github.com/EvanZhouDev/bard-ai/stargazers">
+    <img alt="" src="https://img.shields.io/github/stars/EvanZhouDev/bard-ai?style=for-the-badge&color=289EE2">
+  </a>
+</p>
 
-### A super small (~1.6 KB[^1]) library to access Google's Bard AI
+## Introduction
+As a JavaScript developer who was interested in AI but not rich enough to purchase OpenAI's API, I decided to take action and make my own super light and fast library that gives free AI to everone—through Google Bard.
 
-> Now supporting images! (In sync with Bard update 2023.05.23)
+Originally based off of acheong08's [Python Bard API Code](https://github.com/acheong08/Bard).
 
-[![NPM](https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&color=CB3837)](https://www.npmjs.com/package/bard-ai)
-[![NPM](https://img.shields.io/npm/dm/bard-ai?label=Downloads)](https://www.npmjs.com/package/bard-ai)
+## Why this library?
 
-Thanks to acheong08's original [Python Bard API Code](https://github.com/acheong08/Bard).
-This is just a JS transpilation of that code!
-
-[^1]: `index.js` file minified and gzipped
-
-### Why this library?
-
-TL;DR: It's faster, smaller, and simpler than alternatives.
+Compared to leading JS Bard library `googlebard`, its ~99% smaller, up to 150% faster, and way easier to use!
 
 <details>
 <summary>Learn more...</summary>
 
-I am aware there is another amazing library, [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise using `bard-ai` instead.
+The main competitor with `bard-ai` is [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise using `bard-ai` instead.
 
-1. This library is up to 144% faster, as tested with `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` and `googlebard`[^2].
-2. `googlebard` includes many features that are not directly related to Google Bard itself. `bard-ai` focuses on being the minimum code required to use Bard. You can easily implement additional functionality, such as conversation saving to `localStorage`, in your own application.
-3. `bard-ai` is significantly smaller in size compared to `googlebard`.
+1. `bard-ai` is 1.3KB, while `google-bard` is 112.8KB, gzipped and minified (checked with [Bundlephobia](https://bundlephobia.com/)). That makes `bard-ai` ~99% smaller!
+2. This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3` between `bard-ai` and `googlebard`[^1].
+3. `googlebard` overcomplicates many simple things, including inputting the original cookie, to importing and exporting conversations. `bard-ai` has been built to be simple, tiny, and easy to use.
 
 </details>
 
-[^2]:
-    Run `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` v1.0 and `googlebard` with following code for `googlebard` (in "googlebard.js"):
+[^1]:
+    Run `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` v1.2.2 and `googlebard` with following code for `googlebard` (in "googlebard.js"):
 
     ```javascript
     import { Bard } from "googlebard";
 
-    let bot = new Bard(`__Secure-1PSID=MY_KEY`);
-    console.log(await bot.ask("Hello world!"));
+    let cookies = `__Secure-1PSID=XAgq7axCJiDbtdYALNI-U-L9k_hG-rGEJfkof3UrN93MQk2WHSfP-ZVibAfqTHOxeXuHVw.`;
+    let bot = new Bard(cookies);
+
+    let response = await bot.ask("Hello world!");
+    console.log(response);
     ```
 
     And following code for `bard-ai` (in "bard-ai.js"):
@@ -47,6 +60,7 @@ I am aware there is another amazing library, [GoogleBard by PawanOsman](https://
     import Bard, { askAI } from "bard-ai";
 
     await Bard.init("MY_KEY");
+
     console.log(await askAI("Hello world!"));
     ```
 
@@ -54,28 +68,16 @@ I am aware there is another amazing library, [GoogleBard by PawanOsman](https://
 
     ```
     Benchmark 1: node bard-ai.js
-    Hello world! It's a pleasure to meet you. How can I help you today?
-    Hello world! It is a pleasure to meet you. How can I help you today?
-    Hello world! It's a pleasure to meet you. How can I help you today?
-    Hello world! It is a pleasure to meet you today. How can I help you?
-    Time (mean ± σ):      2.324 s ±  0.128 s    [User: 0.174 s, System: 0.033 s]
-    Range (min … max):    2.208 s …  2.461 s    3 runs
+    Time (mean ± σ):      6.951 s ±  2.272 s    [User: 0.181 s, System: 0.044 s]
+    Range (min … max):    5.333 s …  9.549 s    3 runs
 
     Benchmark 2: node googlebard.js
-    Hello world! How can I help you today?
-    Hello world! It's a pleasure to meet you. How can I help you today?
-    Hello world! It is a pleasure to meet you. How can I help you today?
-    Hello world! How can I help you today?
-    Time (mean ± σ): 2.747 s ± 0.594 s [User: 0.322 s, System: 0.044 s]
-    Range (min … max): 2.377 s … 3.432 s 3 runs
-    ```
+    Time (mean ± σ):      7.691 s ±  1.029 s    [User: 0.389 s, System: 0.073 s]
+    Range (min … max):    6.510 s …  8.394 s    3 runs
 
-    And this benchmark summary:
-
-    ```
     Summary
     'node bard-ai.js' ran
-    1.18 ± 0.26 times faster than 'node googlebard.js'
+    1.11 ± 0.39 times faster than 'node googlebard.js'
     ```
 
 ## Obtaining Authentication
@@ -141,7 +143,7 @@ This second way is more verbose, so I recommend the first way
 
 ### Syntax:
 
-`askAI(message, useJSON)` takes two arguments, the prompt/message you are sending to Bard, and whether or not to return as a JSON, or just a string. See "Advanced Usage, Images" below to learn how to use `useJSON`.
+`askAI(message, useJSON)` takes two arguments, the prompt/message you are sending to Bard, and whether or not to return as a JSON, or just a string. See Advanced Usage and Images below to learn how to use `useJSON`.
 Make sure you use `await` on `askAI`.
 `askAI()` returns a string with Bard's response.
 
