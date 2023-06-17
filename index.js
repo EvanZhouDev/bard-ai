@@ -38,7 +38,7 @@ export const queryBard = async (message, ids = {}) => {
     // Parameters and POST data
     const params = {
         bl: "boq_assistant-bard-web-server_20230613.09_p0",
-        _reqID: ids ? `${ids._reqID}` : "0",
+        _reqID: ids._reqID ? `${ids._reqID}` : "0",
         rt: "c",
     };
 
@@ -110,7 +110,7 @@ export const queryBard = async (message, ids = {}) => {
             conversationID: jsonChatData[1][0],
             responseID: jsonChatData[1][1],
             choiceID: jsonChatData[4][0][0],
-            _reqID: parseInt(ids._reqID) ?? 0 + 100000,
+            _reqID: parseInt(ids._reqID ?? 0) + 100000,
         },
     };
 };
