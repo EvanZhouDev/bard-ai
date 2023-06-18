@@ -29,7 +29,7 @@ declare module "bard-ai" {
 	};
 	export type init = (sessionID: string) => Promise<string | Error>;
 
-	type queryBardValidRes = {
+	export type queryBardValidRes = {
 		content: string;
 		images: Array<{
 			tag: string;
