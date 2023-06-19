@@ -4,29 +4,37 @@
   <img alt="EvanZhouDev Banner" src="./assets/bardAIBannerLight.svg">
 </picture>
 <h3 align="center">
-    A super-small 1.3KB library to use Google's Bard AI
+    JS Google Bard API
 </h3>
 <p align="center">
-    Up to 150% faster and ~99% smaller than alternative `googlebard`
+    A tiny, fast, and feature-rich interface.
 </p>
 <p align="center">
-  <a aria-label="NPM Versio" href="https://www.npmjs.com/package/bard-ai">
+  <a aria-label="NPM Version" href="https://www.npmjs.com/package/bard-ai">
     <img alt="" src="https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&style=for-the-badge&color=EA8758&logoColor=white">
   </a>
   <a aria-label="NPM Download Count" href="https://www.npmjs.com/package/bard-ai">
-    <img alt="" src="https://img.shields.io/npm/dm/bard-ai?label=Downloads&style=for-the-badge&color=857ACF">
+    <img alt="" src="https://img.shields.io/npm/dt/bard-ai?label=Downloads&style=for-the-badge&color=857ACF">
   </a>
-  <a aria-label="Star bard-ai" href="https://github.com/EvanZhouDev/bard-ai/stargazers">
-    <img alt="" src="https://img.shields.io/github/stars/EvanZhouDev/bard-ai?style=for-the-badge&color=289EE2">
+  <a aria-label="bard-ai Size" href="https://www.npmjs.com/package/bard-ai">
+    <img alt="" src="https://img.shields.io/bundlephobia/minzip/bard-ai?style=for-the-badge">
   </a>
 </p>
 
+## Features
+- 🌳 **Tree-shakeable**: Maximize efficiency
+- 🪶 **Tiny**: Just 1.3kb minzipped
+- 🚀 **Fast**: Up to 150% faster than `googlebard`
+- 📚 **Typesafe**: Types included out-of-the-box
+- 😍 **Straightforward API**: Learn in minutes
+- 💨 **No dependencies**: Uses native `fetch`
+
 ## Introduction
-As a JavaScript developer who was interested in AI but not rich enough to purchase OpenAI's API, I decided to take action and make my own super light and fast library that gives free AI to everone—through Google Bard.
+`bard-ai` was built to provide free AI to everyone, through Google Bard. It's completely free, and takes minimal setup.
 
 Originally based off of acheong08's [Python Bard API Code](https://github.com/acheong08/Bard).
 
-## Why this library?
+## Comparison
 
 Compared to leading JS Bard library `googlebard`, its ~99% smaller, up to 150% faster, and way easier to use!
 
