@@ -1,4 +1,5 @@
 <picture>
+
   <source media="(prefers-color-scheme: dark)" srcset="./assets/banner@dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/banner@light.svg">
   <img alt="EvanZhouDev Banner" src="./assets/banner@light.svg">
@@ -23,9 +24,9 @@
 -   🌳 **Tree-shakeable**: Maximize efficiency
 -   🪶 **Tiny**: Just [1.3kb minzipped](#size)
 -   🚀 **Fast**: Up to [150% faster than `googlebard`](#speed)
--   📚 **Typesafe**: Types included out-of-the-box
--   😍 **Straightforward API**: Learn in minutes
--   
+-   📚 **Typesafe**: [Types included](#typescript-support) out-of-the-box
+-   😍 **Straightforward API**: [Learn in minutes](#basic-usage)
+-   💲 **Free Forever**: [Authenticate](#obtaining-authentication) and use without cost.
 -   💨 **No dependencies**: Uses native `fetch`
 
 ## Introduction
@@ -39,6 +40,7 @@ Originally based off of acheong08's [Python Bard API Code](https://github.com/ac
 
 Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/GoogleBard):
 <picture>
+
   <source media="(prefers-color-scheme: dark)" srcset="./assets/compare@dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/compare@light.svg">
   <img alt="bard-ai Compared to GoogleBard" src="./assets/compare@light.svg">
@@ -46,15 +48,20 @@ Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/Goo
 
 <details>
 <summary>Learn more...</summary>
-<br/>
 
 Currently, the most popular JavaScript Bard is [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard).
 However, there are 3 main reasons why `bard-ai` is superior:
+
 #### Size
+
 After being minified and gzipped, `bard-ai` is 1.3KB, while `google-bard` is 112.8KB (checked with [Bundlephobia](https://bundlephobia.com/)). That makes `bard-ai` ~99% smaller!
+
 #### Speed
+
 This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3` between `bard-ai` and `googlebard`[^1].
+
 #### API
+
 `googlebard` overcomplicates many things, including importing the cookies to importing and exporting conversations. `bard-ai` has been built to make it simple and easy to use.
 
 </details>
@@ -99,7 +106,30 @@ This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3
     ```
 
 ## Typescript Support
+
 `bard-ai` comes with types, out-of-the-box. Huge thanks to [@Al∂haneka](https://github.com/Aldhanekaa) for adding this!
+
+## No `fetch`? No problem.
+
+`bard-ai` uses Node's experimental `fetch` function, which is enabled by default now. However, if the environment you are in still doesn't support it, simply install a polyfill, and inject it into global scope.
+
+<details>
+<summary>See how</summary>
+
+First, install `node-fetch`:
+
+```bash
+npm install node-fetch
+```
+
+Then, simply include this import and injection before `bard-ai`'s import.
+
+```js
+import fetch from "node-fetch";
+globalThis.fetch = fetch;
+```
+
+</details>
 
 ## Obtaining Authentication
 
