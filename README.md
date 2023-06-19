@@ -3,12 +3,9 @@
   <source media="(prefers-color-scheme: dark)" srcset="./assets/banner@dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/banner@light.svg">
 </picture>
-<h3 align="center">
-    JS Google Bard API
-</h3>
-<p align="center">
-    A tiny, fast, and feature-rich interface.
-</p>
+<h1 align="center">
+    A JavaScript API for Google Bard
+</h1>
 <p align="center">
   <a aria-label="NPM Version" href="https://www.npmjs.com/package/bard-ai">
     <img alt="" src="https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&style=for-the-badge&color=EA8758&logoColor=white">
