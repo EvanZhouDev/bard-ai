@@ -1,7 +1,7 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/bardAIBannerDark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/bardAIBannerLight.svg">
-  <img alt="EvanZhouDev Banner" src="./assets/bardAIBannerLight.svg">
+  <img alt="EvanZhouDev Banner" src="./assets/banner@light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner@dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/banner@light.svg">
 </picture>
 <h3 align="center">
     JS Google Bard API
@@ -22,35 +22,45 @@
 </p>
 
 ## Features
-- 🌳 **Tree-shakeable**: Maximize efficiency
-- 🪶 **Tiny**: Just 1.3kb minzipped
-- 🚀 **Fast**: Up to 150% faster than `googlebard`
-- 📚 **Typesafe**: Types included out-of-the-box
-- 😍 **Straightforward API**: Learn in minutes
-- 💨 **No dependencies**: Uses native `fetch`
+
+-   🌳 **Tree-shakeable**: Maximize efficiency
+-   🪶 **Tiny**: Just 1.3kb minzipped
+-   🚀 **Fast**: Up to 150% faster than `googlebard`
+-   📚 **Typesafe**: Types included out-of-the-box
+-   😍 **Straightforward API**: Learn in minutes
+-   💨 **No dependencies**: Uses native `fetch`
 
 ## Introduction
-`bard-ai` was built to provide free AI to everyone, through Google Bard. It's completely free, and takes minimal setup.
+
+`bard-ai` was built to provide free AI to everyone, through Google Bard.
+It's completely free, and takes minimal setup.
 
 Originally based off of acheong08's [Python Bard API Code](https://github.com/acheong08/Bard).
 
 ## Comparison
 
-Compared to leading JS Bard library `googlebard`, its ~99% smaller, up to 150% faster, and way easier to use!
+Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/GoogleBard):
+<picture>
+  <img alt="bard-ai Compared to GoogleBard" src="./assets/compare@light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/compare@dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/compare@light.svg">
+</picture>
 
 <details>
 <summary>Learn more...</summary>
+<br/>
 
-The main competitor with `bard-ai` is [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise using `bard-ai` instead.
+Currently, the most popular JavaScript Bard is [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard).
+However, there are 3 main reasons why `bard-ai` is superior:
 
-1. `bard-ai` is 1.3KB, while `google-bard` is 112.8KB, gzipped and minified (checked with [Bundlephobia](https://bundlephobia.com/)). That makes `bard-ai` ~99% smaller!
+1. After being minified and gzipped, `bard-ai` is 1.3KB, while `google-bard` is 112.8KB (checked with [Bundlephobia](https://bundlephobia.com/)). That makes `bard-ai` ~99% smaller!
 2. This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3` between `bard-ai` and `googlebard`[^1].
-3. `googlebard` overcomplicates many simple things, including inputting the original cookie, to importing and exporting conversations. `bard-ai` has been built to be simple, tiny, and easy to use.
+3. `googlebard` overcomplicates many things, including importing the cookies to importing and exporting conversations. `bard-ai` has been built to make it simple and easy to use.
 
 </details>
 
 [^1]:
-    Run `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` v1.2.2 and `googlebard` with following code for `googlebard` (in "googlebard.js"):
+    Run `hyperfine --warmup 1 --runs 3` between `bard-ai` v1.2.2 and `googlebard` with following code for `googlebard` (in "googlebard.js"):
 
     ```javascript
     import { Bard } from "googlebard";
