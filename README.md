@@ -21,13 +21,13 @@
 
 ## Features
 
--   🌳 **Tree-shakeable**: Maximize efficiency
+-   🌳 **Tree-shakeable**: [Maximize efficiency](https://bundlephobia.com/package/bard-ai@1.2.2)
 -   🪶 **Tiny**: Just [1.3kb minzipped](#size)
 -   🚀 **Fast**: Up to [150% faster than `googlebard`](#speed)
 -   📚 **Typesafe**: [Types included](#typescript-support) out-of-the-box
 -   😍 **Straightforward API**: [Learn in minutes](#basic-usage)
 -   💲 **Free Forever**: [Authenticate](#obtaining-authentication) and use without cost.
--   💨 **No dependencies**: Uses native `fetch`
+-   💨 **No dependencies**: Uses [native `fetch`](#no-fetch-no-problem)
 
 ## Introduction
 
@@ -49,6 +49,7 @@ Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/Goo
 
 <details>
 <summary>Learn more...</summary>
+<br/>
 
 Currently, the most popular JavaScript Bard is [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard).
 However, there are 3 main reasons why `bard-ai` is superior:
@@ -116,6 +117,7 @@ This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3
 
 <details>
 <summary>See how</summary>
+<br/>
 
 First, install `node-fetch`:
 
