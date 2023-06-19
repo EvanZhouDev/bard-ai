@@ -39,6 +39,7 @@ Originally based off of acheong08's [Python Bard API Code](https://github.com/ac
 ## Comparison
 
 Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/GoogleBard):
+
 <picture>
 
   <source media="(prefers-color-scheme: dark)" srcset="./assets/compare@dark.svg">
