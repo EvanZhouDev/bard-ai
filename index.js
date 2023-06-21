@@ -121,6 +121,7 @@ const formatMarkdown = (text, images) => {
     const formattedTags = new Map();
 
     for (let imageData of images) {
+        // This can be optimized? `[...slice...]` is equal to `original`
         const formattedTag = `![${imageData.tag.slice(1, -1)}](${imageData.url
             })`;
 
