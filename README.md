@@ -19,7 +19,7 @@
   </a>
 </p>
 <p align="center">
-  Ready to start? <a src="https://bard-ai-docs.vercel.app/">Read the Docs</a>
+  Ready to start? <a href="https://bard-ai-docs.vercel.app">Read the Docs</a>
 </p>
 
 ## Features
@@ -112,3 +112,9 @@ This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3
 
 ## Let's Get Started!
 Read the documentation, available at [bard-ai-docs.vercel.app](https://bard-ai-docs.vercel.app/).
+
+It's easy to learn. Trust me!
+
+<br/>
+<br/>
+<br/>
