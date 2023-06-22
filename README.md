@@ -22,6 +22,12 @@
   Ready to start? <a href="https://bard-ai-docs.vercel.app">Read the Docs</a>
 </p>
 
+## Library Overview
+- 🤖 [Invoke Google Bard directly with `askAI`](https://bard-ai-docs.vercel.app/basics/askAI)
+- 🔄 [Create instances of Bard with `Bard.Chat`](https://bard-ai-docs.vercel.app/basics/chat)
+- 📤 [Import and Export conversations with `Bard.Chat.export`](https://bard-ai-docs.vercel.app/advanced/importExportChat)
+- 🧑‍💻 [Get all the metadata you need with the `useJSON` flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
+
 ## Features
 
 -   🌳 **Tree-shakeable**: [Maximize efficiency](https://bundlephobia.com/package/bard-ai@1.2.2)
@@ -113,7 +119,23 @@ This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3
 ## Let's Get Started!
 Read the documentation, available at [bard-ai-docs.vercel.app](https://bard-ai-docs.vercel.app/).
 
-It's easy to learn. Trust me!
+### Table of Contents
+- [Introduction](https://bard-ai-docs.vercel.app/)
+- Pre-Requisites
+  - [Installation](https://bard-ai-docs.vercel.app/prerequisites/installation)
+  - [Authentication](https://bard-ai-docs.vercel.app/prerequisites/authentication)
+- Basics
+  - [Quick Start](https://bard-ai-docs.vercel.app/basics/quickstart)
+  - [Initialization](https://bard-ai-docs.vercel.app/basics/initialization)
+  - [Ask AI](https://bard-ai-docs.vercel.app/basics/askAI)
+  - [Bard Chat](https://bard-ai-docs.vercel.app/basics/chat)
+- Advanced
+  - [Importing/Exporting Chats](https://bard-ai-docs.vercel.app/advanced/importExportChat)
+  - [JSON Response Flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
+- [Typescript Support](https://bard-ai-docs.vercel.app/typescript)
+- [Polyfilling Fetch](https://bard-ai-docs.vercel.app/fetch)
+
+Go ahead! It's easy to learn... Trust me!
 
 <br/>
 <br/>
