@@ -85,7 +85,7 @@ export const queryBard = async (message, ids = {}) => {
 
     // Check if there is data
     if (!chatData) {
-        return `Google Bard encountered an error ${responseData}.`;
+        throw new Error(`Google Bard encountered an error ${responseData}.`);
     }
 
     // Get important data, and update with important data if set to do so
