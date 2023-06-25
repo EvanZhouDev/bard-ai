@@ -1,4 +1,4 @@
-let session, SNlM0e;
+let session, SNlM0e_Global;
 
 export const init = async (sessionID) => {
     session = {
@@ -25,14 +25,14 @@ export const init = async (sessionID) => {
 
     const match = data.match(/SNlM0e":"(.*?)"/);
 
-    if (match) SNlM0e = match[1];
+    if (match) SNlM0e_Global = match[1];
     else throw new Error("Could not get Google Bard.");
 
-    return SNlM0e;
+    return SNlM0e_Global;
 };
 
 export const queryBard = async (message, ids = {}, SNlM0e = undefined) => {
-    if (!SNlM0e)
+    if (!SNlM0e && !SNlM0e_Global)
         throw new Error("Make sure to call Bard.init(SESSION_ID) first.");
 
     // Parameters and POST data
@@ -144,9 +144,9 @@ const formatMarkdown = (text, images) => {
     return text;
 };
 
-export const askAI = async (message, useJSON = false) => {
-    if (useJSON) return await queryBard(message);
-    else return (await queryBard(message)).content;
+export const askAI = async (message, useJSON = false, SNlM0e=undefined) => {
+    if (useJSON) return await queryBard(message, {}, SNlM0e);
+    else return (await queryBard(message, {}, SNlM0e)).content;
 };
 
 export class Chat {

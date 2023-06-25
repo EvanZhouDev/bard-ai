@@ -14,7 +14,7 @@ declare module "bard-ai" {
 	}
 
 	let session: Session;
-	let SNlM0e: string;
+	let SNlM0e_Global: string;
 
 	export type images = Array<{
 		tag: string;
@@ -48,7 +48,8 @@ declare module "bard-ai" {
 
 	export type askAI = (
 		message: string,
-		useJSON: boolean
+		useJSON: boolean,
+		SNlM0e:string
 	) => Promise<queryBardValidRes | undefined | string>;
 
 	export type Chat = {
