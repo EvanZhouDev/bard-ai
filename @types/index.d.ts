@@ -27,6 +27,7 @@ declare module "bard-ai" {
 		choiceID: string;
 		_reqID: string;
 	};
+	
 	export type init = (sessionID: string) => Promise<string | Error>;
 
 	export type queryBardValidRes = {
@@ -39,7 +40,8 @@ declare module "bard-ai" {
 	};
 	export type queryBard = (
 		message: string,
-		ids?: IdsT | Record<string, string>
+		ids?: IdsT | Record<string, string>,
+		SNlM0e?: string
 	) => Promise<queryBardValidRes | string>;
 
 	export type formatMarkdown = (text: string, images: images) => string;
@@ -51,6 +53,7 @@ declare module "bard-ai" {
 
 	export type Chat = {
 		ids?: IdsT | Record<string, string>;
+		SNlM0e?: string
 
 		ask(
 			message: string,

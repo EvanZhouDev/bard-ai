@@ -31,7 +31,7 @@ export const init = async (sessionID) => {
     return SNlM0e;
 };
 
-export const queryBard = async (message, ids = {}) => {
+export const queryBard = async (message, ids = {}, SNlM0e = undefined) => {
     if (!SNlM0e)
         throw new Error("Make sure to call Bard.init(SESSION_ID) first.");
 
@@ -149,12 +149,14 @@ export const askAI = async (message, useJSON = false) => {
 };
 
 export class Chat {
-    constructor(ids) {
+    constructor(ids, SNlM0e = undefined) {
         this.ids = ids;
+        this.SNlM0e = SNlM0e;
+
     }
 
     async ask(message, useJSON = false) {
-        let request = await queryBard(message, this.ids);
+        let request = await queryBard(message, this.ids, this.ids, this.SNlM0e);
         this.ids = { ...request.ids };
         if (useJSON) return request;
         else return request.content;
