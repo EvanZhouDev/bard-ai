@@ -1,0 +1,3 @@
+- Add ability to change Bard.Chat instance after init?
+- Validate PSIDs
+- Code optimizations

@@ -85,7 +85,7 @@ export const queryBard = async (message, ids = {}, SNlM0e = undefined) => {
 
     // Check if there is data
     if (!chatData) {
-        return `Google Bard encountered an error ${responseData}.`;
+        throw new Error(`Google Bard encountered an error ${responseData}.`);
     }
 
     // Get important data, and update with important data if set to do so
@@ -121,6 +121,7 @@ const formatMarkdown = (text, images) => {
     const formattedTags = new Map();
 
     for (let imageData of images) {
+        // This can be optimized? `[...slice...]` is equal to `original`
         const formattedTag = `![${imageData.tag.slice(1, -1)}](${imageData.url
             })`;
 

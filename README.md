@@ -1,48 +1,84 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/bardAIBannerDark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/bardAIBannerLight.svg">
-  <img alt="EvanZhouDev Banner" src="./assets/bardAIBannerLight.svg">
+
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner@dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/banner@light.svg">
+  <img alt="EvanZhouDev Banner" src="./assets/banner@light.svg">
 </picture>
-<h3 align="center">
-    A super-small 1.3KB library to use Google's Bard AI
-</h3>
+<h1 align="center">
+    A JavaScript API for Google Bard
+</h1>
 <p align="center">
-    Up to 150% faster and ~99% smaller than alternative `googlebard`
-</p>
-<p align="center">
-  <a aria-label="NPM Versio" href="https://www.npmjs.com/package/bard-ai">
+  <a aria-label="NPM Version" href="https://www.npmjs.com/package/bard-ai">
     <img alt="" src="https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&style=for-the-badge&color=EA8758&logoColor=white">
   </a>
   <a aria-label="NPM Download Count" href="https://www.npmjs.com/package/bard-ai">
-    <img alt="" src="https://img.shields.io/npm/dm/bard-ai?label=Downloads&style=for-the-badge&color=857ACF">
+    <img alt="" src="https://img.shields.io/npm/dt/bard-ai?label=Downloads&style=for-the-badge&color=857ACF">
   </a>
-  <a aria-label="Star bard-ai" href="https://github.com/EvanZhouDev/bard-ai/stargazers">
-    <img alt="" src="https://img.shields.io/github/stars/EvanZhouDev/bard-ai?style=for-the-badge&color=289EE2">
+  <a aria-label="bard-ai Size" href="https://www.npmjs.com/package/bard-ai">
+    <img alt="" src="https://img.shields.io/bundlephobia/minzip/bard-ai?style=for-the-badge">
   </a>
 </p>
+<p align="center">
+  Ready to start? <a href="https://bard-ai-docs.vercel.app">Read the Docs</a>
+</p>
+
+## Library Overview
+- 🤖 [Invoke Google Bard directly with `askAI`](https://bard-ai-docs.vercel.app/basics/askAI)
+- 🔄 [Create instances of Bard with `Bard.Chat`](https://bard-ai-docs.vercel.app/basics/chat)
+- 📤 [Import and Export conversations with `Bard.Chat.export`](https://bard-ai-docs.vercel.app/advanced/importExportChat)
+- 🧑‍💻 [Get all the metadata you need with the `useJSON` flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
+
+## Features
+
+-   🌳 **Tree-shakeable**: [Maximize efficiency](https://bundlephobia.com/package/bard-ai@1.2.2)
+-   🪶 **Tiny**: Just [1.3kb minzipped](#size)
+-   🚀 **Fast**: Up to [150% faster than `googlebard`](#speed)
+-   📚 **Typesafe**: [Types included](https://bard-ai-docs.vercel.app/typescript) out-of-the-box
+-   😍 **Straightforward API**: [Learn in minutes](https://bard-ai-docs.vercel.app/)
+-   💲 **Free Forever**: [Authenticate](https://bard-ai-docs.vercel.app/prerequisites/authentication) and use without cost.
+-   💨 **No dependencies**: Uses [native `fetch`](https://bard-ai-docs.vercel.app/fetch)
 
 ## Introduction
-As a JavaScript developer who was interested in AI but not rich enough to purchase OpenAI's API, I decided to take action and make my own super light and fast library that gives free AI to everone—through Google Bard.
+
+`bard-ai` was built to provide free AI to everyone, through Google Bard.
+It's completely free, and takes minimal setup.
 
 Originally based off of acheong08's [Python Bard API Code](https://github.com/acheong08/Bard).
 
-## Why this library?
+## Comparison
 
-Compared to leading JS Bard library `googlebard`, its ~99% smaller, up to 150% faster, and way easier to use!
+Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/GoogleBard):
+
+<picture>
+
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/compare@dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/compare@light.svg">
+  <img alt="bard-ai Compared to GoogleBard" src="./assets/compare@light.svg">
+</picture>
 
 <details>
 <summary>Learn more...</summary>
+<br/>
 
-The main competitor with `bard-ai` is [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard). However, there are 3 main reasons why I'd advise using `bard-ai` instead.
+Currently, the most popular JavaScript Bard is [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard).
+However, there are 3 main reasons why `bard-ai` is superior:
 
-1. `bard-ai` is 1.3KB, while `google-bard` is 112.8KB, gzipped and minified (checked with [Bundlephobia](https://bundlephobia.com/)). That makes `bard-ai` ~99% smaller!
-2. This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3` between `bard-ai` and `googlebard`[^1].
-3. `googlebard` overcomplicates many simple things, including inputting the original cookie, to importing and exporting conversations. `bard-ai` has been built to be simple, tiny, and easy to use.
+#### Size
+
+After being minified and gzipped, `bard-ai` is 1.3KB, while `google-bard` is 112.8KB (checked with [Bundlephobia](https://bundlephobia.com/)). That makes `bard-ai` ~99% smaller!
+
+#### Speed
+
+This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3` between `bard-ai` and `googlebard`[^1].
+
+#### API
+
+`googlebard` overcomplicates many things, including importing the cookies to importing and exporting conversations. `bard-ai` has been built to make it simple and easy to use.
 
 </details>
 
 [^1]:
-    Run `hyperfine --warmup 1 --runs 3 --show-output` between `bard-ai` v1.2.2 and `googlebard` with following code for `googlebard` (in "googlebard.js"):
+    Run `hyperfine --warmup 1 --runs 3` between `bard-ai` v1.2.2 and `googlebard` with following code for `googlebard` (in "googlebard.js"):
 
     ```javascript
     import { Bard } from "googlebard";
@@ -80,216 +116,27 @@ The main competitor with `bard-ai` is [GoogleBard by PawanOsman](https://github.
     1.11 ± 0.39 times faster than 'node googlebard.js'
     ```
 
-## Obtaining Authentication
-
-1. Log in to your Google account, and visit [Google Bard](https://bard.google.com)
-2. Open the Web Inspector, and go to the "Application" tab.
-3. Click open the `Cookies` dropdown on the sidebar, under storage, and click on the option that says `https://bard.google.com`.
-4. Look for and copy the Cookie labeled `__Secure-1PSID`. Make sure you copy and periods at the end as well.
-
-That's it! Now, when I refer to `COOKIE_KEY` in the following document, The `__Secure-1PSID`'s what I'm referring to.
-
-> **Warning**
-> It is probably a good idea not to commit this `COOKIE_KEY`, though there doesn't seem to be a direct way to exploit it as far as I am concerned.
-
-## Installation
-
-Go ahead and install `bard-ai` with this simple command:
-
-```bash
-npm install bard-ai
-```
-
-Or, for `pnpm`,
-
-```bash
-pnpm add bard-ai
-```
-
-## Basic Usage
-
-## Initializing your `COOKIE_KEY`
-
-Always start your code with this:
-
-```javascript
-import Bard from "bard-ai";
-
-await Bard.init("COOKIE_KEY"); // Make sure to replace with your own ID!
-```
-
-That's all the setup you'll need.
-
-## One-Time Prompt: `askAI()`
-
-If you are doing some form of a request that only needs to ask Bard something once and be done with it (i.e. not continuing in a "chat" form), then `askAI()` is the command you are looking for.
-
-### Import:
-
-Import alongside the entire Bard library like this:
-
-```javascript
-import Bard, { askAI } from "bard-ai";
-```
-
-Or, alternatively, you can use:
-
-```javascript
-import Bard from "bard-ai";
-await Bard.askAI("My request");
-```
-
-This second way is more verbose, so I recommend the first way
-
-### Syntax:
-
-`askAI(message, useJSON)` takes two arguments, the prompt/message you are sending to Bard, and whether or not to return as a JSON, or just a string. See Advanced Usage and Images below to learn how to use `useJSON`.
-Make sure you use `await` on `askAI`.
-`askAI()` returns a string with Bard's response.
-
-### Example Usage:
-
-```javascript
-import Bard, { askAI } from "bard-ai";
-
-await Bard.init("COOKIE_KEY");
-
-console.log(await askAI("Hello world!"));
-```
-
-## Continued Conversation: `new Bard.Chat()`
-
-If you are doing some form of a project that requires the user to chat and have a dialog with the AI, in which the AI remembers what the user has said, then `Bard.Chat()` is the command for you.
-
-### Import:
-
-`Chat()` class is under the Bard library itself, so
-
-```javascript
-import Bard from "bard-ai";
-```
-
-### Syntax:
-
-`Bard.Chat(IDs)` takes one argument, `IDs`, which you can learn more about in the Advanced Usage section below.
-Mainly, you use `Bard.Chat().ask(message, useJSON)` to ask something to the AI. Bard will remember that message when you ask it again. `Chat().ask()` has the same syntax as `askAI()`.
-You can also use `Bard.Chat().export()` to export the `IDs`, which you can also read about in the Advanced usage section.
-
-### Example Usage:
-
-Creating a new `Bard.Chat()` instance:
-
-```javascript
-let myChat = new Bard.Chat();
-```
-
-Ask it something...
-
-```javascript
-myChat.ask("Hello there...");
-```
-
-And Bard remembers if you continue!
-
-```javascript
-myChat.ask("What's the last thing I said?");
-```
-
-Here's a similar integrated example:
-
-```javascript
-import Bard from "bard-ai";
-
-await Bard.init("COOKIE_KEY");
-
-let myConversation = new Bard.Chat();
-console.log(await myConversation.ask("How are you?"));
-console.log(await myConversation.ask("What's the last thing I said?"));
-```
-
-## Advanced Usage:
-
-### `Chat.export()`
-
-In certain cases, you may need to leave a conversation and continue it later. In this case, you can export a JSON representation of the internal IDs used to keep track of the conversation, and re-import them later.
-
-Let's begin by starting a chat, and saying something.
-
-```javascript
-let myChat = new Bard.Chat();
-myChat.ask("What's 1+1?"); // 2
-```
-
-Now, let's export the conversation.
-
-```javascript
-myChat.export();
-```
-
-You should get a JSON similar to this:
-
-```json
-{
-    "conversationID": "YOUR_CONVERSATION_ID",
-    "responseID": "YOUR_RESPONSE_ID",
-    "choiceID": "YOUR_CHOICE_ID"
-}
-```
-
-Now, we plug it back into a _new_ conversation:
-
-```javascript
-let myContinuedChat = new Bard.Chat({
-    conversationID: "YOUR_CONVERSATION_ID",
-    responseID: "YOUR_RESPONSE_ID",
-    choiceID: "YOUR_CHOICE_ID",
-});
-myContinuedChat.ask("What's one more than that?"); // Should say 3!
-```
-
-### `useJSON` Flag in `askAI` and `Chat().ask().`
-
-When using `useJSON`, you will be returned a JSON with more information. The structure looks like this:
-
-```js
-{
-    content, // string
-    images: [
-        {
-            tag, // string
-            url // string
-        }
-        // array of such objects
-    ],
-    ids: {
-        conversationID, // string
-        responseID, // string
-        choiceID, // string
-        _reqID, // stringified integer
-    }
-}
-```
-
-Content is the actual response from the AI, learn about images below, and the IDs are used to export conversations. See above.
-
-### Images
-
-New in Bard 2023.05.23, you are now able to see images in Bard answers (for now only in English). `bard-ai` has implemented this functionality, and you will now see image links in your Markdown. If you want the image links directly, you can use the `useJSON` flag, as shown above. It will give you an array of objects, each with a tag (e.g. `[Image of Golden Retriever dog]`) and a URL.
-Here's an example of what you may see:
-
-When asked for 5 different images of dogs...
-
-```md
-Sure, here are 5 pictures of different dogs:
-
-1. Labrador Retriever
-   ![Image of Labrador Retriever dog](http://t0.gstatic.com/images?q=tbn:ANd9GcTehx7d8JqimfYMi63YDIHDv_3g0c0uB-l0xB_Gn1zVVJcEV6TK&s)
-2. Golden Retriever
-   ![Image of Golden Retriever dog](http://t0.gstatic.com/images?q=tbn:ANd9GcTj60ORiFnIHF455RSnnAVWSlEbdnb9uvoOSCiRmAoq1W5oYb6E&s)
-3. German Shepherd
-   ![Image of German Shepherd dog](http://t0.gstatic.com/images?q=tbn:ANd9GcRTatXU41TuNCmFhcUpgMt4KjY6r46yu0uYZ1FZod7nlmWt8S9T&s)
-4. Beagle
-   ![Image of Beagle dog](http://t0.gstatic.com/images?q=tbn:ANd9GcRvDlNVusEoyR0QT08ayy2LA15iDjByewTmkTiOASnp8Ck38ss&s)
-5. Bulldog
-   ![Image of Bulldog dog](http://t0.gstatic.com/images?q=tbn:ANd9GcTSc7g0bV3fBOEeNhJ1PgMnslyi3uTTQ_nwKAp6Ac78BWl3vho&s)
-```
+## Let's Get Started!
+Read the documentation, available at [bard-ai-docs.vercel.app](https://bard-ai-docs.vercel.app/).
+
+### Table of Contents
+- [Introduction](https://bard-ai-docs.vercel.app/)
+- Pre-Requisites
+  - [Installation](https://bard-ai-docs.vercel.app/prerequisites/installation)
+  - [Authentication](https://bard-ai-docs.vercel.app/prerequisites/authentication)
+- Basics
+  - [Quick Start](https://bard-ai-docs.vercel.app/basics/quickstart)
+  - [Initialization](https://bard-ai-docs.vercel.app/basics/initialization)
+  - [Ask AI](https://bard-ai-docs.vercel.app/basics/askAI)
+  - [Bard Chat](https://bard-ai-docs.vercel.app/basics/chat)
+- Advanced
+  - [Importing/Exporting Chats](https://bard-ai-docs.vercel.app/advanced/importExportChat)
+  - [JSON Response Flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
+- [Typescript Support](https://bard-ai-docs.vercel.app/typescript)
+- [Polyfilling Fetch](https://bard-ai-docs.vercel.app/fetch)
+
+Go ahead! It's easy to learn... Trust me!
+
+<br/>
+<br/>
+<br/>

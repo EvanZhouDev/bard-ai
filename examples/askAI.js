@@ -1,4 +1,4 @@
-import Bard, { askAI } from "../index.js";
+import Bard, { askAI } from "bard-ai";
 
 await Bard.init("YOUR_COOKIE_KEY");
 
