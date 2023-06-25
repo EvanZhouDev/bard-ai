@@ -156,7 +156,7 @@ export class Chat {
     }
 
     async ask(message, useJSON = false) {
-        let request = await queryBard(message, this.ids, this.ids, this.SNlM0e);
+        let request = await queryBard(message, this.ids, this.SNlM0e);
         this.ids = { ...request.ids };
         if (useJSON) return request;
         else return request.content;
