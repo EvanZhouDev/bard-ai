@@ -91,7 +91,7 @@ export const queryBard = async (message, ids = {}) => {
     // Get important data, and update with important data if set to do so
     const jsonChatData = JSON.parse(chatData);
 
-    let text = jsonChatData[0][0];
+    let text = jsonChatData[4][0][1][0];
 
     let images = jsonChatData[4][0][4]
         ? jsonChatData[4][0][4].map((x) => {
