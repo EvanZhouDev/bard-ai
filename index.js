@@ -144,7 +144,24 @@ const formatMarkdown = (text, images) => {
     return text;
 };
 
-export const askAI = async (message, useJSON = false, SNlM0e=undefined) => {
+export const askAI = async (message, config) => {
+    let SNlM0e = undefined
+    let useJSON = false
+
+    if (typeof config == "string") {
+        SNlM0e = config
+    }else if (typeof config == "boolean") {
+        useJSON = config
+    }else {
+        if ("SNlM0e" in config) {
+            SNlM0e = config["SNlM0e"]
+        }
+        if ("useJSON" in config) {
+            useJSON = config["useJSON"]
+        }
+    }
+
+
     if (useJSON) return await queryBard(message, {}, SNlM0e);
     else return (await queryBard(message, {}, SNlM0e)).content;
 };

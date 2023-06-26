@@ -46,10 +46,13 @@ declare module "bard-ai" {
 
 	export type formatMarkdown = (text: string, images: images) => string;
 
+	type askAIConfig = string | boolean | {
+		useJSON?: boolean;
+		SNlM0e?:string;
+	}
 	export type askAI = (
 		message: string,
-		useJSON: boolean,
-		SNlM0e:string
+		config: askAIConfig
 	) => Promise<queryBardValidRes | undefined | string>;
 
 	export type Chat = {
