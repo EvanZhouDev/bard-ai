@@ -22,11 +22,9 @@
   Ready to start? <a href="https://bard-ai-docs.vercel.app">Read the Docs</a>
 </p>
 
-## Library Overview
-- 🤖 [Invoke Google Bard directly with `askAI`](https://bard-ai-docs.vercel.app/basics/askAI)
-- 🔄 [Create instances of Bard with `Bard.Chat`](https://bard-ai-docs.vercel.app/basics/chat)
-- 📤 [Import and Export conversations with `Bard.Chat.export`](https://bard-ai-docs.vercel.app/advanced/importExportChat)
-- 🧑‍💻 [Get all the metadata you need with the `useJSON` flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
+`bard-ai` was built to provide free AI to everyone, through Google Bard. Just `npm install bard-ai` and use right away.
+
+Originally based off of acheong08's [Python Bard API Code](https://github.com/acheong08/Bard).
 
 ## Features
 
@@ -38,12 +36,36 @@
 -   💲 **Free Forever**: [Authenticate](https://bard-ai-docs.vercel.app/prerequisites/authentication) and use without cost.
 -   💨 **No dependencies**: Uses [native `fetch`](https://bard-ai-docs.vercel.app/fetch)
 
-## Introduction
+## Usage
 
-`bard-ai` was built to provide free AI to everyone, through Google Bard.
-It's completely free, and takes minimal setup.
+One-shot:
 
-Originally based off of acheong08's [Python Bard API Code](https://github.com/acheong08/Bard).
+```js
+import Bard, { askAI } from "bard-ai";
+
+await Bard.init(COOKIE_KEY);
+console.log(await askAI("Hello world!"));
+```
+
+Conversation with context:
+
+```js
+import Bard from "bard-ai";
+ 
+await Bard.init(COOKIE_KEY);
+ 
+let myConversation = new Bard.Chat();
+console.log(await myConversation.ask("How are you?"));
+console.log(await myConversation.ask("What's the last thing I said?"));
+```
+
+Read the full documentation [here](https://bard-ai-docs.vercel.app/).
+
+## Library Overview
+- 🤖 [Invoke Google Bard directly with `askAI`](https://bard-ai-docs.vercel.app/basics/askAI)
+- 🔄 [Create instances of Bard with `Bard.Chat`](https://bard-ai-docs.vercel.app/basics/chat)
+- 📤 [Import and Export conversations with `Bard.Chat.export`](https://bard-ai-docs.vercel.app/advanced/importExportChat)
+- 🧑‍💻 [Get all the metadata you need with the `useJSON` flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
 
 ## Comparison
 
@@ -115,27 +137,6 @@ This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3
     'node bard-ai.js' ran
     1.11 ± 0.39 times faster than 'node googlebard.js'
     ```
-
-## Let's Get Started!
-Read the documentation, available at [bard-ai-docs.vercel.app](https://bard-ai-docs.vercel.app/).
-
-### Table of Contents
-- [Introduction](https://bard-ai-docs.vercel.app/)
-- Pre-Requisites
-  - [Installation](https://bard-ai-docs.vercel.app/prerequisites/installation)
-  - [Authentication](https://bard-ai-docs.vercel.app/prerequisites/authentication)
-- Basics
-  - [Quick Start](https://bard-ai-docs.vercel.app/basics/quickstart)
-  - [Initialization](https://bard-ai-docs.vercel.app/basics/initialization)
-  - [Ask AI](https://bard-ai-docs.vercel.app/basics/askAI)
-  - [Bard Chat](https://bard-ai-docs.vercel.app/basics/chat)
-- Advanced
-  - [Importing/Exporting Chats](https://bard-ai-docs.vercel.app/advanced/importExportChat)
-  - [JSON Response Flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
-- [Typescript Support](https://bard-ai-docs.vercel.app/typescript)
-- [Polyfilling Fetch](https://bard-ai-docs.vercel.app/fetch)
-
-Go ahead! It's easy to learn... Trust me!
 
 <br/>
 <br/>
