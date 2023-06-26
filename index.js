@@ -1,4 +1,4 @@
-let session, SNlM0e_Global;
+let session, globalSNlM0e;
 
 export const init = async (sessionID) => {
     session = {
@@ -25,14 +25,14 @@ export const init = async (sessionID) => {
 
     const match = data.match(/SNlM0e":"(.*?)"/);
 
-    if (match) SNlM0e_Global = match[1];
+    if (match) globalSNlM0e = match[1];
     else throw new Error("Could not get Google Bard.");
 
-    return SNlM0e_Global;
+    return globalSNlM0e;
 };
 
 export const queryBard = async (message, ids = {}, SNlM0e = undefined) => {
-    if (!SNlM0e && !SNlM0e_Global)
+    if (!SNlM0e && !globalSNlM0e)
         throw new Error("Make sure to call Bard.init(SESSION_ID) first.");
 
     // Parameters and POST data
@@ -144,20 +144,15 @@ const formatMarkdown = (text, images) => {
     return text;
 };
 
-export const askAI = async (message, config) => {
-    let SNlM0e = undefined
-    let useJSON = false
+export const askAI = async (message, ...args) => {
+    let config = args.slice(0, 2)
+    let SNlM0e = globalSNlM0e, useJSON = false;
 
-    if (typeof config == "string") {
-        SNlM0e = config
-    }else if (typeof config == "boolean") {
-        useJSON = config
-    }else {
-        if ("SNlM0e" in config) {
-            SNlM0e = config["SNlM0e"]
-        }
-        if ("useJSON" in config) {
-            useJSON = config["useJSON"]
+    for (let property of config) {
+        if (typeof property === "string") {
+            SNlM0e = property;
+        } else if (typeof property === "boolean") {
+            useJSON = property;
         }
     }
 
@@ -167,10 +162,18 @@ export const askAI = async (message, config) => {
 };
 
 export class Chat {
-    constructor(ids, SNlM0e = undefined) {
-        this.ids = ids;
-        this.SNlM0e = SNlM0e;
+    constructor(...args) {
+        let config = args.slice(0, 2)
+        this.SNlM0e = globalSNlM0e
+        this.ids = {};
 
+        for (let property of config) {
+            if (typeof property === "string") {
+                this.SNlM0e = property;
+            } else if (typeof property === "object") {
+                this.ids = property;
+            }
+        }
     }
 
     async ask(message, useJSON = false) {
