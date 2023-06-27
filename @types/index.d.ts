@@ -27,7 +27,7 @@ declare module "bard-ai" {
 		choiceID: string;
 		_reqID: string;
 	};
-	export declare function init(sessionID: string): Promise<string>;
+	export type init = (sessionID: string) => Promise<string | Error>;
 
 	export type queryBardValidRes = {
 		content: string;
@@ -37,30 +37,35 @@ declare module "bard-ai" {
 		}>;
 		ids: IdsT;
 	};
-	export declare function queryBard(
+	export type queryBard = (
 		message: string,
 		ids?: IdsT | Record<string, string>
-	): Promise<queryBardValidRes | string>;
+	) => Promise<queryBardValidRes | string>;
 
 	export type formatMarkdown = (text: string, images: images) => string;
 
-	export declare function askAI(
+	export type askAI = (
 		message: string,
-		useJSON?: boolean
-	): Promise<queryBardValidRes | undefined | string>;
+		useJSON: boolean
+	) => Promise<queryBardValidRes | undefined | string>;
 
-	export declare class Chat {
+	export type Chat = {
 		ids?: IdsT | Record<string, string>;
-		constructor(ids?: IdsT | Record<string, string>);
-		ask(message: string, useJSON?: boolean): Promise<queryBardValidRes | string>;
+
+		ask(
+			message: string,
+			useJSON: boolean
+		): Promise<queryBardValidRes | string>;
+
 		export(): typeof this.ids;
-	}
+	};
 
-	declare const Bard: {
-		askAI: typeof askAI;
-		init: typeof init;
-		Chat: typeof Chat;
+	interface exportDefaults {
+		askAI: askAI;
+		init: init;
+		Chat: Chat;
 	}
+	const defaults: exportDefaults;
 
-	export default Bard;
+	export default defaults;
 }
