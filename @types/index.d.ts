@@ -27,7 +27,7 @@ declare module "bard-ai" {
 		choiceID: string;
 		_reqID: string;
 	};
-	export declare function init(sessionID: string): Promise<string | Error>;
+	export declare function init(sessionID: string): Promise<string>;
 
 	export type queryBardValidRes = {
 		content: string;
