@@ -89,18 +89,16 @@ export const queryBard = async (message, ids = {}) => {
     }
 
     // Get important data, and update with important data if set to do so
-    const jsonChatData = JSON.parse(chatData);
+    const jsonChatData = JSON.parse(chatData)[4][0];
 
-    let text = jsonChatData[4][0][1][0];
+    let text = jsonChatData[1][0];
 
-    let images = jsonChatData[4][0][4]
-        ? jsonChatData[4][0][4].map((x) => {
-            return {
-                tag: x[2],
-                url: x[0][5].match(/imgurl=([^&%]+)/)[1],
-            };
-        })
-        : undefined;
+    let images = jsonChatData[4].map((x) => {
+        return {
+            tag: x[2],
+            url: x[0][5].match(/imgurl=([^&%]+)/)[1],
+        };
+    }) ?? undefined;
 
     return {
         content: formatMarkdown(text, images),
@@ -118,27 +116,12 @@ export const queryBard = async (message, ids = {}) => {
 const formatMarkdown = (text, images) => {
     if (!images) return text;
 
-    const formattedTags = new Map();
-
     for (let imageData of images) {
         // This can be optimized? `[...slice...]` is equal to `original`
-        const formattedTag = `![${imageData.tag.slice(1, -1)}](${imageData.url
+        const formattedTag = `!${imageData.tag}(${imageData.url
             })`;
+        text = text.replace(new RegExp("(?<!\!)" + imageData.tag.replace("[", "\\[").replace("]", "\\]")), formattedTag);
 
-        if (formattedTags.has(imageData.tag)) {
-            const existingFormattedTag = formattedTags.get(imageData.tag);
-
-            formattedTags.set(
-                imageData.tag,
-                `${existingFormattedTag}\n${formattedTag}`
-            );
-        } else {
-            formattedTags.set(imageData.tag, formattedTag);
-        }
-    }
-
-    for (let [tag, formattedTag] of formattedTags) {
-        text = text.replace(tag, formattedTag);
     }
 
     return text;
