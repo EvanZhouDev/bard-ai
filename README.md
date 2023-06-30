@@ -9,13 +9,16 @@
 </h1>
 <p align="center">
   <a aria-label="NPM Version" href="https://www.npmjs.com/package/bard-ai">
-    <img alt="" src="https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&style=for-the-badge&color=EA8758&logoColor=white">
+    <img alt="" src="https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&style=for-the-badge&color=F2984A&logoColor=white">
   </a>
   <a aria-label="NPM Download Count" href="https://www.npmjs.com/package/bard-ai">
-    <img alt="" src="https://img.shields.io/npm/dt/bard-ai?label=Downloads&style=for-the-badge&color=857ACF">
+    <img alt="" src="https://img.shields.io/npm/dt/bard-ai?label=Downloads&style=for-the-badge&color=D2667B">
   </a>
   <a aria-label="bard-ai Size" href="https://www.npmjs.com/package/bard-ai">
-    <img alt="" src="https://img.shields.io/bundlephobia/minzip/bard-ai?style=for-the-badge">
+    <img alt="" src="https://img.shields.io/bundlephobia/minzip/bard-ai?style=for-the-badge&color=8B77CD">
+  </a>
+  <a aria-label="Join the community on Slack" href="https://join.slack.com/t/bard-aiworkspace/shared_invite/zt-1y1g3570m-Hx_N3IShMYBMkR6jpRyRjw">
+    <img alt="" src="https://img.shields.io/badge/Slack-339AE0?style=for-the-badge&logo=slack&logoColor=white&label=Community">
   </a>
 </p>
 <p align="center">
@@ -23,10 +26,11 @@
 </p>
 
 ## Library Overview
-- 🤖 [Invoke Google Bard directly with `askAI`](https://bard-ai-docs.vercel.app/basics/askAI)
-- 🔄 [Create instances of Bard with `Bard.Chat`](https://bard-ai-docs.vercel.app/basics/chat)
-- 📤 [Import and Export conversations with `Bard.Chat.export`](https://bard-ai-docs.vercel.app/advanced/importExportChat)
-- 🧑‍💻 [Get all the metadata you need with the `useJSON` flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
+
+-   🤖 [Invoke Google Bard directly with `askAI`](https://bard-ai-docs.vercel.app/basics/askAI)
+-   🔄 [Create instances of Bard with `Bard.Chat`](https://bard-ai-docs.vercel.app/basics/chat)
+-   📤 [Import and Export conversations with `Bard.Chat.export`](https://bard-ai-docs.vercel.app/advanced/importExportChat)
+-   🧑‍💻 [Get all the metadata you need with the `useJSON` flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
 
 ## Features
 
@@ -117,23 +121,25 @@ This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3
     ```
 
 ## Let's Get Started!
+
 Read the documentation, available at [bard-ai-docs.vercel.app](https://bard-ai-docs.vercel.app/).
 
 ### Table of Contents
-- [Introduction](https://bard-ai-docs.vercel.app/)
-- Pre-Requisites
-  - [Installation](https://bard-ai-docs.vercel.app/prerequisites/installation)
-  - [Authentication](https://bard-ai-docs.vercel.app/prerequisites/authentication)
-- Basics
-  - [Quick Start](https://bard-ai-docs.vercel.app/basics/quickstart)
-  - [Initialization](https://bard-ai-docs.vercel.app/basics/initialization)
-  - [Ask AI](https://bard-ai-docs.vercel.app/basics/askAI)
-  - [Bard Chat](https://bard-ai-docs.vercel.app/basics/chat)
-- Advanced
-  - [Importing/Exporting Chats](https://bard-ai-docs.vercel.app/advanced/importExportChat)
-  - [JSON Response Flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
-- [Typescript Support](https://bard-ai-docs.vercel.app/typescript)
-- [Polyfilling Fetch](https://bard-ai-docs.vercel.app/fetch)
+
+-   [Introduction](https://bard-ai-docs.vercel.app/)
+-   Pre-Requisites
+    -   [Installation](https://bard-ai-docs.vercel.app/prerequisites/installation)
+    -   [Authentication](https://bard-ai-docs.vercel.app/prerequisites/authentication)
+-   Basics
+    -   [Quick Start](https://bard-ai-docs.vercel.app/basics/quickstart)
+    -   [Initialization](https://bard-ai-docs.vercel.app/basics/initialization)
+    -   [Ask AI](https://bard-ai-docs.vercel.app/basics/askAI)
+    -   [Bard Chat](https://bard-ai-docs.vercel.app/basics/chat)
+-   Advanced
+    -   [Importing/Exporting Chats](https://bard-ai-docs.vercel.app/advanced/importExportChat)
+    -   [JSON Response Flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
+-   [Typescript Support](https://bard-ai-docs.vercel.app/typescript)
+-   [Polyfilling Fetch](https://bard-ai-docs.vercel.app/fetch)
 
 Go ahead! It's easy to learn... Trust me!
 
