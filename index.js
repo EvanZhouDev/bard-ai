@@ -10,7 +10,7 @@ export const init = async (sessionID) => {
                 "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             Origin: "https://bard.google.com",
-            Referer: "https://bard.google.com/",
+            Referer: "https://bard.google.com",
             Cookie: `__Secure-1PSID=${sessionID};`,
         },
     };
@@ -81,6 +81,8 @@ export const queryBard = async (message, ids = {}, SNlM0e = undefined) => {
 
     const responseData = await response.text();
 
+        // console.log(url.toString(), formBody, session.headers, responseData )
+
     const chatData = JSON.parse(responseData.split("\n")[3])[0][2];
 
     // Check if there is data
@@ -91,16 +93,28 @@ export const queryBard = async (message, ids = {}, SNlM0e = undefined) => {
     // Get important data, and update with important data if set to do so
     const jsonChatData = JSON.parse(chatData);
 
-    let text = jsonChatData[0][0];
+    // console.log("DRAFTS ", jsonChatData[4], jsonChatData[4].length)
+    // console.log("DRAFTS 1", jsonChatData[4][0], jsonChatData[4][0][2], jsonChatData[4][0][4], jsonChatData[4][0][12])
+    // console.log('IMAGE', jsonChatData[4][0][4])
+    let text = jsonChatData[4][0][1][0];
 
-    let images = jsonChatData[4][0][4]
-        ? jsonChatData[4][0][4].map((x) => {
+    let images = jsonChatData[4][1][4]
+        ? jsonChatData[4][1][4].map((x) => {
+            console.log("\nX DATA ")
+            console.log(x, x[1][1], x[1][0])
+            console.log("END OF X DATA\n")
             return {
                 tag: x[2],
-                url: x[0][5].match(/imgurl=([^&%]+)/)[1],
+                url: x[3][0],
+                source: {
+                    url: x[1][0][0],
+                    name: x[1][1],
+                    favicon: x[1][3],
+                }
             };
         })
         : undefined;
+        
 
     return {
         content: formatMarkdown(text, images),
