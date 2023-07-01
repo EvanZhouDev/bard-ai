@@ -97,7 +97,7 @@ export const queryBard = async (message, ids = {}) => {
     let images = jsonChatData[4] && jsonChatData[4].map((x) => {
         return {
             tag: x[2],
-            url: x[3][0],
+            url: x[3][0][0],
             source: {
                 url: x[1][0][0],
                 name: x[1][1],
