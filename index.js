@@ -89,25 +89,32 @@ export const queryBard = async (message, ids = {}) => {
     }
 
     // Get important data, and update with important data if set to do so
-    const jsonChatData = JSON.parse(chatData)[4][0];
+    const parsedChatData = JSON.parse(chatData);
+    const bardResponseData = JSON.parse(chatData)[4][0];
 
-    let text = jsonChatData[1][0];
+    let text = bardResponseData[1][0];
 
-    let images = jsonChatData[4].map((x) => {
+    let images = bardResponseData[4]?.map((x) => {
         return {
             tag: x[2],
-            url: x[0][5].match(/imgurl=([^&%]+)/)[1],
+            url: x[3][0][0],
+            source: {
+                original: x[0][5].match(/imgurl=([^&%]+)/)[1],
+                website: x[1][0][0],
+                name: x[1][1],
+                favicon: x[1][3]
+            }
         };
-    }) ?? undefined;
+    });
 
     return {
         content: formatMarkdown(text, images),
         images: images,
         ids: {
             // Make sure kept in order, because using Object.keys() to query above
-            conversationID: jsonChatData[1][0],
-            responseID: jsonChatData[1][1],
-            choiceID: jsonChatData[4][0][0],
+            conversationID: parsedChatData[1][0],
+            responseID: parsedChatData[1][1],
+            choiceID: parsedChatData[4][0][0],
             _reqID: parseInt(ids._reqID ?? 0) + 100000,
         },
     };
