@@ -14,6 +14,7 @@ class Bard {
         if (cookie) {
             this.#initPromise = this.init(cookie);
         }
+        this.cookie = cookie;
     }
 
     // Can also choose to initialize manually
@@ -34,14 +35,13 @@ class Bard {
 
         // Attempt to retrieve SNlM0e
         try {
-            let response = await fetch(bardURL, {
+            const SNlM0e = await fetch(bardURL, {
                 method: "GET",
                 headers: this.#headers,
                 credentials: "include",
             })
-
-            let text = await response.text()
-            let SNlM0e = text.match(/SNlM0e":"(.*?)"/)[0]
+                .then(response => response.text())
+                .then(text => text.match(/SNlM0e":"(.*?)"/)[1])
 
             if (!SNlM0e) { // Failure to get SNlM0e from response
                 throw new Error("Could not use your Cookie. Make sure that you copied correctly the Cookie with name __Secure-1PSID exactly. If you are sure your cookie is correct, you may also have reached your rate limit.");
@@ -55,8 +55,21 @@ class Bard {
         }
     }
 
+    #formatMarkdown(text, images) {
+        if (!images) return text;
+
+        for (let imageData of images) {
+            const formattedTag = `!${imageData.tag}(${imageData.url})`;
+            text = text.replace(new RegExp(
+                `(?<!\!)\[${imageData.tag.slice(1, -1)}\]`
+            ), formattedTag);
+        }
+
+        return text;
+    };
+
     // Query Bard
-    async query(message, ids) {
+    async #query(message, ids) {
         // Wait until after init
         await this.#initPromise;
 
@@ -68,20 +81,25 @@ class Bard {
         // HTTPS parameters
         const params = {
             bl: "boq_assistant-bard-web-server_20230613.09_p0",
-            _reqID: ids._reqID ?? "0",
+            _reqID: ids?._reqID ?? "0",
             rt: "c",
         };
 
-        // Expected IDs in the ids object
-        const expectedIDs = ["_reqID", "conversationID", "responseID", "choiceID"];
-
         // If IDs are provided, but doesn't have every one of the expected IDs, error
-        if (ids && !expectedIDs.every(x => ids[x])) {
-            throw new Error("Please provide the JSON exported exactly as given.");
-        }
+        const messageStruct = [
+            [message],
+            null,
+            [null, null, null]
+        ];
 
-        // Form final message/id structure
-        const messageStruct = [[message], null, ids ?? [null, null, null]];
+        if (ids) {
+            try {
+                const { conversationID, responseID, choiceID } = ids;
+                messageStruct[2] = [conversationID, responseID, choiceID]
+            } catch {
+                throw new Error("Please provide the JSON exported exactly as given.");
+            }
+        }
 
         // HTTPs data
         const data = {
@@ -106,142 +124,60 @@ class Bard {
             .join("&");
 
         // Send the fetch request
-        const response = await fetch(url.toString(), {
+        const chatData = await fetch(url.toString(), {
             method: "POST",
-            headers: this.headers,
+            headers: this.#headers,
             body: formBody,
             credentials: "include",
-        });
+        })
+            .then(response => {
+                return response.text()
+            })
+            .then(text => {
+                return JSON.parse(text.split("\n")[3])[0][2]
+            })
+            .then(rawData => JSON.parse(rawData))
 
-        //! CONTINUE
+        // Get first Bard-recommended answer
+        const answer = chatData[4][0];
+
+        // Text of that answer
+        const text = answer[1][0];
+
+        // Get data about images in that answer
+        const images = answer[4]?.map((x) =>
+        ({
+            tag: x[2],
+            url: x[3][0][0],
+            source: {
+                original: x[0][5].match(/imgurl=([^&%]+)/)[1],
+                website: x[1][0][0],
+                name: x[1][1],
+                favicon: x[1][3]
+            }
+        })
+        );
+
+        // Put everything together and return
+        return {
+            content: this.#formatMarkdown(text, images),
+            images: images,
+            ids: {
+                conversationID: chatData[1][0],
+                responseID: chatData[1][1],
+                choiceID: answer[0],
+                _reqID: String(parseInt(ids?._reqID ?? 0) + 100000),
+            },
+        };
     }
 
+    // Ask Bard a question!
+    // async ask(message, config) {
+    //     let { useJSON } = config;
+    //     await this.#query(message)
+    // }
 }
 
-let myBard = new Bard("Wwgq7RoGrFoqJJs5jJ6SPxykY4BkusO4Oggyfcejnao4ov_IZ3PvE79BHNMcgs-RJOkRTw.")
-await myBard.query()
-
-console.log(myBard.SNlM0e)
+// const myBard = new Bard()
 
 export default Bard;
-
-// export const queryBard = async (message, ids = {}) => {
-//     if (!SNlM0e)
-//         throw new Error("Make sure to call Bard.init(SESSION_ID) first.");
-
-//     // Parameters and POST data
-//     const params = {
-//         bl: "boq_assistant-bard-web-server_20230613.09_p0",
-//         _reqID: ids._reqID ? `${ids._reqID}` : "0",
-//         rt: "c",
-//     };
-
-//     const messageStruct = [
-//         [message],
-//         null,
-//         ids ? Object.values(ids).slice(0, 3) : [null, null, null],
-//     ];
-
-//     const data = {
-//         "f.req": JSON.stringify([null, JSON.stringify(messageStruct)]),
-//         at: SNlM0e,
-//     };
-
-//     let url = new URL(
-//         "/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
-//         session.baseURL
-//     );
-
-//     Object.keys(params).forEach((key) =>
-//         url.searchParams.append(key, params[key])
-//     );
-
-//     let formBody = [];
-
-//     for (let property in data) {
-//         let encodedKey = encodeURIComponent(property);
-//         let encodedValue = encodeURIComponent(data[property]);
-//         formBody.push(encodedKey + "=" + encodedValue);
-//     }
-
-//     formBody = formBody.join("&");
-
-//     const response = await fetch(url.toString(), {
-//         method: "POST",
-//         headers: session.headers,
-//         body: formBody,
-//         credentials: "include",
-//     });
-
-//     const responseData = await response.text();
-
-//     const chatData = JSON.parse(responseData.split("\n")[3])[0][2];
-
-//     // Check if there is data
-//     if (!chatData) {
-//         throw new Error(`Google Bard encountered an error ${responseData}.`);
-//     }
-
-//     // Get important data, and update with important data if set to do so
-//     const jsonChatData = JSON.parse(chatData)[4][0];
-
-//     let text = jsonChatData[1][0];
-
-//     let images = jsonChatData[4].map((x) => {
-//         return {
-//             tag: x[2],
-//             url: x[0][5].match(/imgurl=([^&%]+)/)[1],
-//         };
-//     }) ?? undefined;
-
-//     return {
-//         content: formatMarkdown(text, images),
-//         images: images,
-//         ids: {
-//             // Make sure kept in order, because using Object.keys() to query above
-//             conversationID: jsonChatData[1][0],
-//             responseID: jsonChatData[1][1],
-//             choiceID: jsonChatData[4][0][0],
-//             _reqID: parseInt(ids._reqID ?? 0) + 100000,
-//         },
-//     };
-// };
-
-// const formatMarkdown = (text, images) => {
-//     if (!images) return text;
-
-//     for (let imageData of images) {
-//         // This can be optimized? `[...slice...]` is equal to `original`
-//         const formattedTag = `!${imageData.tag}(${imageData.url
-//             })`;
-//         text = text.replace(new RegExp("(?<!\!)" + imageData.tag.replace("[", "\\[").replace("]", "\\]")), formattedTag);
-
-//     }
-
-//     return text;
-// };
-
-// export const askAI = async (message, useJSON = false) => {
-//     if (useJSON) return await queryBard(message);
-//     else return (await queryBard(message)).content;
-// };
-
-// export class Chat {
-//     constructor(ids) {
-//         this.ids = ids;
-//     }
-
-//     async ask(message, useJSON = false) {
-//         let request = await queryBard(message, this.ids);
-//         this.ids = { ...request.ids };
-//         if (useJSON) return request;
-//         else return request.content;
-//     }
-
-//     export() {
-//         return this.ids;
-//     }
-// }
-
-// export default { init, askAI, Chat };
-
