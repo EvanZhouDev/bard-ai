@@ -99,7 +99,7 @@ export const queryBard = async (message, ids = {}) => {
             tag: x[2],
             url: x[3][0][0],
             source: {
-                original: x[0][5].match(/imgurl=([^&%]+)/)[1],
+                original: x[0][0][0],
                 website: x[1][0][0],
                 name: x[1][1],
                 favicon: x[1][3]
@@ -124,7 +124,6 @@ const formatMarkdown = (text, images) => {
     if (!images) return text;
 
     for (let imageData of images) {
-        // This can be optimized? `[...slice...]` is equal to `original`
         const formattedTag = `!${imageData.tag}(${imageData.url
             })`;
         text = text.replace(new RegExp("(?<!\!)" + imageData.tag.replace("[", "\\[").replace("]", "\\]")), formattedTag);
