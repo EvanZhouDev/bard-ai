@@ -34,6 +34,12 @@ declare module "bard-ai" {
 		images: Array<{
 			tag: string;
 			url: string;
+			source: {
+				original: string;
+				website: string;
+				name: string;
+				favicon: string;
+			}
 		}>;
 		ids: IdsT;
 	};
