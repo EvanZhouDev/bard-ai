@@ -14,7 +14,13 @@ class Bard {
     // Resolution status of initialization call
     #initPromise;
 
-    constructor(cookie) {
+    // Wether or not to log events to console
+    #verbose = false;
+
+    constructor(cookie, config) {
+        // If verbose is provided, then toggle it
+        if (config?.verbose) this.#verbose = true;
+
         // If a Cookie is provided, initialize
         if (cookie) {
             this.#initPromise = this.init(cookie);
@@ -24,6 +30,7 @@ class Bard {
 
     // Can also choose to initialize manually
     async init(cookie) {
+        this.#verbose && console.log("🚀 Starting intialization")
         if (this.SNlM0e) throw new Error("Cannot initialize same Bard object twice. Create a new Bard object if you wish to use a new Cookie.")
 
         // Assign headers
@@ -40,6 +47,7 @@ class Bard {
 
         // Attempt to retrieve SNlM0e
         try {
+            this.#verbose && console.log("🔒 Authenticating your Google account")
             const SNlM0e = await fetch(bardURL, {
                 method: "GET",
                 headers: this.#headers,
@@ -54,6 +62,7 @@ class Bard {
 
             // Assign SNlM0e and return it
             this.SNlM0e = SNlM0e;
+            this.#verbose && console.log("✅ Initialization finished\n")
             return SNlM0e;
         } catch (e) { // Failure to get server
             throw new Error("Could not fetch Google Bard. You may be disconnected from internet: " + e);
@@ -74,13 +83,14 @@ class Bard {
     };
 
     async #uploadImage(name, buffer) {
+        this.#verbose && console.log("🖼️ Starting image processing")
         let size = buffer.buffer.byteLength;
-
         let formBody = [
             `${encodeURIComponent("File name")}=${encodeURIComponent([name])}`,
         ];
-
+        
         try {
+            this.#verbose && console.log("💻 Finding Google server destination")
             let response = await fetch("https://content-push.googleapis.com/upload/", {
                 method: "POST",
                 headers: {
@@ -95,7 +105,7 @@ class Bard {
             });
 
             const uploadUrl = response.headers.get("X-Goog-Upload-URL");
-
+            this.#verbose && console.log("📤 Sending your image")
             response = await fetch(uploadUrl, {
                 method: "POST",
                 headers: {
@@ -111,6 +121,7 @@ class Bard {
 
             if (response.status != 200) throw new Error("Failed to retrieve image: " + imageFileLocation);
 
+            this.#verbose && console.log("✅ Image finished working\n")
             return imageFileLocation;
         } catch (e) {
             throw new Error("Could not fetch Google Bard. You may be disconnected from internet: " + e);
@@ -119,18 +130,19 @@ class Bard {
 
     // Query Bard
     async #query(message, config) {
-        let { ids, image } = config;
-
-        let imageLocation = this.#uploadImage(`bard-ai_upload.${image.extension}`, imageBuffer)
-
+        let { ids, imageBuffer } = config;
+        
         // Wait until after init
         await this.#initPromise;
+
+        this.#verbose && console.log("🔎 Starting Bard Query")
 
         // If user has not run init
         if (!this.SNlM0e) {
             throw new Error("Please initialize Bard first. If you haven't passed in your Cookie into the class, run Bard.init(cookie).");
         }
 
+        this.#verbose && console.log("🏗️ Building Request")
         // HTTPS parameters
         const params = {
             bl: "boq_assistant-bard-web-server_20230613.09_p0",
@@ -141,16 +153,22 @@ class Bard {
         // If IDs are provided, but doesn't have every one of the expected IDs, error
         const messageStruct = [
             [
-                message,
-                0,
-                null,
-                imageConfig && [
-                    [[imageConfig.imageFileLocation, 1], imageConfig.fileName],
-                ],
+                message
             ],
             null,
             [null, null, null]
         ];
+
+        if (imageBuffer) {
+            let imageLocation = await this.#uploadImage(`bard-ai_upload`, imageBuffer)
+            messageStruct[0].push(
+                0,
+                null,
+                [
+                    [[imageLocation, 1], "bard-ai_upload"],
+                ],
+            )
+        }
 
         if (ids) {
             try {
@@ -183,6 +201,7 @@ class Bard {
             .map(([property, value]) => `${encodeURIComponent(property)}=${encodeURIComponent(value)}`)
             .join("&");
 
+        this.#verbose && console.log("💭 Sending message to Bard")
         // Send the fetch request
         const chatData = await fetch(url.toString(), {
             method: "POST",
@@ -197,7 +216,8 @@ class Bard {
                 return JSON.parse(text.split("\n")[3])[0][2]
             })
             .then(rawData => JSON.parse(rawData))
-
+        
+        this.#verbose && console.log("🧩 Parsing output")
         // Get first Bard-recommended answer
         const answer = chatData[4][0];
 
@@ -216,8 +236,9 @@ class Bard {
                 favicon: x[1][3]
             }
         })
-        );
+        ) ?? [];
 
+        this.#verbose && console.log("✅ All done!\n")
         // Put everything together and return
         return {
             content: this.#formatMarkdown(text, images),
@@ -231,10 +252,10 @@ class Bard {
         };
     }
 
-    async #parseConfig(config) {
+    #parseConfig(config) {
         let result = {
             useJSON: false,
-            image: undefined, // Returns as {extension, filename}
+            imageBuffer: undefined, // Returns as {extension, filename}
             ids: undefined,
         }
 
@@ -254,19 +275,12 @@ class Bard {
 
         // Verify that the image passed in is either a path to a jpeg, jpg, png, or webp, or that it is a Buffer
         if (config?.image) {
-            if (typeof config.image === "object" && config.image.type && config.image.buffer) {
-                if (["jpeg", "jpg", "png", "webp"].includes(config.image.type))
-                    result.image = {
-                        buffer: config.image.buffer,
-                        type: config.image.type
-                    };
+            if (Buffer.isBuffer(config.image)) {
+                result.imageBuffer = config.image.buffer;
             } else if (typeof config.image === 'string' && /\.(jpeg|jpg|png|webp)$/.test(config.image)) {
-                result.image = {
-                    buffer: fs.readFileSync(config.image),
-                    type: config.image.split(".")[-1]
-                };
+                result.imageBuffer = fs.readFileSync(config.image);
             } else {
-                throw new Error("Provide your image as a file path to a .jpeg, .jpg, .png, or .webp, or for a Buffer, provide an object: {buffer: Buffer, type: 'jpeg'|'jpg'|'png'|'webp'}")
+                throw new Error("Provide your image as a file path to a .jpeg, .jpg, .png, or .webp, or a Buffer.")
             }
         }
 
