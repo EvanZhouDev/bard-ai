@@ -1,5 +1,10 @@
+import fs from "fs";
+
 const bardURL = "https://bard.google.com"
 class Bard {
+    static JSON = "json";
+    static MD = "markdown"
+
     // ID derived from Cookie
     SNlM0e;
 
@@ -51,7 +56,7 @@ class Bard {
             this.SNlM0e = SNlM0e;
             return SNlM0e;
         } catch (e) { // Failure to get server
-            throw new Error("Could not fetch Google Bard. You may be disconnected from internet.");
+            throw new Error("Could not fetch Google Bard. You may be disconnected from internet: " + e);
         }
     }
 
@@ -68,8 +73,56 @@ class Bard {
         return text;
     };
 
+    async #uploadImage(name, buffer) {
+        let size = buffer.buffer.byteLength;
+
+        let formBody = [
+            `${encodeURIComponent("File name")}=${encodeURIComponent([name])}`,
+        ];
+
+        try {
+            let response = await fetch("https://content-push.googleapis.com/upload/", {
+                method: "POST",
+                headers: {
+                    "X-Goog-Upload-Command": "start",
+                    "X-Goog-Upload-Protocol": "resumable",
+                    "X-Goog-Upload-Header-Content-Length": size,
+                    "X-Tenant-Id": "bard-storage",
+                    "Push-Id": "feeds/mcudyrk2a4khkz",
+                },
+                body: formBody,
+                credentials: "include",
+            });
+
+            const uploadUrl = response.headers.get("X-Goog-Upload-URL");
+
+            response = await fetch(uploadUrl, {
+                method: "POST",
+                headers: {
+                    "X-Goog-Upload-Command": "upload, finalize",
+                    "X-Goog-Upload-Offset": 0,
+                    "X-Tenant-Id": "bard-storage",
+                },
+                body: buffer,
+                credentials: "include",
+            });
+
+            const imageFileLocation = await response.text();
+
+            if (response.status != 200) throw new Error("Failed to retrieve image: " + imageFileLocation);
+
+            return imageFileLocation;
+        } catch (e) {
+            throw new Error("Could not fetch Google Bard. You may be disconnected from internet: " + e);
+        }
+    }
+
     // Query Bard
-    async #query(message, ids) {
+    async #query(message, config) {
+        let { ids, image } = config;
+
+        let imageLocation = this.#uploadImage(`bard-ai_upload.${image.extension}`, imageBuffer)
+
         // Wait until after init
         await this.#initPromise;
 
@@ -87,7 +140,14 @@ class Bard {
 
         // If IDs are provided, but doesn't have every one of the expected IDs, error
         const messageStruct = [
-            [message],
+            [
+                message,
+                0,
+                null,
+                imageConfig && [
+                    [[imageConfig.imageFileLocation, 1], imageConfig.fileName],
+                ],
+            ],
             null,
             [null, null, null]
         ];
@@ -171,29 +231,64 @@ class Bard {
         };
     }
 
-    #parseConfig(config) {
+    async #parseConfig(config) {
         let result = {
-            useJSON: config?.useJSON ?? false,
-            image: config?.image,
+            useJSON: false,
+            image: undefined, // Returns as {extension, filename}
+            ids: undefined,
         }
+
+        // Verify that format is one of the two types
+        if (config?.format) {
+            switch (config.format) {
+                case Bard.JSON:
+                    result.useJSON = true;
+                    break;
+                case Bard.MD:
+                    result.useJSON = false;
+                    break;
+                default:
+                    throw new Error("Format can obly be Bard.JSON for JSON output or Bard.MD for Markdown output.");
+            }
+        }
+
+        // Verify that the image passed in is either a path to a jpeg, jpg, png, or webp, or that it is a Buffer
+        if (config?.image) {
+            if (typeof config.image === "object" && config.image.type && config.image.buffer) {
+                if (["jpeg", "jpg", "png", "webp"].includes(config.image.type))
+                    result.image = {
+                        buffer: config.image.buffer,
+                        type: config.image.type
+                    };
+            } else if (typeof config.image === 'string' && /\.(jpeg|jpg|png|webp)$/.test(config.image)) {
+                result.image = {
+                    buffer: fs.readFileSync(config.image),
+                    type: config.image.split(".")[-1]
+                };
+            } else {
+                throw new Error("Provide your image as a file path to a .jpeg, .jpg, .png, or .webp, or for a Buffer, provide an object: {buffer: Buffer, type: 'jpeg'|'jpg'|'png'|'webp'}")
+            }
+        }
+
+        // Verify that all values in IDs exist
         if (config?.ids) {
             try {
-                const { conversationID, responseID, choiceID } = config.ids;
+                const { conversationID, responseID, choiceID, _reqID } = config.ids;
                 result.ids = config.ids;
             } catch {
                 throw new Error("Please provide the JSON exported exactly as given.");
             }
         }
+
         return result;
     }
 
     // Ask Bard a question!
     async ask(message, config) {
-        let { useJSON, image, ids } = parseConfig(config);
-        await this.#query(message)
+        let { useJSON, imageBuffer, ids } = this.#parseConfig(config);
+        let response = await this.#query(message, { imageBuffer, ids });
+        return useJSON ? response : response.content
     }
 }
-
-// const myBard = new Bard()
 
 export default Bard;
