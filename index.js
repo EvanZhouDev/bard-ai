@@ -152,7 +152,7 @@ class Bard {
         this.#verbose && console.log("🏗️ Building Request")
         // HTTPS parameters
         const params = {
-            bl: "boq_assistant-bard-web-server_20230613.09_p0",
+            bl: "boq_assistant-bard-web-server_20230711.08_p0",
             _reqID: ids?._reqID ?? "0",
             rt: "c",
         };
