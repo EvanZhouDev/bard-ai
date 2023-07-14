@@ -17,21 +17,41 @@ class Bard {
     // Wether or not to log events to console
     #verbose = false;
 
+    // Fetch function
+    #fetch = fetch;
+
+    // Pre-pended to all requests sent out with this Bard instance
+    #context = "";
+
     constructor(cookie, config) {
-        // If verbose is provided, then toggle it
-        if (config?.verbose) this.#verbose = true;
+        // Register some settings
+        if (config?.verbose == true) this.#verbose = true;
+        if (config?.fetch) this.#fetch = config.fetch;
+        if (config?.context) this.#context = config.context;
+
+        if (!cookie) {
+            this.#verbose && console.log("🍪 Looking for Cookie in .env")
+            let lines = fs.readFileSync('.env', 'utf8').split('\n');
+            for (let line of lines) {
+                if (/__Secure-[0-9]+PSID=.+/.test(line)) {
+                    cookie = line;
+                    break;
+                }
+            }
+        }
 
         // If a Cookie is provided, initialize
         if (cookie) {
-            this.#initPromise = this.init(cookie);
+            this.#initPromise = this.#init(cookie);
+        } else {
+            throw new Error("Please either provide a Cookie in the constructor, or provide one in your .env file.")
         }
         this.cookie = cookie;
     }
 
-    // Can also choose to initialize manually
-    async init(cookie) {
+    // You can also choose to initialize manually
+    async #init(cookie) {
         this.#verbose && console.log("🚀 Starting intialization")
-        if (this.SNlM0e) throw new Error("Cannot initialize same Bard object twice. Create a new Bard object if you wish to use a new Cookie.")
 
         // Assign headers
         this.#headers = {
@@ -42,13 +62,13 @@ class Bard {
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             Origin: bardURL,
             Referer: bardURL,
-            Cookie: `__Secure-1PSID=${cookie};`,
+            Cookie: /^__Secure-[0-9]+PSID=.*$/.test(cookie) ? cookie : `__Secure-1PSID=${cookie};`,
         };
 
         // Attempt to retrieve SNlM0e
         try {
             this.#verbose && console.log("🔒 Authenticating your Google account")
-            const SNlM0e = await fetch(bardURL, {
+            const SNlM0e = await this.#fetch(bardURL, {
                 method: "GET",
                 headers: this.#headers,
                 credentials: "include",
@@ -69,29 +89,16 @@ class Bard {
         }
     }
 
-    #formatMarkdown(text, images) {
-        if (!images) return text;
-
-        for (let imageData of images) {
-            const formattedTag = `!${imageData.tag}(${imageData.url})`;
-            text = text.replace(new RegExp(
-                `(?<!\!)\[${imageData.tag.slice(1, -1)}\]`
-            ), formattedTag);
-        }
-
-        return text;
-    };
-
     async #uploadImage(name, buffer) {
         this.#verbose && console.log("🖼️ Starting image processing")
         let size = buffer.buffer.byteLength;
         let formBody = [
             `${encodeURIComponent("File name")}=${encodeURIComponent([name])}`,
         ];
-        
+
         try {
             this.#verbose && console.log("💻 Finding Google server destination")
-            let response = await fetch("https://content-push.googleapis.com/upload/", {
+            let response = await this.#fetch("https://content-push.googleapis.com/upload/", {
                 method: "POST",
                 headers: {
                     "X-Goog-Upload-Command": "start",
@@ -106,7 +113,7 @@ class Bard {
 
             const uploadUrl = response.headers.get("X-Goog-Upload-URL");
             this.#verbose && console.log("📤 Sending your image")
-            response = await fetch(uploadUrl, {
+            response = await this.#fetch(uploadUrl, {
                 method: "POST",
                 headers: {
                     "X-Goog-Upload-Command": "upload, finalize",
@@ -131,7 +138,7 @@ class Bard {
     // Query Bard
     async #query(message, config) {
         let { ids, imageBuffer } = config;
-        
+
         // Wait until after init
         await this.#initPromise;
 
@@ -153,7 +160,7 @@ class Bard {
         // If IDs are provided, but doesn't have every one of the expected IDs, error
         const messageStruct = [
             [
-                message
+                this.#context + message
             ],
             null,
             [null, null, null]
@@ -203,7 +210,7 @@ class Bard {
 
         this.#verbose && console.log("💭 Sending message to Bard")
         // Send the fetch request
-        const chatData = await fetch(url.toString(), {
+        const chatData = await this.#fetch(url.toString(), {
             method: "POST",
             headers: this.#headers,
             body: formBody,
@@ -216,7 +223,7 @@ class Bard {
                 return JSON.parse(text.split("\n")[3])[0][2]
             })
             .then(rawData => JSON.parse(rawData))
-        
+
         this.#verbose && console.log("🧩 Parsing output")
         // Get first Bard-recommended answer
         const answer = chatData[4][0];
@@ -297,11 +304,44 @@ class Bard {
         return result;
     }
 
+    #formatMarkdown(text, images) {
+        if (!images) return text;
+
+        for (let imageData of images) {
+            const formattedTag = `!${imageData.tag}(${imageData.url})`;
+            text = text.replace(new RegExp(
+                `(?<!\!)\[${imageData.tag.slice(1, -1)}\]`
+            ), formattedTag);
+        }
+
+        return text;
+    };
+
     // Ask Bard a question!
     async ask(message, config) {
         let { useJSON, imageBuffer, ids } = this.#parseConfig(config);
         let response = await this.#query(message, { imageBuffer, ids });
         return useJSON ? response : response.content
+    }
+
+    createChat(ids) {
+        let bard = this;
+        class Chat {
+            ids = ids;
+
+            async ask(message, config) {
+                let { useJSON, imageBuffer } = bard.#parseConfig(config);
+                let response = await bard.#query(message, { imageBuffer, ids: this.ids });
+                this.ids = response.ids;
+                return useJSON ? response : response.content
+            }
+
+            export() {
+                return this.ids;
+            }
+        }
+
+        return new Chat()
     }
 }
 
