@@ -171,11 +171,27 @@ class Bard {
         };
     }
 
+    #parseConfig(config) {
+        let result = {
+            useJSON: config?.useJSON ?? false,
+            image: config?.image,
+        }
+        if (config?.ids) {
+            try {
+                const { conversationID, responseID, choiceID } = config.ids;
+                result.ids = config.ids;
+            } catch {
+                throw new Error("Please provide the JSON exported exactly as given.");
+            }
+        }
+        return result;
+    }
+
     // Ask Bard a question!
-    // async ask(message, config) {
-    //     let { useJSON } = config;
-    //     await this.#query(message)
-    // }
+    async ask(message, config) {
+        let { useJSON, image, ids } = parseConfig(config);
+        await this.#query(message)
+    }
 }
 
 // const myBard = new Bard()
