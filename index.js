@@ -1,5 +1,52 @@
 let session, SNlM0e;
 
+export const uploadImage = async (fileSize, fileName, fileBuffer) => {
+    let url = "https://content-push.googleapis.com/upload/";
+    const formData = {
+        "File name": [fileName],
+    };
+    let formBody = [
+        `${encodeURIComponent("File name")}=${encodeURIComponent(
+            formData["File name"]
+        )}`,
+    ];
+
+    try {
+        let response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "X-Goog-Upload-Command": "start",
+                "X-Goog-Upload-Protocol": "resumable",
+                "X-Goog-Upload-Header-Content-Length": fileSize,
+                "X-Tenant-Id": "bard-storage",
+                "Push-Id": "feeds/mcudyrk2a4khkz",
+            },
+            body: formBody,
+            credentials: "include",
+        });
+        const uploadUrl = response.headers.get("X-Goog-Upload-URL");
+        response = await fetch(uploadUrl, {
+            method: "POST",
+            headers: {
+                "X-Goog-Upload-Command": "upload, finalize",
+                "X-Goog-Upload-Offset": 0,
+                "X-Tenant-Id": "bard-storage",
+            },
+            body: fileBuffer,
+            credentials: "include",
+        });
+
+        const imageFileLocation = await response.text();
+
+        if (response.status != 200) {
+            throw new Error(imageFileLocation);
+        }
+
+        return imageFileLocation;
+    } catch (err) {
+        throw new Error(err);
+    }
+};
 export const init = async (sessionID) => {
     session = {
         baseURL: "https://bard.google.com",
@@ -31,7 +78,7 @@ export const init = async (sessionID) => {
     return SNlM0e;
 };
 
-export const queryBard = async (message, ids = {}) => {
+export const queryBard = async (message, ids = {}, imageConfig = undefined) => {
     if (!SNlM0e)
         throw new Error("Make sure to call Bard.init(SESSION_ID) first.");
 
@@ -43,7 +90,14 @@ export const queryBard = async (message, ids = {}) => {
     };
 
     const messageStruct = [
-        [message],
+        [
+            message,
+            0,
+            null,
+            imageConfig && [
+                [[imageConfig.imageFileLocation, 1], imageConfig.fileName],
+            ],
+        ],
         null,
         ids ? Object.values(ids).slice(0, 3) : [null, null, null],
     ];
@@ -102,8 +156,8 @@ export const queryBard = async (message, ids = {}) => {
                 original: x[0][0][0],
                 website: x[1][0][0],
                 name: x[1][1],
-                favicon: x[1][3]
-            }
+                favicon: x[1][3],
+            },
         };
     });
 
@@ -124,18 +178,25 @@ const formatMarkdown = (text, images) => {
     if (!images) return text;
 
     for (let imageData of images) {
-        const formattedTag = `!${imageData.tag}(${imageData.url
-            })`;
-        text = text.replace(new RegExp("(?<!\!)" + imageData.tag.replace("[", "\\[").replace("]", "\\]")), formattedTag);
-
+        const formattedTag = `!${imageData.tag}(${imageData.url})`;
+        text = text.replace(
+            new RegExp(
+                "(?<!!)" + imageData.tag.replace("[", "\\[").replace("]", "\\]")
+            ),
+            formattedTag
+        );
     }
 
     return text;
 };
 
-export const askAI = async (message, useJSON = false) => {
-    if (useJSON) return await queryBard(message);
-    else return (await queryBard(message)).content;
+export const askAI = async (
+    message,
+    useJSON = false,
+    imageConfig = undefined
+) => {
+    if (useJSON) return await queryBard(message, {}, imageConfig);
+    else return (await queryBard(message, {}, imageConfig)).content;
 };
 
 export class Chat {
@@ -143,8 +204,8 @@ export class Chat {
         this.ids = ids;
     }
 
-    async ask(message, useJSON = false) {
-        let request = await queryBard(message, this.ids);
+    async ask(message, useJSON = false, imageConfig = undefined) {
+        let request = await queryBard(message, this.ids, imageConfig);
         this.ids = { ...request.ids };
         if (useJSON) return request;
         else return request.content;
@@ -155,4 +216,4 @@ export class Chat {
     }
 }
 
-export default { init, askAI, Chat };
+export default { init, askAI, Chat, uploadImage };
