@@ -29,22 +29,11 @@ class Bard {
         if (config?.fetch) this.#fetch = config.fetch;
         if (config?.context) this.#context = config.context;
 
-        if (!cookie) {
-            this.#verbose && console.log("🍪 Looking for Cookie in .env")
-            let lines = fs.readFileSync('.env', 'utf8').split('\n');
-            for (let line of lines) {
-                if (/__Secure-[0-9]+PSID=.+/.test(line)) {
-                    cookie = line;
-                    break;
-                }
-            }
-        }
-
         // If a Cookie is provided, initialize
         if (cookie) {
             this.#initPromise = this.#init(cookie);
         } else {
-            throw new Error("Please either provide a Cookie in the constructor, or provide one in your .env file.")
+            throw new Error("Please provide a Cookie when initializing Bard.")
         }
         this.cookie = cookie;
     }
