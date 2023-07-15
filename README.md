@@ -4,6 +4,7 @@
   <source media="(prefers-color-scheme: light)" srcset="./assets/banner@light.svg">
   <img alt="EvanZhouDev Banner" src="./assets/banner@light.svg">
 </picture>
+
 <p align="center">
   <a aria-label="NPM Version" href="https://www.npmjs.com/package/bard-ai">
     <img alt="" src="https://img.shields.io/npm/v/bard-ai.svg?label=NPM&logo=npm&style=for-the-badge&color=F2984A&logoColor=white">
