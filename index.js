@@ -1,19 +1,20 @@
 import fs from "fs";
 
-const bardURL = "https://bard.google.com"
 class Bard {
     static JSON = "json";
     static MD = "markdown"
-
+    
     // ID derived from Cookie
     SNlM0e;
-
+    
     // HTTPS Headers
     #headers;
-
+    
     // Resolution status of initialization call
     #initPromise;
 
+    #bardURL = "https://bard.google.com"
+    
     // Wether or not to log events to console
     #verbose = false;
 
@@ -49,15 +50,15 @@ class Bard {
             "User-Agent":
                 "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-            Origin: bardURL,
-            Referer: bardURL,
+            Origin: this.#bardURL,
+            Referer: this.#bardURL,
             Cookie: /^__Secure-[0-9]+PSID=.*$/.test(cookie) ? cookie : `__Secure-1PSID=${cookie};`,
         };
 
         // Attempt to retrieve SNlM0e
         try {
             this.#verbose && console.log("🔒 Authenticating your Google account")
-            const SNlM0e = await this.#fetch(bardURL, {
+            const SNlM0e = await this.#fetch(this.#bardURL, {
                 method: "GET",
                 headers: this.#headers,
                 credentials: "include",
@@ -184,7 +185,7 @@ class Bard {
         // URL that we are submitting to
         const url = new URL(
             "/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate",
-            bardURL
+            this.#bardURL
         );
 
         // Append parameters to the URL
