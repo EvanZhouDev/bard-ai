@@ -87,7 +87,7 @@ This library is up to 150% faster, as tested with `hyperfine --warmup 1 --runs 3
     ```javascript
     import { Bard } from "googlebard";
 
-    let cookies = `__Secure-1PSID=XAgq7axCJiDbtdYALNI-U-L9k_hG-rGEJfkof3UrN93MQk2WHSfP-ZVibAfqTHOxeXuHVw.`;
+    let cookies = `__Secure-1PSID=MY_KEY`;
     let bot = new Bard(cookies);
 
     let response = await bot.ask("Hello world!");
