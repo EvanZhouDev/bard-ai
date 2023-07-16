@@ -173,6 +173,6 @@ Continue to explore full features, including Google Lens integration, with the [
   However, we thank every person that helps in the development process of this library, no matter that be in code, ideas, or anything else.
 </p>
 
-<h2 align="center">
+<h3 align="center">
   <a href="https://bard-ai-docs.vercel.app">Read the docs</a> to get started.
-</h2>
+</h3>
