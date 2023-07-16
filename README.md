@@ -44,7 +44,13 @@ A special shoutout to these amazing indviduals:
 <tr valign="middle">
 <td width="20%" align="center" rowspan="2" colspan="2">
   <a href="https://github.com/acheong08">
-  <img  style="border-radius: 50%;" src="https://github.com/acheong08.png" width="128">
+  <svg fill="none" viewBox="0 0 80 80" width="auto" height="auto" xmlns="http://www.w3.org/2000/svg">
+  
+  <foreignObject width="100%" height="100%">
+    <img  style="border-radius: 50%;" src="https://github.com/acheong08.png" width="128">
+  </foreignObject>
+</svg>
+
   </a>
   <br>
   <a href="https://github.com/acheong08">@acheong08</a>
@@ -53,7 +59,12 @@ A special shoutout to these amazing indviduals:
 </td>
 <td width="20%" align="center" rowspan="2" colspan="2">
   <a href="https://github.com/thatxliner">
-  <img  style="border-radius: 50%;" src="https://github.com/thatxliner.png" width="128">
+  <svg fill="none" viewBox="0 0 80 80" width="auto" height="auto" xmlns="http://www.w3.org/2000/svg">
+  
+  <foreignObject width="100%" height="100%">
+    <img  style="border-radius: 50%;" src="https://github.com/thatxliner.png" width="128">
+  </foreignObject>
+</svg>
   </a>
   <br>
   <a href="https://github.com/thatxliner">@ThatXliner</a>
@@ -62,7 +73,13 @@ A special shoutout to these amazing indviduals:
 </td>
 <td width="20%" align="center" rowspan="2" colspan="2">
   <a href="https://github.com/Aldhanekaa">
-  <img  style="border-radius: 50%;" src="https://github.com/Aldhanekaa.png" width="128">
+
+  <svg fill="none" viewBox="0 0 80 80" width="auto" height="auto" xmlns="http://www.w3.org/2000/svg">
+  
+  <foreignObject width="100%" height="100%">
+    <img  style="border-radius: 50%;" src="https://github.com/Aldhanekaa.png" width="128">
+  </foreignObject>
+</svg>
   </a>
   <br>
   <a href="https://github.com/Aldhanekaa">@Aldhanekaa</a>
@@ -71,7 +88,12 @@ A special shoutout to these amazing indviduals:
 </td>
 <td width="20%" align="center" rowspan="2" colspan="2">
   <a href="https://github.com/RFS-ADRENO">
-  <img  style="border-radius: 50%;" src="https://github.com/RFS-ADRENO.png" width="128">
+  <svg fill="none" viewBox="0 0 80 80" width="auto" height="auto" xmlns="http://www.w3.org/2000/svg">
+  
+  <foreignObject width="100%" height="100%">
+    <img  style="border-radius: 50%;" src="https://github.com/RFS-ADRENO.png" width="128">
+  </foreignObject>
+</svg>
   </a>
   <br>
   <a href="https://github.com/RFS-ADRENO">@RFS-ADRENO</a>
@@ -100,6 +122,7 @@ Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/Goo
 `bard-ai` surpasses leading competition [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard) for three key reasons:
 
 #### Size
+
 `bard-ai` is a tiny 3.3kb, approximately 97% smaller than `googlebard`. This leads to faster downloads, and maximum efficiency.
 
 #### Speed
