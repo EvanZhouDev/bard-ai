@@ -119,7 +119,7 @@
 </radialGradient>
 <linearGradient id="paint5_linear_250_47" x1="768.5" y1="0" x2="768.5" y2="45" gradientUnits="userSpaceOnUse">
 <stop stop-color="#0D1116"/>
-<stop offset="1" stop-color="#130404" stop-opacity="0"/>
+<stop offset="1" stop-color="#0D1116" stop-opacity="0"/>
 </linearGradient>
 <clipPath id="clip0_250_47">
 <rect width="1538" height="725" fill="white"/>
