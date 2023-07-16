@@ -3,18 +3,18 @@ import fs from "fs";
 class Bard {
     static JSON = "json";
     static MD = "markdown"
-    
+
     // ID derived from Cookie
     SNlM0e;
-    
+
     // HTTPS Headers
     #headers;
-    
+
     // Resolution status of initialization call
     #initPromise;
 
     #bardURL = "https://bard.google.com"
-    
+
     // Wether or not to log events to console
     #verbose = false;
 
@@ -226,10 +226,10 @@ class Bard {
         ({
             tag: x[2],
             url: x[3][0][0],
-            source: {
-                original: x[0][5].match(/imgurl=([^&%]+)/)[1],
-                website: x[1][0][0],
-                name: x[1][1],
+            info: {
+                raw: x[0][0][0],
+                source: x[1][0][0],
+                website: x[1][1],
                 favicon: x[1][3]
             }
         })
