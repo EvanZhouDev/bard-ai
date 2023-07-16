@@ -28,7 +28,7 @@
 <path d="M836.202 384.017L834.044 388.963C832.464 392.584 827.451 392.584 825.871 388.963L823.713 384.017C819.866 375.198 812.937 368.176 804.291 364.335L797.642 361.381C794.047 359.784 794.047 354.557 797.642 352.96L803.919 350.171C812.787 346.231 819.841 338.949 823.622 329.831L825.838 324.486C827.382 320.761 832.533 320.761 834.077 324.486L836.293 329.831C840.074 338.949 847.128 346.231 855.996 350.171L862.273 352.96C865.869 354.557 865.869 359.784 862.273 361.381L855.624 364.335C846.978 368.176 840.049 375.198 836.202 384.017Z" fill="url(#paint4_radial_250_47)"/>
 </g>
 </g>
-<rect x="-6" width="1549" height="45" fill="url(#paint5_linear_250_47)"/>
+<rect x="-6" width="1549" height="64" fill="url(#paint5_linear_250_47)"/>
 </g>
 <defs>
 <filter id="filter0_f_250_47" x="370.152" y="-43" width="657.666" height="531.701" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -117,7 +117,7 @@
 <stop offset="0.825372" stop-color="#D96570"/>
 <stop offset="1" stop-color="#F49C46"/>
 </radialGradient>
-<linearGradient id="paint5_linear_250_47" x1="768.5" y1="0" x2="768.5" y2="45" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint5_linear_250_47" x1="769" y1="3.35656e-08" x2="769.177" y2="63.9995" gradientUnits="userSpaceOnUse">
 <stop stop-color="#0D1116"/>
 <stop offset="1" stop-color="#0D1116" stop-opacity="0"/>
 </linearGradient>
