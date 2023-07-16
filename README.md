@@ -36,51 +36,55 @@
 -   🪶 **Lightweight**: Just 3.3kb minzipped
 -   📚 **Typesafe**: Types included out-of-the-box
 
-## Contributors
 
-A special shoutout to these amazing indviduals:
-
+<h2 align="center">Contributors</h2>
+<p align="center">
+    A special shoutout to these amazing indviduals:
+</p>
 <table>
-<tr valign="middle">
-<td width="20%" align="center" rowspan="2" colspan="2">
-  <a href="https://github.com/acheong08">
-  <img src="https://images.weserv.nl/?url=github.com/acheong08.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-  </a>
-  <br>
-  <a href="https://github.com/acheong08">@acheong08</a>
-  <br>
-  Python Bard API
-</td>
-<td width="20%" align="center" rowspan="2" colspan="2">
-  <a href="https://github.com/thatxliner">
-  <img src="https://images.weserv.nl/?url=github.com/thatxliner.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-  </a>
-  <br>
-  <a href="https://github.com/thatxliner">@ThatXliner</a>
-  <br>
-  Maintainer
-</td>
-<td width="20%" align="center" rowspan="2" colspan="2">
-  <a href="https://github.com/Aldhanekaa">
-  <img src="https://images.weserv.nl/?url=github.com/Aldhanekaa.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-  </a>
-  <br>
-  <a href="https://github.com/Aldhanekaa">@Aldhanekaa</a>
-  <br>
-  Contributor
-</td>
-<td width="20%" align="center" rowspan="2" colspan="2">
-  <a href="https://github.com/RFS-ADRENO">
-  <img src="https://images.weserv.nl/?url=github.com/RFS-ADRENO.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-  </a>
-  <br>
-  <a href="https://github.com/RFS-ADRENO">@RFS-ADRENO</a>
-  <br>
-  Contributor
-</td>
-<table>
+  <tr valign="middle">
+  <td width="20%" align="center" rowspan="2" colspan="2">
+    <a href="https://github.com/acheong08">
+    <img src="https://images.weserv.nl/?url=github.com/acheong08.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+    </a>
+    <br>
+    <a href="https://github.com/acheong08">@acheong08</a>
+    <br>
+    Python Bard API
+  </td>
+  <td width="20%" align="center" rowspan="2" colspan="2">
+    <a href="https://github.com/thatxliner">
+    <img src="https://images.weserv.nl/?url=github.com/thatxliner.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+    </a>
+    <br>
+    <a href="https://github.com/thatxliner">@ThatXliner</a>
+    <br>
+    Maintainer
+  </td>
+  <td width="20%" align="center" rowspan="2" colspan="2">
+    <a href="https://github.com/Aldhanekaa">
+    <img src="https://images.weserv.nl/?url=github.com/Aldhanekaa.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+    </a>
+    <br>
+    <a href="https://github.com/Aldhanekaa">@Aldhanekaa</a>
+    <br>
+    Contributor
+  </td>
+  <td width="20%" align="center" rowspan="2" colspan="2">
+    <a href="https://github.com/RFS-ADRENO">
+    <img src="https://images.weserv.nl/?url=github.com/RFS-ADRENO.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+    </a>
+    <br>
+    <a href="https://github.com/RFS-ADRENO">@RFS-ADRENO</a>
+    <br>
+    Contributor
 
-However, we thank every person that helps in the development process of this library, no matter that be in code, ideas, or anything else.
+  </td>
+  <table>
+  <p align="center">
+  However, we thank every person that helps in the development process of this library, no matter that be in code, ideas, or anything else.
+  </p>
+
 
 ## Comparison
 
