@@ -2,7 +2,7 @@
 
   <source media="(prefers-color-scheme: dark)" srcset="./assets/banner@dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./assets/banner@light.svg">
-  <img alt="EvanZhouDev Banner" src="./assets/banner@light.svg">
+  <img alt="bard-ai v2 Banner" src="./assets/banner@light.svg">
 </picture>
 
 <p align="center">
@@ -36,59 +36,9 @@
 -   🪶 **Lightweight**: Just 3.3kb minzipped
 -   📚 **Typesafe**: Types included out-of-the-box
 
-
-<h2 align="center">Contributors</h2>
-<p align="center">
-    A special shoutout to these amazing indviduals:
-</p>
-<table>
-  <tr valign="middle">
-  <td width="20%" align="center" rowspan="2" colspan="2">
-    <a href="https://github.com/acheong08">
-    <img src="https://images.weserv.nl/?url=github.com/acheong08.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-    </a>
-    <br>
-    <a href="https://github.com/acheong08">@acheong08</a>
-    <br>
-    Python Bard API
-  </td>
-  <td width="20%" align="center" rowspan="2" colspan="2">
-    <a href="https://github.com/thatxliner">
-    <img src="https://images.weserv.nl/?url=github.com/thatxliner.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-    </a>
-    <br>
-    <a href="https://github.com/thatxliner">@ThatXliner</a>
-    <br>
-    Maintainer
-  </td>
-  <td width="20%" align="center" rowspan="2" colspan="2">
-    <a href="https://github.com/Aldhanekaa">
-    <img src="https://images.weserv.nl/?url=github.com/Aldhanekaa.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-    </a>
-    <br>
-    <a href="https://github.com/Aldhanekaa">@Aldhanekaa</a>
-    <br>
-    Contributor
-  </td>
-  <td width="20%" align="center" rowspan="2" colspan="2">
-    <a href="https://github.com/RFS-ADRENO">
-    <img src="https://images.weserv.nl/?url=github.com/RFS-ADRENO.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
-    </a>
-    <br>
-    <a href="https://github.com/RFS-ADRENO">@RFS-ADRENO</a>
-    <br>
-    Contributor
-
-  </td>
-  <table>
-  <p align="center">
-  However, we thank every person that helps in the development process of this library, no matter that be in code, ideas, or anything else.
-  </p>
-
-
 ## Comparison
 
-Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/GoogleBard):
+Compared to alternative Bard API [`googlebard`](https://github.com/PawanOsman/GoogleBard):
 
 <picture>
 
@@ -104,6 +54,7 @@ Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/Goo
 `bard-ai` surpasses leading competition [GoogleBard by PawanOsman](https://github.com/PawanOsman/GoogleBard) for three key reasons:
 
 #### Size
+
 `bard-ai` is a tiny 3.3kb, approximately 97% smaller than `googlebard`. This leads to faster downloads, and maximum efficiency.
 
 #### Speed
@@ -162,29 +113,66 @@ Compared to leading JS Bard API [`googlebard`](https://github.com/PawanOsman/Goo
     2.03 ± 0.22 times faster than 'node googlebard.js'
     ```
 
-## Let's Get Started!
 
-Read the documentation, available at [bard-ai-docs.vercel.app](https://bard-ai-docs.vercel.app/).
+## Quick Start
+Copy the cookie labled `__Secure-1PSID` on bard.google.com, and use it in the code here:
 
-### Table of Contents
+```javascript
+import Bard from "bard-ai"
 
--   [Introduction](https://bard-ai-docs.vercel.app/)
--   Pre-Requisites
-    -   [Installation](https://bard-ai-docs.vercel.app/prerequisites/installation)
-    -   [Authentication](https://bard-ai-docs.vercel.app/prerequisites/authentication)
--   Basics
-    -   [Quick Start](https://bard-ai-docs.vercel.app/basics/quickstart)
-    -   [Initialization](https://bard-ai-docs.vercel.app/basics/initialization)
-    -   [Ask AI](https://bard-ai-docs.vercel.app/basics/askAI)
-    -   [Bard Chat](https://bard-ai-docs.vercel.app/basics/chat)
--   Advanced
-    -   [Importing/Exporting Chats](https://bard-ai-docs.vercel.app/advanced/importExportChat)
-    -   [JSON Response Flag](https://bard-ai-docs.vercel.app/advanced/useJSON)
--   [Typescript Support](https://bard-ai-docs.vercel.app/typescript)
--   [Polyfilling Fetch](https://bard-ai-docs.vercel.app/fetch)
+let myBard = new Bard(COOKIE);
 
-Go ahead! It's easy to learn... Trust me!
+console.log(await myBard.ask("Hello, world!"));
+```
 
-<br/>
-<br/>
-<br/>
+Continue to explore full features, including Google Lens integration, with the [docs](https://bard-ai-docs.vercel.app/).
+
+<h2 align="center">Contributors</h2>
+<p align="center">A special shoutout to these amazing indviduals:</p>
+<table>
+  <tr valign="middle">
+    <td width="20%" align="center" rowspan="2" colspan="2">
+      <a href="https://github.com/acheong08">
+      <img src="https://images.weserv.nl/?url=github.com/acheong08.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+      </a>
+      <br>
+      <a href="https://github.com/acheong08">@acheong08</a>
+      <br>
+      Original Python Bard API
+    </td>
+    <td width="20%" align="center" rowspan="2" colspan="2">
+      <a href="https://github.com/thatxliner">
+      <img src="https://images.weserv.nl/?url=github.com/thatxliner.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+      </a>
+      <br>
+      <a href="https://github.com/thatxliner">@ThatXliner</a>
+      <br>
+      Maintainer
+    </td>
+    <td width="20%" align="center" rowspan="2" colspan="2">
+      <a href="https://github.com/Aldhanekaa">
+      <img src="https://images.weserv.nl/?url=github.com/Aldhanekaa.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+      </a>
+      <br>
+      <a href="https://github.com/Aldhanekaa">@Aldhanekaa</a>
+      <br>
+      Typescript and Feature Developer, Maintainer
+    </td>
+    <td width="20%" align="center" rowspan="2" colspan="2">
+      <a href="https://github.com/RFS-ADRENO">
+      <img src="https://images.weserv.nl/?url=github.com/RFS-ADRENO.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d" width="128">
+      </a>
+      <br>
+      <a href="https://github.com/RFS-ADRENO">@RFS-ADRENO</a>
+      <br>
+      TypeScript Developer, Maintainer
+    </td>
+  </tr>
+</table>
+<p align="center">
+  However, we thank every person that helps in the development process of this library, no matter that be in code, ideas, or anything else.
+</p>
+
+<h2 align="center">
+  <a href="https://bard-ai-docs.vercel.app">Read the docs</a> to get started.
+</h2>
