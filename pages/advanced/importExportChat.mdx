@@ -1,0 +1,98 @@
+import { Callout } from "nextra-theme-docs";
+
+# Importing and Exporting Chats
+
+Sometimes, when you need to continue a Chat, its necessary to export your chat into some form of a file, or `localStorage`, and then later import it again. `bard-ai` has the ability to do this built in.
+
+# Example
+
+Let's start by creating a new chat.
+
+```javascript copy
+import Bard from "bard-ai";
+
+let myBard = new Bard(COOKIE);
+
+let myChat = myBard.createChat();
+```
+
+Now, let's ask a question.
+
+```javascript copy
+console.log(await myChat.ask("What is 1+1?"));
+```
+
+We then call the export function.
+
+```javascript copy
+myChat.export();
+```
+
+You should get an object similar to this:
+
+```json
+{
+    "conversationID": string,
+    "responseID": string,
+    "choiceID": string,
+    "_reqID": string
+}
+```
+
+Now, we create a new conversation, but we use the JSON we got to create it, like this:
+
+```javascript copy
+import Bard from "bard-ai";
+
+let myBard = new Bard(COOKIE);
+
+let myChatContinued = newBard.createChat({
+	conversationID: string,
+	responseID: string,
+	choiceID: string,
+	_reqID: string,
+});
+```
+
+Finally, we ask Bard a continuation of the original question ("What is 1+1?"):
+
+```javascript copy
+console.log(await myChatContinued.ask("Add 1 to that"));
+```
+
+Bard should be able to catch on, and say `3`!
+
+## Usage
+
+<Callout>`export` will be first explained, then how to re-import.</Callout>
+
+### `Chat.export()`
+
+Takes no parameters, and returns an object in this format:
+
+```json
+{
+    "conversationID": string,
+    "responseID": string,
+    "choiceID": string,
+    "_reqID": string
+}
+```
+
+<Callout type="error" emoji="️🚫">
+	Make sure to not edit this JSON at **all** when importing. A tiny change will
+	render it to not work.
+</Callout>
+
+These IDs keep track of the entire conversation, which message you are on, and more.
+
+`bard-ai` does not handle the actual saving of the conversation, so you'll have to supply your own file control and/or `localStorage` control. This is because of 2 things, that are somewhat intertwined:
+
+- The Single Responsibility Principle (SRP), that says each part of your code should do one thing.
+- Keeps the library size down, to make it lighter and faster to download.
+
+### `createChat(IDs)`
+
+`createChat()` takes in one argument, the IDs you obtained from the export above. The chat will simply be initialized with the IDs (and remember previous messages), and can then be used as normal.
+
+Learn more about `createChat` [here](/basics/chat).

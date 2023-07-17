@@ -1,0 +1,31 @@
+import { Steps } from "nextra-theme-docs";
+
+# No `fetch`? No problem.
+
+`bard-ai` uses Node's experimental `fetch` function, which is enabled by default now. However, if the environment you are in still doesn't support it, `bard-ai` v2 comes with a super easy way to polyfill!
+
+<Steps>
+### Step 1
+Install `node-fetch` (or any other polyfill):
+
+```bash copy
+npm install node-fetch
+```
+
+### Step 2
+
+Create a new Bard instance with that polyfill
+
+```javascript copy
+import fetch from "node-fetch";
+
+let myBard = new Bard(COOKIE, {
+    fetch: fetch
+})
+```
+
+### Step 3
+
+Use as normal!
+
+</Steps>

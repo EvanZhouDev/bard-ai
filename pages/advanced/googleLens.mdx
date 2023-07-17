@@ -1,0 +1,40 @@
+# Using Google Lens
+
+With `bard-ai` v2, you now have access to a powerful AI image system, Google Lens. Pass in images to [`Bard.ask()`](/basics/ask) and [`Chat.ask()`](/basics/chat#chatask), and Bard will be able to process them.
+
+Images can be `jpeg`, `jpg`, `png`, or `webp`.
+
+You can pass in the image as a `Buffer` or as a path, in the `image` option in `config`. Here's an example...
+
+### Path
+
+```javascript
+import Bard from "bard-ai";
+
+let myBard = new Bard(COOKIE);
+
+console.log(
+	await myBard.ask("What city is this?", {
+		image: "./city_image.png",
+	})
+);
+```
+
+### Buffer
+
+```javascript
+import Bard from "bard-ai";
+import fs from "fs";
+
+let cityImage = fs.readFileSync("./city_image.png");
+
+let myBard = new Bard(COOKIE);
+
+console.log(
+	await myBard.ask("What city is this?", {
+		image: cityImage,
+	})
+);
+```
+
+Compounded with the fact that you can get image output, Google Lens is a powerful feature.

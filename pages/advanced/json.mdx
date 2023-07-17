@@ -1,0 +1,50 @@
+# The `JSON` format
+
+This flag (activated by passing in `format: Bard.JSON` in the config object) is used in [`Bard.ask()`](/basics/ask) and [`Chat.ask()`](/basics/chat#chatask).
+
+Use this flag to get more information about the return request from Bard.
+
+## Return Structure
+
+```js
+{
+    "content": string,
+    "images": [
+        {
+            tag: string,
+            url: string,
+            info: {
+                raw: string,
+                source: string,
+                website: string,
+                favicon: string
+            }
+        },
+        ...
+    ],
+    "ids": object
+}
+```
+
+Let's walk through what each one of these properties is.
+
+| Property Name | Type   | Description                                                                  |
+| ------------- | ------ | ---------------------------------------------------------------------------- |
+| `content`     | string | The Markdown return value of Bard                                            |
+| `images`      | array  | Array of objects, representing the image. See [Image JSON](#imagejson) below |
+| `ids`         | object | An object that is used to import/export conversations.                       |
+
+### Image JSON
+
+What the array in `images` above is consisted of
+
+| Property Name  | Type   | Description                                                                        |
+| -------------- | ------ | ---------------------------------------------------------------------------------- |
+| `tag`          | string | What tag the Markdown image is associated with.                                    |
+| `url`          | string | An URL of the image linked to Google image servers. This has been cropped by Bard. |
+| `info.raw`     | string | An URL of the image from the source website. This has not been edited by Bard.     |
+| `info.source`  | string | What website (with subdirectory) the image is from.                                |
+| `info.website` | string | What domain the image is from.                                                     |
+| `info.favicon` | string | Favicon of that website.                                                           |
+
+Usually it should not be necessary to use the JSON flag, but it can be used for some certain scenarios, especially if you want to extend this library in some way.

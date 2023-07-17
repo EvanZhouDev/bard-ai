@@ -1,0 +1,32 @@
+{
+	"name": "bard-ai-docs",
+	"version": "1.0.0",
+	"description": "bard-ai Documentation",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"export": "next build && next export"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/EvanZhouDev/bard-ai-docs.git"
+	},
+	"author": "EvanZhouDev",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/EvanZhouDev/bard-ai-docs/issues"
+	},
+	"homepage": "https://bard-ai-docs.vercel.app",
+	"dependencies": {
+		"next": "^13.0.6",
+		"nextra": "latest",
+		"nextra-theme-docs": "latest",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "18.11.10",
+		"typescript": "^4.9.3"
+	}
+}

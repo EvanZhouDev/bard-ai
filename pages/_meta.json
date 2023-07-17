@@ -1,0 +1,9 @@
+{
+  "index": "Introduction",
+  "prerequisites": "Pre-Requisites",
+  "basics": "Basics",
+  "advanced": "Advanced",
+  "typescript": "Typescript Support",
+  "fetch": "Polyfilling Fetch",
+  "faq": "FAQ"
+} 

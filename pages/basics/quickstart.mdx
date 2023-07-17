@@ -1,0 +1,43 @@
+import { Callout, Steps } from "nextra-theme-docs";
+
+# `bard-ai` Quick Start
+Use this page to just get a glimpse of the power of `bard-ai`. Make sure you read through the next few pages for a more comprehensive tutorial.
+
+<Callout type="info">
+	Make sure you read through the [Authentication](/prerequisites/authentication) page first, if you haven't already.
+</Callout>
+
+To get your first AI output from Bard, copy and paste the following code into your IDE of choice:
+
+```javascript copy showLineNumbers
+import Bard from "bard-ai";
+
+let myBard = new Bard(COOKIE)
+
+console.log(await myBard.ask("Hello world!"));
+```
+
+Let's walk through what this code is doing:
+<Steps>
+### Import
+```javascript copy
+import Bard from "bard-ai";
+```
+Everything in `bard-ai` is compressed into a singular `Bard` class, and thus `Bard` is the only thing you need to import.
+
+### Authenticate
+```javascript copy
+let myBard = new Bard(COOKIE);
+```
+
+Next, we need to initialize `bard-ai`. Create a new `Bard` instance, and pass in your `COOKIE`.
+
+### Ask Bard!
+```javascript copy
+console.log(await myBard.ask("Hello world!"));
+```
+Finally, we use the `ask` method on `Bard` to query Google Bard. This is `async`, so ensure you use `await`.
+
+</Steps>
+
+Congratulations! You've made your first request with Bard. Read on for more detailed documentation, including how to use Chats, export conversations, and use Google Lens.
