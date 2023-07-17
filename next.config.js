@@ -4,14 +4,14 @@ const withNextra = require('nextra')({
 })
 
 const isProduction = process.env.NODE_ENV === "production";
-const assetPrefix = isProduction ? "/bard-ai" : "";
+const assetPrefix = isProduction ? "/bard-ai" : undefined;
 
 module.exports = {
   ...withNextra(),
   images: {
     unoptimized: true,
-    assetPrefix,
-    basePath: assetPrefix,
-    trailingSlash: true,
   },
+  assetPrefix,
+  basePath: assetPrefix,
+  trailingSlash: true,
 };
