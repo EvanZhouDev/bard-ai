@@ -1,5 +1,5 @@
 {
-    "importExportChat": "Importing/Exporting Chats",
+    "chat-import-export": "Importing/Exporting Chats",
     "json": "JSON Format",
-    "googleLens": "Using Google Lens"
+    "google-lens": "Using Google Lens"
 }

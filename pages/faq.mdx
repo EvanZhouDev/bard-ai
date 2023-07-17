@@ -9,3 +9,11 @@ The first thing to ensure is that (if you are only providing the Cookie value), 
 If that's all correct, go to [bard.google.com](bard.google.com), reset all your Cookies (not just your cache), and log in again to your Google account. Finally, get your new PSID.
 
 If that *still* doesn't work, then submit an issue [here](https://github.com/EvanZhouDev/bard-ai/issues).
+
+### Can't `require` a ES6 module
+
+`bard-ai` is now a strictly ES6 only module. This means that it only works with the `import` syntax. You can choose to migrate to ESM yourself (recommended), or alternatively use [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) if you still want to remain in CommonJS.
+
+### `fetch` is undefined
+
+The `fetch` function is still experimental (though enabled by default) in Node. Learn about polyfilling fetch, easier than ever in v2, [here](/fetch).
