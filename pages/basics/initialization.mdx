@@ -19,10 +19,10 @@ let myBard = new Bard(COOKIE);
 
 ## Parameters
 
-| Parameter | Type   | Description                                       |
-| --------- | ------ | ------------------------------------------------- |
-| `key`     | string | The `COOKIE` you are initializing with. Required. |
-| `config`  | object | Some advanced options you can pass in.            |
+| Parameter | Type   | Description                                                                                |
+| --------- | ------ | ------------------------------------------------------------------------------------------ |
+| `key`     | string | The [`COOKIE`](/prerequisites/authentication/#step-4) you are initializing with. Required. |
+| `config`  | object | Some advanced options you can pass in.                                                     |
 
 ## Usage
 
@@ -46,6 +46,8 @@ import Bard from "bard-ai";
 let myBard = new Bard("__Secure-3PSID=MY_COOKIE");
 ```
 
+Note that since each cookie session is encapsulated within its own `Bard` instance, you can use multiple different cookies at the same time.
+
 ## Config
 
 Pass in a configuration JSON, like this:
@@ -54,7 +56,6 @@ Pass in a configuration JSON, like this:
 let myBard = new Bard(COOKIE, {
   verbose: true,
   fetch: fetch,
-  context: "Answer this like a pirate: ",
 });
 ```
 
@@ -62,4 +63,3 @@ let myBard = new Bard(COOKIE, {
 | ------------- | -------- | ---------------------------------------------------------------------- |
 | `verbose`     | boolean  | Log information about what is happening                                |
 | `fetch`       | function | Any fetch polyfill. Ensure it has the same interface as browser fetch. |
-| `context`     | string   | Instructions prefixed before every request.                            |
