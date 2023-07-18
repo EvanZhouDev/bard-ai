@@ -157,7 +157,7 @@ class Bard {
         // If user has not run init
         if (!this.SNlM0e) {
             throw new Error(
-                "Please initialize Bard first. If you haven't passed in your Cookie into the class, run Bard.init(cookie)."
+                "Please initialize Bard first. If you haven't passed in your cookie into the class, run Bard.init(<your cookie>)."
             );
         }
 
@@ -192,7 +192,7 @@ class Bard {
                 messageStruct[2] = [conversationID, responseID, choiceID];
             } catch {
                 throw new Error(
-                    "Please provide the JSON exported exactly as given."
+                    `Please provide the JSON exported exactly as given. (ids: ${ids})`
                 );
             }
         }
@@ -293,7 +293,7 @@ class Bard {
                     break;
                 default:
                     throw new Error(
-                        "Format can obly be Bard.JSON for JSON output or Bard.MD for Markdown output."
+                        "Format can only be Bard.JSON for JSON output or Bard.MD for Markdown output."
                     );
             }
         }
