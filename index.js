@@ -21,14 +21,10 @@ class Bard {
     // Fetch function
     #fetch = fetch;
 
-    // Pre-pended to all requests sent out with this Bard instance
-    #context = "";
-
     constructor(cookie, config) {
         // Register some settings
         if (config?.verbose == true) this.#verbose = true;
         if (config?.fetch) this.#fetch = config.fetch;
-        if (config?.context) this.#context = config.context;
 
         // If a Cookie is provided, initialize
         if (cookie) {
@@ -57,34 +53,35 @@ class Bard {
                 : `__Secure-1PSID=${cookie};`,
         };
 
+        let responseText;
         // Attempt to retrieve SNlM0e
         try {
             this.#verbose &&
                 console.log("🔒 Authenticating your Google account");
-            const SNlM0e = await this.#fetch(this.#bardURL, {
+            responseText = await this.#fetch(this.#bardURL, {
                 method: "GET",
                 headers: this.#headers,
                 credentials: "include",
             })
                 .then((response) => response.text())
-                .then((text) => text.match(/SNlM0e":"(.*?)"/)[1]);
-
-            if (!SNlM0e) {
-                // Failure to get SNlM0e from response
-                throw new Error(
-                    "Could not use your Cookie. Make sure that you copied correctly the Cookie with name __Secure-1PSID exactly. If you are sure your cookie is correct, you may also have reached your rate limit."
-                );
-            }
-
-            // Assign SNlM0e and return it
-            this.SNlM0e = SNlM0e;
-            this.#verbose && console.log("✅ Initialization finished\n");
-            return SNlM0e;
         } catch (e) {
             // Failure to get server
             throw new Error(
                 "Could not fetch Google Bard. You may be disconnected from internet: " +
                 e
+            );
+        }
+
+        try {
+            console.log(responseText)
+            const SNlM0e = responseText.match(/SNlM0e":"(.*?)"/)[1];
+            // Assign SNlM0e and return it
+            this.SNlM0e = SNlM0e;
+            this.#verbose && console.log("✅ Initialization finished\n");
+            return SNlM0e;
+        } catch {
+            throw new Error(
+                "Could not use your Cookie. Make sure that you copied correctly the Cookie with name __Secure-1PSID exactly. If you are sure your cookie is correct, you may also have reached your rate limit."
             );
         }
     }
@@ -130,11 +127,6 @@ class Bard {
 
             const imageFileLocation = await response.text();
 
-            if (response.status != 200)
-                throw new Error(
-                    "Failed to retrieve image: " + imageFileLocation
-                );
-
             this.#verbose && console.log("✅ Image finished working\n");
             return imageFileLocation;
         } catch (e) {
@@ -147,6 +139,20 @@ class Bard {
 
     // Query Bard
     async #query(message, config) {
+        let formatMarkdown = (text, images) => {
+            if (!images) return text;
+
+            for (let imageData of images) {
+                const formattedTag = `!${imageData.tag}(${imageData.url})`;
+                text = text.replace(
+                    new RegExp(`(?!\\!)\\[${imageData.tag.slice(1, -1)}\\]`),
+                    formattedTag
+                );
+            }
+
+            return text;
+        }
+
         let { ids, imageBuffer } = config;
 
         // Wait until after init
@@ -171,7 +177,7 @@ class Bard {
 
         // If IDs are provided, but doesn't have every one of the expected IDs, error
         const messageStruct = [
-            [this.#context + message],
+            [message],
             null,
             [null, null, null],
         ];
@@ -187,14 +193,8 @@ class Bard {
         }
 
         if (ids) {
-            try {
-                const { conversationID, responseID, choiceID } = ids;
-                messageStruct[2] = [conversationID, responseID, choiceID];
-            } catch {
-                throw new Error(
-                    "Please provide the JSON exported exactly as given."
-                );
-            }
+            const { conversationID, responseID, choiceID } = ids;
+            messageStruct[2] = [conversationID, responseID, choiceID];
         }
 
         // HTTPs data
@@ -264,7 +264,7 @@ class Bard {
         this.#verbose && console.log("✅ All done!\n");
         // Put everything together and return
         return {
-            content: this.#formatMarkdown(text, images),
+            content: formatMarkdown(text, images),
             images: images,
             ids: {
                 conversationID: chatData[1][0],
@@ -318,32 +318,16 @@ class Bard {
 
         // Verify that all values in IDs exist
         if (config?.ids) {
-            try {
-                const { conversationID, responseID, choiceID, _reqID } =
-                    config.ids;
+            if (config.ids.conversationID && config.ids.responseID && config.ids.choiceID && config.ids._reqID) {
                 result.ids = config.ids;
-            } catch {
+            } else {
                 throw new Error(
-                    "Please provide the JSON exported exactly as given."
+                    "Please provide the IDs exported exactly as given."
                 );
             }
         }
 
         return result;
-    }
-
-    #formatMarkdown(text, images) {
-        if (!images) return text;
-
-        for (let imageData of images) {
-            const formattedTag = `!${imageData.tag}(${imageData.url})`;
-            text = text.replace(
-                new RegExp(`(?<!\!)\[${imageData.tag.slice(1, -1)}\]`),
-                formattedTag
-            );
-        }
-
-        return text;
     }
 
     // Ask Bard a question!
