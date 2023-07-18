@@ -84,7 +84,7 @@ class Bard {
             // Failure to get server
             throw new Error(
                 "Could not fetch Google Bard. You may be disconnected from internet: " +
-                    e
+                e
             );
         }
     }
@@ -140,7 +140,7 @@ class Bard {
         } catch (e) {
             throw new Error(
                 "Could not fetch Google Bard. You may be disconnected from internet: " +
-                    e
+                e
             );
         }
     }
@@ -301,10 +301,9 @@ class Bard {
         // Verify that the image passed in is either a path to a jpeg, jpg, png, or webp, or that it is a Buffer
         if (config?.image) {
             if (
-                config.image.buffer &&
-                config.image.buffer instanceof ArrayBuffer
+                config.image instanceof ArrayBuffer
             ) {
-                result.imageBuffer = config.image.buffer;
+                result.imageBuffer = config.image;
             } else if (
                 typeof config.image === "string" &&
                 /\.(jpeg|jpg|png|webp)$/.test(config.image)
