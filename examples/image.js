@@ -1,18 +1,14 @@
 import Bard from "bard-ai";
 
-const bard = new Bard("YOUR_COOKIE_KEY");
+const bard = new Bard(COOKIE);
 
-const imageUrl =
-    "https://images.unsplash.com/photo-1578973615934-8d9cdb0792b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2578&q=80";
-(async function () {
-    const imageRes = await fetch(imageUrl);
-    const imageBuffer = await imageRes.arrayBuffer();
+const imageUrl = "https://placekitten.com/500/500";
 
-    console.log(
-        await bard.ask("What flag country is in the photo?", {
-            image: {
-                buffer: imageBuffer,
-            },
-        })
-    );
-})();
+const imageBuffer = await fetch(imageUrl).then(res => res.arrayBuffer());
+
+console.log(
+    await bard.ask("What animal is shown in this photo?", {
+        image: imageBuffer,
+    })
+);
+
