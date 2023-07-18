@@ -34,7 +34,7 @@ class Bard {
         if (cookie) {
             this.#initPromise = this.#init(cookie);
         } else {
-            throw new Error("Please provide a Cookie when initializing Bard.");
+            throw new Error("Please provide a cookie when initializing Bard.");
         }
         this.cookie = cookie;
     }
@@ -72,7 +72,7 @@ class Bard {
             if (!SNlM0e) {
                 // Failure to get SNlM0e from response
                 throw new Error(
-                    "Could not use your Cookie. Make sure that you copied correctly the Cookie with name __Secure-1PSID exactly. If you are sure your cookie is correct, you may also have reached your rate limit."
+                    "Could not use your Cookie. Make sure that you copied correctly the cookie starting with '__Secure-' exactly. If you are sure your cookie is correct, you may also have reached your rate limit."
                 );
             }
 
