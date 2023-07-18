@@ -1,0 +1,26 @@
+name: ✨ Feature request
+description: Request a new feature, or a change in an existing one.
+title: "[REQUEST]: "
+labels: ["enhancement"]
+body:
+  - type: checkboxes
+    id: generic-feature-request-checklist
+    attributes:
+      label: Prerequisites
+      description: "Before you start, make sure you have done all of the following:"
+      options:
+        - label: I am using the latest version of bard-ai
+          required: true
+        - label: I have searched the [issues](https://github.com/EvanZhouDev/bard-ai/issues) and believe that it has not already been requested (and possibly rejected)
+          required: true
+        - label: "I agree to follow the [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)"
+          required: true
+  - type: textarea
+    id: feature-info
+    attributes:
+      label: Feature description
+      description: Describe the feature
+      placeholder: Tell us what you want to happen, and the reason for it
+      value: "Example: I want X which does Y, and this is a core change/I can't do right now because of Z"
+    validations:
+      required: true
