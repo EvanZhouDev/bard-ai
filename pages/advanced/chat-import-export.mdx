@@ -39,7 +39,7 @@ You should get an object similar to this:
 }
 ```
 
-Now, we create a new conversation, but we use the JSON we got to create it, like this:
+And now import our conversation:
 
 ```javascript copy
 import Bard from "bard-ai";
@@ -47,10 +47,10 @@ import Bard from "bard-ai";
 let myBard = new Bard(COOKIE);
 
 let myChatContinued = newBard.createChat({
-	conversationID: string,
-	responseID: string,
-	choiceID: string,
-	_reqID: string,
+  conversationID: string,
+  responseID: string,
+  choiceID: string,
+  _reqID: string,
 });
 ```
 
@@ -80,19 +80,19 @@ Takes no parameters, and returns an object in this format:
 ```
 
 <Callout type="error" emoji="️🚫">
-	Make sure to not edit this JSON at **all** when importing. A tiny change will
-	render it to not work.
+  Make sure to not edit this JSON at **all** when importing. A tiny change will
+  render it useless.
 </Callout>
 
 These IDs keep track of the entire conversation, which message you are on, and more.
 
 `bard-ai` does not handle the actual saving of the conversation, so you'll have to supply your own file control and/or `localStorage` control. This is because of 2 things, that are somewhat intertwined:
 
-- The Single Responsibility Principle (SRP), that says each part of your code should do one thing.
+- The [Single Responsibility Principle (SRP)](https://en.wikipedia.org/wiki/Single-responsibility_principle), that says each part of your code should do one thing.
 - Keeps the library size down, to make it lighter and faster to download.
 
 ### `createChat(IDs)`
 
-`createChat()` takes in one argument, the IDs you obtained from the export above. The chat will simply be initialized with the IDs (and remember previous messages), and can then be used as normal.
+`createChat()` takes in one argument, the ID object you obtained from the export above. The chat will simply be initialized with the IDs (and remember previous messages), and can then be used as normal.
 
 Learn more about `createChat` [here](/basics/chat).

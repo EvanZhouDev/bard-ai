@@ -3,8 +3,8 @@ import { Callout } from "nextra-theme-docs";
 # `ask` Method
 
 <Callout type="info">
-	Make sure you read through the [Authentication](/prerequisites/authentication)
-	page first, if you haven't already.
+  Make sure you read through the [Authentication](/prerequisites/authentication)
+  page first, if you haven't already.
 </Callout>
 
 The most basic method under the `Bard` class that allows you to query Google Bard.
@@ -36,14 +36,14 @@ Pass in a configuration JSON, like this:
 
 ```javascript
 myBard.ask("Hello, world!", {
-	format: Bard.JSON | Bard.MD,
-	image: "./image.png",
-	ids: { ...ids },
+  format: Bard.JSON,
+  image: "./image.png",
+  ids: { ...ids },
 });
 ```
 
 | Config Option | Type                     | Description                                                                                         |
 | ------------- | ------------------------ | --------------------------------------------------------------------------------------------------- |
-| `format`      | `Bard.MD` \| `Bard.JSON` | Use Markdown or [JSON format](/advanced/json)                                                       |
+| `format`      | `Bard.MD` or `Bard.JSON` | Return markdown or [JSON](/advanced/json), respectively                                             |
 | `image`       | string \| `Buffer`       | Give Bard an image to process with Google Lens. See [Google Lens](/advanced/googleLens)             |
 | `ids`         | object                   | Continue a Chat with a one-time query. See [exporting/importing chats](/advanced/importExportChat). |

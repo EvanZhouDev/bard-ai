@@ -3,8 +3,8 @@ import { Callout } from "nextra-theme-docs";
 # `Chat` Class
 
 <Callout type="info">
-	Make sure you read through the [Authentication](/prerequisites/authentication)
-	page first, if you haven't already.
+  Make sure you read through the [Authentication](/prerequisites/authentication)
+  page first, if you haven't already.
 </Callout>
 
 An easy way to continue a chat with Bard.
@@ -55,13 +55,13 @@ console.log(await myChat.ask("What is 1 more than that value?"));
 
 #### Usage
 
-Call `Bard.Chat.ask()` asynchronously on the same instance of `Bard.Chat`, and it will remember what was previously said. This is similar to continuing on a "Chat" in ChatGPT.
+Call the `.ask()` method asynchronously (with an `await`) on the same instance of `Bard.Chat`. That way, it will remember what was previously said. This is similar to continuing a "Chat" in ChatGPT.
 
 <Callout type="info">
-	The `Chat.ask()` method has the exact same syntax as `Bard.ask()` (in fact,
-	they call the same function under the hood). This means that it also supports
-	the same config. Check the [documentation for `Bard.ask()`](/basics/ask) for
-	more information.
+  The `Chat.ask()` method has the exact same API as `Bard.ask()` (in fact, they
+  call the same function under the hood). This means that it also supports the
+  same config. Check the [documentation for `Bard.ask()`](/basics/ask) for more
+  information.
 </Callout>
 
 ### `Chat.export()`
