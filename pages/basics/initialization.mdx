@@ -3,8 +3,8 @@ import { Callout } from "nextra-theme-docs";
 # Initialization of `bard-ai`
 
 <Callout type="info">
-	Make sure you read through the [Authentication](/prerequisites/authentication)
-	page first, if you haven't already.
+  Make sure you read through the [Authentication](/prerequisites/authentication)
+  page first, if you haven't already.
 </Callout>
 
 After obtaining your key, you are going to have to initialize it, so that `bard-ai` knows it. You key remains local on your device, so no one else can see it.
@@ -29,14 +29,16 @@ let myBard = new Bard(COOKIE);
 Simply create a new instance of `Bard`, and pass in your `COOKIE`.
 
 <Callout type="warning">
-	It is recommended to store the key in a secure location (`.env`, for example),
-	and then access it in your file indirectly. This will limit accidently
-	committing or sending your key to GitHub or other platforms.
+  It is recommended to store the key in a secure location (`.env`, for example),
+  and then access it in your file indirectly. This will limit accidentally
+  committing or sending your key to GitHub or other platforms.
 </Callout>
 
 ## Using a Different Cookie
 
-`bard-ai` v2 comes with the ability to use cookies from different Google users. These will take the form of a `__Secure-#PSID` with a non-one number. If you wish to use such a cookie, simply prefix your `COOKIE` with `__Secure-#PSID=` (with your number), like this.
+`bard-ai` v2 comes with the ability to use cookies from different Google users. These will take the form of a `__Secure-#PSID` where `X` is a different number than 1. If you wish to use such a cookie, simply prefix your `COOKIE` with `__Secure-#PSID=` (with your account number).
+
+For example, if you use Bard manually and the URL ends with `/u/3`, you would copy the cookie that starts with `__Secure-3PSID`.
 
 ```javascript
 import Bard from "bard-ai";
@@ -50,9 +52,9 @@ Pass in a configuration JSON, like this:
 
 ```javascript
 let myBard = new Bard(COOKIE, {
-	verbose: true,
-	fetch: fetch,
-	context: "Answer this like a pirate: "
+  verbose: true,
+  fetch: fetch,
+  context: "Answer this like a pirate: ",
 });
 ```
 
