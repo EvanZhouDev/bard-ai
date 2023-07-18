@@ -1,16 +1,17 @@
-import { Steps, Callout } from 'nextra-theme-docs'
+import { Steps, Callout } from "nextra-theme-docs";
 
 # Authentication
+
 `bard-ai` works by simulating a user logging onto Bard, and calling a request. Because of this, `bard-ai` needs a specific cookie on Bard's website to be used.
 
 <Steps>
- 
+
 ### Step 1
- 
+
 Visit https://bard.google.com/, and sign into your Google account.
- 
+
 ### Step 2
- 
+
 Open the Web Inspector, and go to the `Application` tab.
 
 ### Step 3
@@ -24,7 +25,9 @@ Look for the Cookie labeled `__Secure-1PSID` **_exactly_**, and copy it. Now, us
 You can also choose to [use a Cookie for a different account](/basics/initialization#using-a-different-cookie).
 
 <Callout type="warning">
-  Even though there does not seem to be a direct way to exploit your `COOKIE`, it is not a good idea to publically share it anyway. Try to keep it as private as you can.
+  Even though there does not seem to be a direct way to exploit your `COOKIE`,
+  it is not a good idea to publicly share it anyway. Try to keep it as private
+  as you can.
 </Callout>
- 
+
 </Steps>
