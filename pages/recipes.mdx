@@ -1,0 +1,14 @@
+import { Cards, Card } from "nextra/components";
+import meta from "./recipes/_meta.json";
+
+# `bard-ai` recipes
+
+Here are some common patterns and useful recipes for using `bard-ai`.
+
+<Cards>
+{
+Object.entries(meta).map(
+    ([key,value]) => <Card key={value} title={value} href={`/recipes/${key}`}/>)
+}
+
+</Cards>
