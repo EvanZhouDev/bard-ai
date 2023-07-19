@@ -39,7 +39,6 @@ test('Check Bard Query ID', async () => {
     let bardResponse = await bard.ask("What was the last thing I said?", {
         ids
     })
-    console.log(bardResponse)
     expect(bardResponse).toContain('Hello, world! This is an automated test, ran with Jest.')
 }, { timeout: 30000 })
 
