@@ -23,15 +23,3 @@ jobs:
 
       - name: Run parse test
         run: npm run test-parse
-
-      - name: Set status
-        uses: softprops/action-gh-release@v1
-        with:
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          args: |
-            status -c ${{ job.status }} \
-            -r ${{ github.repository }} \
-            -s ${{ job.status == 'success' ? 'success' : 'failure' }} \
-            -n "Parse Test" \
-            -d "Parsing test has ${{ job.status == 'success' ? 'succeeded' : 'failed' }} for commit ${{ github.sha }}"
