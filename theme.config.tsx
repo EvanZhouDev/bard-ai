@@ -1,7 +1,6 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 import { Code } from "nextra/components";
-import imageUrl from "./assets/opengraph.jpg";
 
 const config: DocsThemeConfig = {
 	logo: (
@@ -43,8 +42,9 @@ const config: DocsThemeConfig = {
 			<meta property="og:description" content="Documentation for bard-ai" />
 			<meta
 				property="og:image"
-				content={`https://bard-ai-docs.vercel.app${imageUrl}`}
+				content={`/opengraph.jpg`}
 			/>
+			<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 		</>
 	),
 };
