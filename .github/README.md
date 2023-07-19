@@ -20,7 +20,7 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://bard-ai.js.org">Docs</a> | <a href="https://github.com/evanzhoudev/bard-ai">GitHub</a> | <a href="https://bard-ai.js.org/faq">FAQ</a>
+  <a href="https://bard-ai.js.org">Docs</a> | <a href="https://www.npmjs.com/package/bard-ai">NPM</a> | <a href="https://bard-ai.js.org/faq">FAQ</a>
 </p>
 
 ### Features
@@ -113,12 +113,12 @@ Compared to alternative Bard API [`googlebard`](https://github.com/PawanOsman/Go
     2.03 ± 0.22 times faster than 'node googlebard.js'
     ```
 
-
 ## Quick Start
+
 Copy the cookie labled `__Secure-1PSID` on bard.google.com, and use it in the code here:
 
 ```javascript
-import Bard from "bard-ai"
+import Bard from "bard-ai";
 
 let myBard = new Bard(COOKIE);
 
