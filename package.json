@@ -7,6 +7,9 @@
     "scripts": {
         "format": "pnpx prettier --write .",
         "check": "pnpx prettier --check .",
+        "test-daily": "vitest run ./tests/daily.test.js",
+        "test-full": "vitest run ./tests/fullCoverage.test.js",
+        "test-parse": "vitest run ./tests/parse.test.js",
         "test": "vitest run --coverage",
         "test-ui": "vitest --ui --coverage"
     },
