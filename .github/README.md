@@ -1,8 +1,8 @@
 <picture>
 
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner@dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/banner@light.svg">
-  <img alt="bard-ai v2 Banner" src="./assets/banner@light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/banner@dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="../assets/banner@light.svg">
+  <img alt="bard-ai v2 Banner" src="../assets/banner@light.svg">
 </picture>
 
 <p align="center">
@@ -42,9 +42,9 @@ Compared to alternative Bard API [`googlebard`](https://github.com/PawanOsman/Go
 
 <picture>
 
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/compare@dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/compare@light.svg">
-  <img alt="bard-ai Compared to GoogleBard" src="./assets/compare@light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/compare@dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="../assets/compare@light.svg">
+  <img alt="bard-ai Compared to GoogleBard" src="../assets/compare@light.svg">
 </picture>
 
 <details>
