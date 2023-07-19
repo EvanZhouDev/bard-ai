@@ -1,0 +1,37 @@
+name: Parse Test
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run parse test
+        run: npm run test-parse
+
+      - name: Set status
+        uses: softprops/action-gh-release@v1
+        with:
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          args: |
+            status -c ${{ job.status }} \
+            -r ${{ github.repository }} \
+            -s ${{ job.status == 'success' ? 'success' : 'failure' }} \
+            -n "Parse Test" \
+            -d "Parsing test has ${{ job.status == 'success' ? 'succeeded' : 'failed' }} for commit ${{ github.sha }}"
