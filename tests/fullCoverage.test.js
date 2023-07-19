@@ -3,9 +3,15 @@ import Bard from "../index.js"
 import fs from "fs"
 import dotenv from "dotenv"
 
-const envContents = fs.readFileSync('.env', 'utf-8');
-const envConfig = dotenv.parse(envContents);
-let COOKIE = envConfig.COOKIE || process.env.COOKIE
+let COOKIE;
+try {
+    const envContents = fs.readFileSync('.env', 'utf-8');
+    const envConfig = dotenv.parse(envContents);
+    COOKIE = envConfig.COOKIE;
+} catch {
+    COOKIE = process.env.COOKIE;
+}
+
 let bard = new Bard(COOKIE, {
     verbose: true,
     context: "Answer the following as clearly as possible: "
@@ -86,7 +92,7 @@ test('Check Image Failed to Upload Error', async () => {
             }
         });
         await myBard.ask("What animal is this? Provide the name of it when it is grown up.",
-            { image: `${__dirname}/cat.jpg` }
+            { image: `${__dirname}/assets/cat.jpg` }
         )
     })()).rejects.toThrowError(/Could not fetch Google Bard. You may be disconnected from internet:.*/);
 })

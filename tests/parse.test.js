@@ -1,19 +1,14 @@
 import { expect, test, vi } from 'vitest'
 import Bard from "../index.js"
 import fs from "fs"
-import dotenv from "dotenv"
 import fetch from "node-fetch";
 
-const envContents = fs.readFileSync('.env', 'utf-8');
-const envConfig = dotenv.parse(envContents);
-let COOKIE = envConfig.COOKIE || process.env.COOKIE
-
 test('Ensures correct parsing of Bard Response', async () => {
-    let responseText = fs.readFileSync(`${__dirname}/response.txt`).toString();
+    let responseText = fs.readFileSync(`${__dirname}/assets/response.txt`).toString();
     vi.mock("node-fetch");
     fetch.mockReturnValueOnce(Promise.resolve({ status: 200, text: () => 'SNlM0e":"some_mock_snlm0e"' }));
     fetch.mockReturnValueOnce(Promise.resolve({ status: 200, text: () => responseText }));
-    let myBard = new Bard(COOKIE, {
+    let myBard = new Bard("some_cookie", {
         fetch: fetch
     });
     expect(await myBard.ask("Show me some pictures of kittens", {
