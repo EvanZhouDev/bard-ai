@@ -6,7 +6,7 @@ on:
     branches:
       - 'v2'
 jobs:
-  pr-check:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
