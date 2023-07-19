@@ -1,0 +1,52 @@
+import {Steps} from 'nextra/components';
+
+# Simulated streaming (typing)
+
+Since [Bard itself doesn't support streaming](https://github.com/EvanZhouDev/bard-ai/issues/3#issuecomment-1565664204), there is no streaming API provided by `bard-ai`. `googlebard` implements this by [faking it](https://github.com/PawanOsman/GoogleBard/blob/cf6058e424ff6666065463fe73bbb9d84614a867/src/classes/bard.ts#L192), which we can do as well.
+
+Given this code:
+
+```javascript copy showLineNumbers
+import Bard from "bard-ai";
+
+let myBard = new Bard(COOKIE);
+
+async function askAI(prompt) {
+    return await myBard.ask(prompt)
+}
+```
+
+We can make it streaming like so
+
+```javascript copy showLineNumbers {5-30}
+import Bard from "bard-ai";
+
+let myBard = new Bard(COOKIE);
+
+// Helper function
+async function waitRandomTime(min, max) {
+    return new Promise(
+        (resolve) =>
+            setTimeout(
+                resolve,
+                // Random number between [min, max]
+                Math.floor(Math.random() * (max - min + 1)) + min,
+            )
+    );
+}
+
+// `prompt` is a string
+// `callback` accepts the "streamed" chunk
+async function askAI(prompt, callback) {
+    let resData = await myBard.ask(prompt)
+    if (!resData) return "";
+    let responseChunks = resData.split(" ");
+    for await (let chunk of responseChunks) {
+        if (chunk === "") continue;
+        callback(`${chunk} `);
+        // simulate typing
+        await waitRandomTime(25, 250);
+    }
+    return resData;
+}
+```

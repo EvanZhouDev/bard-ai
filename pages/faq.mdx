@@ -17,3 +17,9 @@ If that _still_ doesn't work, then submit an issue [here](https://github.com/Eva
 ### `fetch` is undefined
 
 The `fetch` function is still experimental (though enabled by default) in Node. Learn about polyfilling fetch, easier than ever in v2, [here](/recipes/fetch).
+
+### Why doesn't bard-ai have streaming support
+
+Users of `googlebard` may be looking for response streaming support in `bard-ai`. This isn't supported because Bard itself doesn't actually do response streaming. Googlebard implements this feature by [faking it](https://github.com/PawanOsman/GoogleBard/blob/cf6058e424ff6666065463fe73bbb9d84614a867/src/classes/bard.ts#L192).
+
+If you really want that typing effect, you can also [make it in `bard-ai`](/recipes/streaming).
