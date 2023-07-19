@@ -1,25 +1,23 @@
 name: Parse Test
-
 on:
   pull_request:
-    branches:
+    paths:
       - '*'
-
+    branches:
+      - 'v2'
 jobs:
-  test:
+  pr-check:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run parse test
-        run: npm run test-parse
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm run test-parse
