@@ -36,11 +36,11 @@ Simply create a new instance of `Bard`, and pass in your `COOKIE`.
 
 ## Using a Different Cookie
 
-`bard-ai` v2 comes with the ability to use cookies from different Google users. These will take the form of a `__Secure-#PSID` where `X` is a different number than 1. If you wish to use such a cookie, simply prefix your `COOKIE` with `__Secure-#PSID=` (with your account number).
+`bard-ai` v2 comes with the ability to use cookies from different Google users. These will take the form of a `__Secure-#PSID` where `X` is a different number than 1. If you wish to use such a cookie, simply prefix your `COOKIE` with `__Secure-#PSID=` (where `#` is your account number). Your account number is the number after the `bard.google.com/u/`.
 
-For example, if you use Bard manually and the URL ends with `/u/3`, you would copy the cookie that starts with `__Secure-3PSID`.
+For example, if you use Bard manually and the URL for Google Bard is `bard.google.com/u/3`, you would copy the cookie that starts with `__Secure-3PSID`.
 
-```javascript
+```javascript showLineNumbers {3}
 import Bard from "bard-ai";
 
 let myBard = new Bard("__Secure-3PSID=MY_COOKIE");
