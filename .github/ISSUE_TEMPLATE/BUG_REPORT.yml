@@ -1,12 +1,12 @@
 name: 🐛 Bug Report
 description: File a bug report
-title: "[Bug]: "
+title: "🐛 [BUG]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report! 🤗
+        Thanks for taking the time to fill out this bug report!
   - type: checkboxes
     id: generic-bug-report-checklist
     attributes:
@@ -15,30 +15,28 @@ body:
       options:
         - label: I have searched the [issues](https://github.com/EvanZhouDev/bard-ai/issues) and believe that it has not already been reported
           required: true
-        - label: I have made sure this bug reproduces on the latest version
+        - label: It occurs on the latest version of `bard-ai`
           required: true
-        - label: "I agree to follow the [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)"
+        - label: I have read the [FAQ](https://bard-ai.js.org/faq/) and there are no solutions there
           required: true
   - type: textarea
     id: bug-info
     attributes:
-      label: Bug description
-      description: Also tell us, what did you expect to happen?
-      placeholder: "Tell us what you see! What did you think should've happened?"
-      value: "A bug happened! There shouldn't be!"
+      label: Bug Description
+      description: What happened, and what did you expect to happen?
+      placeholder: "This happened..."
     validations:
       required: true
   - type: textarea
     id: repro
     attributes:
-      label: Reproduction steps
-      description: What are the steps that you took to create this bug?
+      label: Reproduction Steps
+      description: Provide a Minimal Reproducible Example.
       placeholder: |
         1. In this environment...
         2. With this config...
         3. Run '...'
         4. See error...
-      value: "1. "
     validations:
       required: true
   - type: textarea
@@ -52,9 +50,9 @@ body:
   - type: input
     id: repro-how-often
     attributes:
-      label: Reproduces how often
-      description: What percentage of the time does it reproduce?
-      placeholder: "100% of the time? 75% of the times? Only when I do X?"
-      value: "I can reproduce this bug 100% of the time"
+      label: Occurance Rate
+      description: What percentage of the time does the bug happen?
+      placeholder: "100% of the time? Once per few minutes?"
+      value: "I can reproduce this bug 100% of the time."
     validations:
       required: true
