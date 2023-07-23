@@ -27,12 +27,6 @@
 -   📷 [**Image Output**](https://bard-ai.js.org/advanced/json/#image-json): Access images from Google
 -   🌐 [**Contextual Conversations**](https://bard-ai.js.org/basics/chat/): Maintain conversation context
 
-### Highlights
-
--   ⚡ [**Fast Responses**](https://github.com/EvanZhouDev/bard-ai#comparison): More than _2x_ faster than `googlebard`
--   🪶 [**Lightweight**](https://github.com/EvanZhouDev/bard-ai#comparison): Just 3.3kb minzipped
--   📚 [**Typesafe**](https://bard-ai.js.org/typescript/): Types included out-of-the-box
-
 ## Quick Start
 
 Copy the cookie labled `__Secure-1PSID` on bard.google.com, and use it in the code here:
