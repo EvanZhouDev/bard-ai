@@ -41,6 +41,10 @@ declare module "bard-ai" {
 		}[];
 		ids: TIds;
 	}
+	
+	export type Cookie = string | {
+		[key: string]: string;
+	}
 
 	declare class Chat {
 		ids?: TIds;
@@ -55,9 +59,9 @@ declare module "bard-ai" {
 
 		SNlM0e?: string;
 
-		cookie: string;
+		cookie: Cookie;
 
-		constructor(cookie: string, config?: TBardConfig)
+		constructor(cookie: Cookie, config?: TBardConfig)
 
 		ask(message: string, config?: TAskConfig): Promise<IAskResponseJSON | string>;
 		createChat(ids?: Partial<TIds>): Chat;
