@@ -6,7 +6,7 @@ declare module "bard-ai" {
 		MD = "markdown",
 	}
 
-	export type TImage = `${string}.${"jpeg" | "jpg" | "png" | "webp"}` | Buffer;
+	export type TImage = `${string}.${"jpeg" | "jpg" | "png" | "webp"}` | Buffer | ArrayBuffer;
 
 	export type TIds = {
 		_reqID: string;
