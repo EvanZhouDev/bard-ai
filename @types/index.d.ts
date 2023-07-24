@@ -1,7 +1,7 @@
 /// <reference types="typescript" />
 
 declare module "bard-ai" {
-	declare enum EResponseType {
+	enum EResponseType {
 		JSON = "json",
 		MD = "markdown",
 	}
@@ -32,10 +32,11 @@ declare module "bard-ai" {
 		images: {
 			tag: string;
 			url: string;
-			source: {
-				original: string;
+			info: {
+				raw: string;
+				source: string;
+				alt: string;
 				website: string;
-				name: string;
 				favicon: string;
 			}
 		}[];
@@ -46,16 +47,16 @@ declare module "bard-ai" {
 		[key: string]: string;
 	}
 
-	declare class Chat {
+	class Chat {
 		ids?: TIds;
 
 		ask(message: string, config?: TAskConfig): Promise<IAskResponseJSON | string>;
 		export(): typeof this.ids;
 	}
 
-	declare class Bard {
-		static JSON = EResponseType.JSON;
-		static MD = EResponseType.MD;
+	class Bard {
+		static JSON: EResponseType.JSON;
+		static MD: EResponseType.MD;
 
 		SNlM0e?: string;
 
