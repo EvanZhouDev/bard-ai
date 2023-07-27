@@ -1,0 +1,58 @@
+name: 🐛 Bug Report
+description: File a bug report
+title: "🐛 [BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    id: generic-bug-report-checklist
+    attributes:
+      label: Prerequisites
+      description: "Before you continue make sure you have done all of the following:"
+      options:
+        - label: I have searched the [issues](https://github.com/EvanZhouDev/bard-ai/issues) and believe that it has not already been reported
+          required: true
+        - label: It occurs on the latest version of `bard-ai`
+          required: true
+        - label: I have read the [FAQ](https://bard-ai.js.org/faq/) and there are no solutions there
+          required: true
+  - type: textarea
+    id: bug-info
+    attributes:
+      label: Bug Description
+      description: What happened, and what did you expect to happen?
+      placeholder: "This happened..."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction Steps
+      description: Provide a Minimal Reproducible Example.
+      placeholder: |
+        1. In this environment...
+        2. With this config...
+        3. Run '...'
+        4. See error...
+    validations:
+      required: true
+  - type: textarea
+    id: other-info
+    attributes:
+      label: Other information
+      description: "Other additional information that may deem useful. If you're sending code, please make an [MCVE](https://stackoverflow.com/help/minimal-reproducible-example)"
+      placeholder: "Environment, OS, debug logs, etc."
+    validations:
+      required: false
+  - type: input
+    id: repro-how-often
+    attributes:
+      label: Occurance Rate
+      description: What percentage of the time does the bug happen?
+      placeholder: "100% of the time? Once per few minutes?"
+      value: "I can reproduce this bug 100% of the time."
+    validations:
+      required: true
