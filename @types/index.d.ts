@@ -1,71 +1,71 @@
 /// <reference types="typescript" />
 
 declare module "bard-ai" {
-	export interface Session {
-		baseURL: "https://bard.google.com";
-		headers: {
-			"X-Same-Domain": "1";
-			"User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36";
-			"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8";
-			Origin: "https://bard.google.com";
-			Referer: "https://bard.google.com/";
-			Cookie: string;
-		};
+	enum EResponseType {
+		JSON = "json",
+		MD = "markdown",
 	}
 
-	let session: Session;
-	let SNlM0e: string;
+	export type TImage = `${string}.${"jpeg" | "jpg" | "png" | "webp"}` | Buffer | ArrayBuffer;
 
-	export type images = Array<{
-		tag: string;
-		url: string;
-	}>;
-
-	export type IdsT = {
+	export type TIds = {
+		_reqID: string;
 		conversationID: string;
 		responseID: string;
 		choiceID: string;
-		_reqID: string;
-	};
-	export declare function init(sessionID: string): Promise<string>;
+	}
 
-	export type queryBardValidRes = {
+	export type TAskConfig = Partial<{
+		format: `${EResponseType}`;
+		image: TImage;
+		ids: Partial<TIds>,
+	}>;
+
+	export type TBardConfig = Partial<{
+		verbose: boolean;
+		fetch: typeof fetch;
+		context: string;
+	}>
+
+	export interface IAskResponseJSON {
 		content: string;
-		images: Array<{
+		images: {
 			tag: string;
 			url: string;
-			source: {
-				original: string;
+			info: {
+				raw: string;
+				source: string;
+				alt: string;
 				website: string;
-				name: string;
 				favicon: string;
 			}
-		}>;
-		ids: IdsT;
-	};
-	export declare function queryBard(
-		message: string,
-		ids?: IdsT | Record<string, string>
-	): Promise<queryBardValidRes | string>;
+		}[];
+		ids: TIds;
+	}
+	
+	export type Cookie = string | {
+		[key: string]: string;
+	}
 
-	export type formatMarkdown = (text: string, images: images) => string;
+	class Chat {
+		ids?: TIds;
 
-	export declare function askAI(
-		message: string,
-		useJSON?: boolean
-	): Promise<queryBardValidRes | undefined | string>;
-
-	export declare class Chat {
-		ids?: IdsT | Record<string, string>;
-		constructor(ids?: IdsT | Record<string, string>);
-		ask(message: string, useJSON?: boolean): Promise<queryBardValidRes | string>;
+		ask(message: string, config?: TAskConfig): Promise<IAskResponseJSON | string>;
 		export(): typeof this.ids;
 	}
 
-	declare const Bard: {
-		askAI: typeof askAI;
-		init: typeof init;
-		Chat: typeof Chat;
+	class Bard {
+		static JSON: EResponseType.JSON;
+		static MD: EResponseType.MD;
+
+		SNlM0e?: string;
+
+		cookie: Cookie;
+
+		constructor(cookie: Cookie, config?: TBardConfig)
+
+		ask(message: string, config?: TAskConfig): Promise<IAskResponseJSON | string>;
+		createChat(ids?: Partial<TIds>): Chat;
 	}
 
 	export default Bard;
