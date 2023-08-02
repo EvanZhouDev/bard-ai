@@ -1,5 +1,5 @@
-import Bard, { askAI } from "bard-ai";
+import Bard from "bard-ai";
 
-await Bard.init("YOUR_COOKIE_KEY");
+const bard = new Bard(COOKIE);
 
-console.log(await askAI("Hello world!"));
+console.log(await bard.ask("Hello world!"));

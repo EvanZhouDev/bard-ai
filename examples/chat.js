@@ -1,7 +1,7 @@
 import Bard from "bard-ai";
 
-await Bard.init("YOUR_COOKIE_KEY");
+const bard = new Bard(COOKIE);
 
-let myConversation = new Bard.Chat();
+let myConversation = bard.createChat();
 console.log(await myConversation.ask("How are you?"));
 console.log(await myConversation.ask("What's the last thing I said?"));
