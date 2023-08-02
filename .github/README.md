@@ -36,6 +36,9 @@
 -   🪶 [**Lightweight**](https://github.com/EvanZhouDev/bard-ai#comparison): Just 3.3kb minzipped
 -   📚 [**Typesafe**](https://bard-ai.js.org/typescript/): Types included out-of-the-box
 
+> [!WARNING]\
+> Google is trying to stop these 3rd party APIs, so `bard-ai` may not work for some of you. Try following the steps on the [FAQ](https://bard-ai.js.org/faq/#cant-use-bard). However, if that still does not work, it may be time to migrate to the [`palm-api` package](https://github.com/EvanZhouDev/palm-api), for the official PaLM v2 API.
+
 ## Comparison
 
 Compared to alternative Bard API [`googlebard`](https://github.com/PawanOsman/GoogleBard):
