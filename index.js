@@ -48,7 +48,7 @@ class Bard {
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             Origin: this.#bardURL,
             Referer: this.#bardURL,
-            Cookie: typeof cookie === "object" ? Object.entries(cookie).map(([key, val]) => `${key}=${val};`).join("") : cookie,
+            Cookie: (typeof cookie === "object") ? (Object.entries(cookie).map(([key, val]) => `${key}=${val};`).join("")) : ("__Secure-1PSID" + cookie),
         };
 
         let responseText;
