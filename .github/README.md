@@ -33,7 +33,7 @@
 ### Highlights
 
 -   ⚡ [**Fast Responses**](https://github.com/EvanZhouDev/bard-ai#comparison): More than _2x_ faster than `googlebard`
--   🪶 [**Lightweight**](https://github.com/EvanZhouDev/bard-ai#comparison): Just 3.3kb minzipped
+-   🪶 [**Lightweight**](https://github.com/EvanZhouDev/bard-ai#comparison): Just 2.5kb minzipped
 -   📚 [**Typesafe**](https://bard-ai.js.org/typescript/): Types included out-of-the-box
 
 > [!WARNING]\
@@ -58,7 +58,7 @@ Compared to alternative Bard API [`googlebard`](https://github.com/PawanOsman/Go
 
 #### Size
 
-`bard-ai` is a tiny 3.3kb, approximately 97% smaller than `googlebard`. This leads to faster downloads, and maximum efficiency.
+`bard-ai` is a tiny 2.5kb minzipped, nearly 98% smaller than `googlebard` (112.8kb minzipped). This leads to faster downloads, and maximum efficiency.
 
 #### Speed
 
