@@ -1,6 +1,6 @@
 {
     "name": "bard-ai",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "A Reverse-Engineered Google Bard, Written in JS",
     "main": "index.js",
     "types": "@types/index.d.ts",
