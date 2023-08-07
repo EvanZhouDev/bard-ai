@@ -1,5 +1,3 @@
-import fs from "fs";
-
 class Bard {
     static JSON = "json";
     static MD = "markdown";
@@ -305,7 +303,18 @@ class Bard {
                 typeof config.image === "string" &&
                 /\.(jpeg|jpg|png|webp)$/.test(config.image)
             ) {
-                result.imageBuffer = fs.readFileSync(config.image).buffer;
+                import("fs")
+                    .then((fs) => {
+                        result.imageBuffer = fs.readFileSync(
+                            config.image,
+                        ).buffer;
+                    })
+                    .catch((e) => {
+                        throw new Error(
+                            "Loading from an image file path is " +
+                                "not supported in a browser environment",
+                        );
+                    });
             } else {
                 throw new Error(
                     "Provide your image as a file path to a .jpeg, .jpg, .png, or .webp, or a Buffer."
