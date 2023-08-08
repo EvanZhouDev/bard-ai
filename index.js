@@ -46,7 +46,7 @@ class Bard {
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             Origin: this.#bardURL,
             Referer: this.#bardURL,
-            Cookie: (typeof cookie === "object") ? (Object.entries(cookie).map(([key, val]) => `${key}=${val};`).join("")) : ("__Secure-1PSID" + cookie),
+            Cookie: (typeof cookie === "object") ? (Object.entries(cookie).map(([key, val]) => `${key}=${val};`).join("")) : ("__Secure-1PSID=" + cookie),
         };
 
         let responseText;
@@ -270,7 +270,7 @@ class Bard {
         };
     }
 
-    #parseConfig(config) {
+    async #parseConfig(config) {
         let result = {
             useJSON: false,
             imageBuffer: undefined, // Returns as {extension, filename}
@@ -303,17 +303,19 @@ class Bard {
                 typeof config.image === "string" &&
                 /\.(jpeg|jpg|png|webp)$/.test(config.image)
             ) {
-                import("fs")
-                    .then(fs => {
-                        result.imageBuffer = fs.readFileSync(
-                            config.image,
-                        ).buffer;
-                    })
-                    .catch(_ => {
-                        throw new Error(
-                            "Loading from an image file path is not supported in a browser environment.",
-                        );
-                    });
+                let fs;
+
+                try {
+                    fs = await import("fs")
+                } catch {
+                    throw new Error(
+                        "Loading from an image file path is not supported in a browser environment.",
+                    );
+                }
+
+                result.imageBuffer = fs.readFileSync(
+                    config.image,
+                ).buffer;
             } else {
                 throw new Error(
                     "Provide your image as a file path to a .jpeg, .jpg, .png, or .webp, or a Buffer."
@@ -331,13 +333,12 @@ class Bard {
                 );
             }
         }
-
         return result;
     }
 
     // Ask Bard a question!
     async ask(message, config) {
-        let { useJSON, imageBuffer, ids } = this.#parseConfig(config);
+        let { useJSON, imageBuffer, ids } = await this.#parseConfig(config);
         let response = await this.#query(message, { imageBuffer, ids });
         return useJSON ? response : response.content;
     }
@@ -348,7 +349,7 @@ class Bard {
             ids = ids;
 
             async ask(message, config) {
-                let { useJSON, imageBuffer } = bard.#parseConfig(config);
+                let { useJSON, imageBuffer } = await bard.#parseConfig(config);
                 let response = await bard.#query(message, {
                     imageBuffer,
                     ids: this.ids,

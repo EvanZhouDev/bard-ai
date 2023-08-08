@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 
 let COOKIE;
 try {
-    const envContents = fs.readFileSync('.env', 'utf-8');
+    const envContents = fs.readFileSync(__dirname + '/.env', 'utf-8');
     const envConfig = dotenv.parse(envContents);
     COOKIE = envConfig.COOKIE;
 } catch {
@@ -159,7 +159,7 @@ test('Google Lens Incorrect Image', async () => {
 
 test('Google Lens w/ File', async () => {
     let bardResponse = await bard.ask("What animal is this? Provide the name of it when it is grown up.",
-        { image: `${__dirname}/cat.jpg` }
+    { image: `${__dirname}/assets/cat.jpg` }
     )
 
     expect(bardResponse).toContain("cat")
