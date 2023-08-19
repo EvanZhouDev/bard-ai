@@ -9,7 +9,7 @@ class Bard {
     #headers;
 
     // Resolution status of initialization call
-    #initPromise;
+    initPromise;
 
     #bardURL = "https://bard.google.com";
 
@@ -26,7 +26,7 @@ class Bard {
 
         // If a Cookie is provided, initialize
         if (cookie) {
-            this.#initPromise = this.#init(cookie);
+            this.initPromise = this.#init(cookie);
         } else {
             throw new Error("Please provide a Cookie when initializing Bard.");
         }
@@ -151,7 +151,7 @@ class Bard {
         let { ids, imageBuffer } = config;
 
         // Wait until after init
-        await this.#initPromise;
+        await this.initPromise;
 
         this.#verbose && console.log("🔎 Starting Bard Query");
 

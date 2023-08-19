@@ -60,6 +60,8 @@ declare module "bard-ai" {
 
 		SNlM0e?: string;
 
+		initPromise?: Promise<string>;
+
 		cookie: Cookie;
 
 		constructor(cookie: Cookie, config?: TBardConfig)
