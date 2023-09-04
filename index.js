@@ -6,27 +6,27 @@ class Bard {
     SNlM0e;
 
     // HTTPS Headers
-    #headers;
+    headers;
 
     // Resolution status of initialization call
-    #initPromise;
+    initPromise;
 
     #bardURL = "https://bard.google.com";
 
     // Wether or not to log events to console
-    #verbose = false;
+    verbose = false;
 
     // Fetch function
     #fetch = fetch;
 
     constructor(cookie, config) {
         // Register some settings
-        if (config?.verbose == true) this.#verbose = true;
+        if (config?.verbose == true) this.verbose = true;
         if (config?.fetch) this.#fetch = config.fetch;
 
         // If a Cookie is provided, initialize
         if (cookie) {
-            this.#initPromise = this.#init(cookie);
+            this.initPromise = this.#init(cookie);
         } else {
             throw new Error("Please provide a Cookie when initializing Bard.");
         }
@@ -35,10 +35,10 @@ class Bard {
 
     // You can also choose to initialize manually
     async #init(cookie) {
-        this.#verbose && console.log("🚀 Starting intialization");
+        this.verbose && console.log("🚀 Starting intialization");
 
         // Assign headers
-        this.#headers = {
+        this.headers = {
             Host: "bard.google.com",
             "X-Same-Domain": "1",
             "User-Agent":
@@ -52,11 +52,11 @@ class Bard {
         let responseText;
         // Attempt to retrieve SNlM0e
         try {
-            this.#verbose &&
+            this.verbose &&
                 console.log("🔒 Authenticating your Google account");
             responseText = await this.#fetch(this.#bardURL, {
                 method: "GET",
-                headers: this.#headers,
+                headers: this.headers,
                 credentials: "include",
             })
                 .then((response) => response.text())
@@ -72,7 +72,7 @@ class Bard {
             const SNlM0e = responseText.match(/SNlM0e":"(.*?)"/)[1];
             // Assign SNlM0e and return it
             this.SNlM0e = SNlM0e;
-            this.#verbose && console.log("✅ Initialization finished\n");
+            this.verbose && console.log("✅ Initialization finished\n");
             return SNlM0e;
         } catch {
             throw new Error(
@@ -82,14 +82,14 @@ class Bard {
     }
 
     async #uploadImage(name, buffer) {
-        this.#verbose && console.log("🖼️ Starting image processing");
+        this.verbose && console.log("🖼️ Starting image processing");
         let size = buffer.byteLength;
         let formBody = [
             `${encodeURIComponent("File name")}=${encodeURIComponent([name])}`,
         ];
 
         try {
-            this.#verbose &&
+            this.verbose &&
                 console.log("💻 Finding Google server destination");
             let response = await this.#fetch(
                 "https://content-push.googleapis.com/upload/",
@@ -108,7 +108,7 @@ class Bard {
             );
 
             const uploadUrl = response.headers.get("X-Goog-Upload-URL");
-            this.#verbose && console.log("📤 Sending your image");
+            this.verbose && console.log("📤 Sending your image");
             response = await this.#fetch(uploadUrl, {
                 method: "POST",
                 headers: {
@@ -122,7 +122,7 @@ class Bard {
 
             const imageFileLocation = await response.text();
 
-            this.#verbose && console.log("✅ Image finished working\n");
+            this.verbose && console.log("✅ Image finished working\n");
             return imageFileLocation;
         } catch (e) {
             throw new Error(
@@ -151,9 +151,9 @@ class Bard {
         let { ids, imageBuffer } = config;
 
         // Wait until after init
-        await this.#initPromise;
+        await this.initPromise;
 
-        this.#verbose && console.log("🔎 Starting Bard Query");
+        this.verbose && console.log("🔎 Starting Bard Query");
 
         // If user has not run init
         if (!this.SNlM0e) {
@@ -162,7 +162,7 @@ class Bard {
             );
         }
 
-        this.#verbose && console.log("🏗️ Building Request");
+        this.verbose && console.log("🏗️ Building Request");
         // HTTPS parameters
         const params = {
             bl: "boq_assistant-bard-web-server_20230711.08_p0",
@@ -219,11 +219,11 @@ class Bard {
             )
             .join("&");
 
-        this.#verbose && console.log("💭 Sending message to Bard");
+        this.verbose && console.log("💭 Sending message to Bard");
         // Send the fetch request
         const chatData = await this.#fetch(url.toString(), {
             method: "POST",
-            headers: this.#headers,
+            headers: this.headers,
             body: formBody,
             credentials: "include",
         })
@@ -235,7 +235,7 @@ class Bard {
             })
             .then((rawData) => JSON.parse(rawData));
 
-        this.#verbose && console.log("🧩 Parsing output");
+        this.verbose && console.log("🧩 Parsing output");
         // Get first Bard-recommended answer
         const answer = chatData[4][0];
 
@@ -256,7 +256,7 @@ class Bard {
                 },
             })) ?? [];
 
-        this.#verbose && console.log("✅ All done!\n");
+        this.verbose && console.log("✅ All done!\n");
         // Put everything together and return
         return {
             content: formatMarkdown(text, images),
