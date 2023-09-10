@@ -12,6 +12,10 @@ If you still cannot use Bard, try appending adding the `PSIDTS` cookie, as shown
 
 If that _still_ doesn't work, then submit an issue [here](https://github.com/EvanZhouDev/bard-ai/issues).
 
+### SyntaxError: Cannot use import statement outside a module
+
+See [here](https://nodejs.org/api/esm.html#enabling) for information on enabluing ES6 in NodeJS. In other words, either you should set the `type` field in your `package.json` to `"module"` (e.g. `{"type": "module"}`) or rename the scripts that use ES6 imports from their `.js` extension to `.mjs` extension
+
 ### Can't `require` a ES6 module
 
 `bard-ai` is now a strictly ES6 only module. This means that it only works with the `import` syntax. You can choose to migrate to ESM yourself (recommended), or alternatively use [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) if you still want to remain in CommonJS.
