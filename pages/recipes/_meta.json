@@ -1,0 +1,6 @@
+{
+  "fetch": "Polyfilling Fetch",
+  "fromenv": "Load cookies from env variables",
+  "dotenv": "Load cookies from .env",
+  "streaming": "Simulated streaming"
+}

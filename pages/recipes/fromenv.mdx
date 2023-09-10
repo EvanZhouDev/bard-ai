@@ -1,0 +1,51 @@
+import {Tab, Tabs} from 'nextra/components';
+
+# Loading from environment variables
+
+Let's say you have this code
+
+```javascript copy showLineNumbers
+import Bard from "bard-ai";
+
+let myBard = new Bard(COOKIE);
+
+console.log(await myBard.ask("Hello world!"));
+```
+
+and let's say you currently use this command to run it:
+
+```
+node index.js
+```
+
+To make it so that you load your cookie from environment variables, change your code to load the cookie from an environment variable instead:
+
+```javascript copy showLineNumbers {3}
+import Bard from "bard-ai";
+
+let myBard = new Bard(process.env.COOKIE);
+
+console.log(await myBard.ask("Hello world!"));
+```
+
+and now run it like this:
+
+
+<Tabs items={['Bash/Zsh','PowerShell', 'Batch']}>
+  <Tab>
+    ```bash copy
+    COOKIE='__Secure1PSID=<YOUR COOKIE>' node index.js
+    ```
+  </Tab>
+  <Tab>
+    ```powershell copy
+    $env:COOKIE = '__Secure1PSID=<YOUR COOKIE>'; && node index.js
+    ```
+  </Tab>
+   <Tab>
+    ```batch copy
+    set COOKIE="__Secure1PSID=<YOUR COOKIE>" && node index.js
+    ```
+  </Tab>
+</Tabs>
+

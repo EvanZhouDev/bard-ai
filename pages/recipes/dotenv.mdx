@@ -1,0 +1,75 @@
+import { Steps, Tabs, Tab,Callout } from "nextra/components";
+
+# `.env` loading
+
+Let's say you [changed your code to load your cookie from an environment variable](./fromenv) but you didn't want to set the environment variable every time you wanted to run the command. You can store the environment variable in a `.env` file instead.
+
+<Callout type="warning">
+  Remember to avoid commiting your `.env` file. I recommend you to add the `.env` file to your `.gitignore`.
+</Callout>
+
+
+Let's say you have this code
+
+```javascript copy showLineNumbers
+import Bard from "bard-ai";
+
+let myBard = new Bard(process.env.COOKIE);
+
+console.log(await myBard.ask("Hello world!"));
+```
+
+<Steps>
+### Step 1
+
+Add the `dotenv` package to your Node project
+
+<Tabs items={['npm','pnpm', 'yarn', 'bun']}>
+  <Tab>
+    ```bash copy
+    npm install dotenv
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    pnpm add dotenv
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    yarn add dotenv
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    bun add dotenv
+    ```
+  </Tab>
+</Tabs>
+
+### Step 2
+
+Import it
+
+```javascript copy showLineNumbers {1}
+import "dotenv/config";
+import Bard from "bard-ai";
+
+let myBard = new Bard(process.env.COOKIE);
+
+console.log(await myBard.ask("Hello world!"));
+```
+
+### Step 3
+
+Create a file named `.env` and write your cookie in it
+
+```bash
+COOKIE="__Secure1PSID=<YOUR COOKIE>"
+```
+
+### Step 4
+
+Profit
+
+</Steps>
