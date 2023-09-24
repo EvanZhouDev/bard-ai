@@ -4,6 +4,7 @@ import fs from "fs"
 import dotenv from "dotenv"
 
 let COOKIES;
+
 try {
     const envContents = fs.readFileSync(__dirname + '/.env', 'utf-8');
     const envConfig = dotenv.parse(envContents);
@@ -17,6 +18,8 @@ try {
         "__Secure-1PSIDTS": process.env.PSIDTS,
     };
 }
+
+console.log(COOKIES)
 
 test('Daily Bard Check', async () => {
     let myBard = new Bard(COOKIES, {
