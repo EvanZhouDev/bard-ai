@@ -3,16 +3,22 @@ import Bard from "../index.js"
 import fs from "fs"
 import dotenv from "dotenv"
 
-let COOKIE;
+let COOKIES;
 try {
     const envContents = fs.readFileSync(__dirname + '/.env', 'utf-8');
     const envConfig = dotenv.parse(envContents);
-    COOKIE = envConfig.COOKIE;
+    COOKIES = {
+        "__Secure-1PSID": envConfig.PSID,
+        "__Secure-1PSIDTS": envConfig.PSIDTS,
+    };
 } catch {
-    COOKIE = process.env.COOKIE;
+    COOKIES = {
+        "__Secure-1PSID": process.env.PSID,
+        "__Secure-1PSIDTS": process.env.PSIDTS,
+    };
 }
 
-let bard = new Bard(COOKIE, {
+let bard = new Bard(COOKIES, {
     verbose: true,
     context: "Answer the following as clearly as possible: "
 })
@@ -39,6 +45,7 @@ test('Check Bard Query ID', async () => {
     let bardResponse = await bard.ask("What was the last thing I said?", {
         ids
     })
+
     expect(bardResponse).toContain('Hello, world! This is an automated test, ran with Jest.')
 }, { timeout: 30000 })
 
@@ -81,7 +88,7 @@ test('Check Format Error', async () => {
 
 test('Check Image Failed to Upload Error', async () => {
     await expect((async () => {
-        let myBard = new Bard(COOKIE, {
+        let myBard = new Bard(COOKIES, {
             fetch: async (url, config) => {
                 if (url === "https://content-push.googleapis.com/upload/") {
                     throw new Error("Cannot access Google")
