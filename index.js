@@ -304,10 +304,15 @@ class Bard {
                 /\.(jpeg|jpg|png|webp)$/.test(config.image)
             ) {
                 let fs;
-
-                try {
-                    fs = await import("fs")
-                } catch {
+                if (typeof window === 'undefined') {
+                    try {
+                        fs = await import("fs")
+                    } catch {
+                        throw new Error(
+                            "Loading from an image file path is not supported in a browser environment.",
+                        );
+                    }
+                } else {
                     throw new Error(
                         "Loading from an image file path is not supported in a browser environment.",
                     );
