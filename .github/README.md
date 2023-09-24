@@ -74,47 +74,47 @@ Compared to alternative Bard API [`googlebard`](https://github.com/PawanOsman/Go
     Run with `hyperfine --runs 3` between `bard-ai` v2.0 and `googlebard`.
     Equivalent code was used in the runs:
 
-    **`bard-ai`**:
+**`bard-ai`**:
 
-    ```javascript
-    import Bard from "bard-ai";
+```javascript
+import Bard from "bard-ai";
 
-    let bot = new Bard(COOKIE);
+let bot = new Bard(COOKIE);
 
-    console.log(await bot.ask("Hello world!"));
-    console.log(await bot.ask("What is 1+1?"));
-    console.log(await bot.ask("What about 2+2?"));
-    console.log(await bot.ask("Goodbye."));
-    ```
+console.log(await bot.ask("Hello world!"));
+console.log(await bot.ask("What is 1+1?"));
+console.log(await bot.ask("What about 2+2?"));
+console.log(await bot.ask("Goodbye."));
+```
 
-    **`googlebard`**:
+**`googlebard`**:
 
-    ```javascript
-    import { Bard } from "googlebard";
+```javascript
+import { Bard } from "googlebard";
 
-    let bot = new Bard(`__Secure-1PSID=${COOKIE}`);
+let bot = new Bard(`__Secure-1PSID=${COOKIE}`);
 
-    console.log(await bot.ask("Hello world!"));
-    console.log(await bot.ask("What is 1+1?"));
-    console.log(await bot.ask("What about 2+2?"));
-    console.log(await bot.ask("Goodbye."));
-    ```
+console.log(await bot.ask("Hello world!"));
+console.log(await bot.ask("What is 1+1?"));
+console.log(await bot.ask("What about 2+2?"));
+console.log(await bot.ask("Goodbye."));
+```
 
-    **Result**:
+**Result**:
 
-    ```bash
-    Benchmark 1: node bard-ai.js
-    Time (mean ± σ):     18.346 s ±  0.768 s    [User: 0.307 s, System: 0.067 s]
-    Range (min … max):   17.531 s … 19.057 s    3 runs
+```bash
+Benchmark 1: node bard-ai.js
+  Time (mean ± σ):     18.346 s ±  0.768 s    [User: 0.307 s, System: 0.067 s]
+  Range (min … max):   17.531 s … 19.057 s    3 runs
 
-    Benchmark 2: node googlebard.js
-      Time (mean ± σ):     37.179 s ±  3.714 s    [User: 1.416 s, System: 0.191 s]
-      Range (min … max):   34.230 s … 41.349 s    3 runs
+Benchmark 2: node googlebard.js
+  Time (mean ± σ):     37.179 s ±  3.714 s    [User: 1.416 s, System: 0.191 s]
+  Range (min … max):   34.230 s … 41.349 s    3 runs
 
-    Summary
-    'node bard-ai.js' ran
-    2.03 ± 0.22 times faster than 'node googlebard.js'
-    ```
+Summary
+'node bard-ai.js' ran
+2.03 ± 0.22 times faster than 'node googlebard.js'
+```
 
 ## Quick Start
 
